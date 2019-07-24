@@ -1,0 +1,20 @@
+{"frames": {
+
+"valve.png":
+{
+	"frame": {"x":0,"y":0,"w":280,"h":415},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":280,"h":415},
+	"sourceSize": {"w":280,"h":415}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "valve.png",
+	"format": "RGBA8888",
+	"size": {"w":280,"h":415},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:42a594b57ab43646a32c841c4833f776:90e9c2588bca9c8125ab4dc251fd0c59:cc8ba2f863fe054854206c5307503114$"
+}
+}

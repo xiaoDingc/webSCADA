@@ -1,0 +1,256 @@
+﻿@model Model.BB_ChartAlias
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="../../Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="../../Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <script src="~/Scripts/pixi/jquery-3.3.1.min.js"></script>
+    <script src="../../Content/ListLayui/static/admin/layui/layui.js"></script>
+    <script src="~/Content/ListLayui/static/admin/js/common.js"></script>
+</head>
+<body>
+    <form class="layui-form" id="editForm" style="width: 90%;padding-top: 20px; margin:0 auto;">
+        <div class="layui-form-item" hidden>
+            <label class="layui-form-label">Id：</label>
+            <div class="layui-input-block">
+                <input type="text" name="Id" required lay-verify="required" placeholder="@Model.Id" value="@Model.Id" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">编码：</label>
+            <div class="layui-input-block">
+                <input type="text" name="code" required lay-verify="required" placeholder="@Model.code" value="@Model.code" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">工厂编号：</label>
+            <div class="layui-input-block">
+                <input type="text" name="factoryId" required lay-verify="required" placeholder="@Model.factoryId" value="@Model.factoryId" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">工厂名称：</label>
+            <div class="layui-input-block">
+                <input type="text" name="factoryName" required lay-verify="required" placeholder="@Model.factoryName" value="@Model.factoryName" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">空压站编号：</label>
+            <div class="layui-input-block">
+                <input type="text" name="stationID" placeholder="@Model.stationID" value="@Model.stationID" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">空压站名称：</label>
+            <div class="layui-input-block">
+                <input type="text" name="stationName" placeholder="@Model.stationName" value="@Model.stationName" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">设备编号：</label>
+            <div class="layui-input-block">
+                <input type="text" name="EquipID" placeholder="@Model.EquipID" value="@Model.EquipID" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">设备名称：</label>
+            <div class="layui-input-block">
+                <input type="text" name="EquipName" placeholder="@Model.EquipName" value="@Model.EquipName" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">区域编号：</label>
+            <div class="layui-input-block">
+                <input type="text" name="AreaId" placeholder="@Model.AreaId" value="@Model.AreaId" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">区域名称：</label>
+            <div class="layui-input-block">
+                <input type="text" name="AreaName" placeholder="@Model.AreaName" value="@Model.AreaName" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称：</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" required lay-verify="required" placeholder="@Model.name" value="@Model.name" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">显示名称：</label>
+            <div class="layui-input-block">
+                <input type="text" name="FieldName" required lay-verify="required" placeholder="@Model.FieldName" value="@Model.FieldName" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">界面标题：</label>
+            <div class="layui-input-block">
+                <input type="text" name="layuiTitle" placeholder="@Model.layuiTitle" value="@Model.layuiTitle" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">界面大小：</label>
+            <div class="layui-input-block">
+                <input type="text" name="layuiArea" placeholder="@Model.layuiArea" value="@Model.layuiArea" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">界面位置：</label>
+            <div class="layui-input-block">
+                <input type="text" name="layuiOffset" placeholder="@Model.layuiOffset" value="@Model.layuiOffset" autocomplete="off" class="layui-input">
+            </div>
+        </div> 
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">X轴图例：</label>
+            <div class="layui-input-block">
+                <input type="text" name="chartXLegend" placeholder="@Model.chartXLegend" value="@Model.chartXLegend" autocomplete="off" class="layui-input">
+            </div>
+        </div> 
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">Y轴单位：</label>
+            <div class="layui-input-block">
+                <input type="text" name="chartYUnit" placeholder="@Model.chartYUnit" value="@Model.chartYUnit" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                <button type="button" class="layui-btn" lay-submit lay-filter="preview" >预览</button>
+            </div>
+        </div>   
+    </form>
+
+    <script>
+		layui.use('form', function() {
+			var form = layui.form;
+			//监听提交
+			form.on('submit(formDemo)', function(data) {
+                var index = parent.layer.getFrameIndex(window.name);
+                console.log("window.name:" + window.name + " index:" + index);
+                console.log(data);
+				$.ajax({
+					url:'/BackManage/ChartAliasEdit',
+					type:'post',
+					data:data.field,
+					dataType:'json',
+					success:function(res) {
+						if(res.msg == "OK") {
+							layer.msg("修改成功", {
+								time:5000
+							}, function() {
+                                window.parent.location.reload();//刷新父页面
+								//关闭弹窗
+								var index = parent.layer.getFrameIndex(window.name);
+								parent.layer.close(index); //关闭当前页 					
+							});
+						}
+					}
+				});
+				return false;
+			});
+
+            form.on('submit(preview)', function (data) {
+                console.log(data);
+                let res = data.field;
+                let factoryId=res.factoryId;
+				if(factoryId=="undefined") {
+                    factoryId="F001";
+				}
+                let factoryName = res.factoryName.replace(/#/g, "!");
+                let areaId = res.AreaId;
+                let areaName = res.AreaName.replace(/#/g, "!") == "" ? 0 : res.AreaName.replace(/#/g, "!");
+                let stationId = res.stationID;
+                let stationName = res.stationName.replace(/#/g, "!") == "" ? 0 : res.stationName.replace(/#/g, "!");
+                let fieldName = res.FieldName.replace(/#/g, "!") == "" ? 0 : res.FieldName.replace(/#/g, "!");
+                let equipId = res.EquipID;
+                let equipName = res.EquipName.replace(/#/g, "!") == "" ? 0 : res.EquipName.replace(/#/g, "!");
+                let name = res.name.replace(/#/g, "!") == "" ? 0 : res.name.replace(/#/g, "!");
+                let code=res.code;
+
+                let base="";
+                let middle="";      
+                let url = "&factoryName=" + factoryName + "&areaName=" + areaName + "&stationName=" + stationName + "&equipName=" + equipName + "&fieldName=" + fieldName + "&chartXLegend=" + res.chartXLegend + "&chartYUnit=" + res.chartYUnit + "&preview=True";			                 					
+               //用户区域
+				if (areaId.indexOf("A0")!=-1) {
+                     base = "/EnergySys/LineChartArea/?";
+                     middle = "code=" + code + "&factoryId=" + factoryId + "&name=" + name
+                        + "&areaId=" + areaId;
+				}
+                //空压站
+                if (stationId.indexOf("S0")!=-1 | stationName!="" & equipId=="") {
+                     base ="/EnergySys/LineChartStation/?"
+                     middle = "code=" + code + "&factoryId=" + factoryId + "&name=" + name
+                        + "&stationId=" + stationId;   
+				}
+                //空压设备
+                if (equipId != "") {
+                    base = "/EnergySys/LineChart/?";
+                    middle = "code=" + code + "&factoryId=" + factoryId + "&name=" + name + "&stationId=" + stationId + "&equipId=" + equipId; 
+        
+                    //如果获取内容是空压机内部信息则
+                    if (equipId.indexOf("E0") != -1 && (name != "CDyer_InOutValue" && name !="CDyer_LeakT")) {
+                        base = "/EnergySys/LineChartCentri/?";
+                        middle = "code=" + code + "&factoryId=" + factoryId + "&name=" + name + "&stationId=" + stationId + "&equipId=" + equipId; 
+                    }
+					// else if (equipId.indexOf("E1") != -1){
+     //                    base = "/EnergySys/LineChartCentri/?";
+     //                     middle = "code=" + code + "&factoryId=" + factoryId + "&name=" + name + "&stationId=" + stationId + "&equipId=" + equipId;                       
+					// }              
+				}
+
+                parent.layer.open({
+                    title: eval(res.layuiTitle),
+                    type: 2,
+                    area: eval(res.layuiArea),
+                    offset: eval(res.layuiOffset), 
+                    content: base+middle+ url,
+                });         
+            });
+  //           form.on('submit(preview)', function (data) {
+  //               console.log(data);
+  //               let res = data.field;
+  //               let factoryId = res.factoryId;
+  //               if (factoryId == "undefined") {
+  //                   factoryId = "F001";
+  //               }
+  //               let factoryName = res.factoryName;
+  //               let areaId = res.AreaId;
+  //               let areaName = res.AreaName == "" ? 0 : res.AreaName;
+  //               let stationId = res.stationId;
+  //               let stationName = res.stationName == "" ? 0 : res.stationName;
+  //               let fieldName = res.FieldName;
+  //               let equipId = res.EquipID;
+  //               let equipName = res.EquipName == "" ? 0 : res.EquipName;
+  //               let name = res.name;
+  //               let code = res.code;
+  //               let field = res;
+  //               let url1 = "&factoryName=" + factoryName + "&areaName=" + areaName + "&stationName=" + stationName;
+  //               let url = "&equipName=" + equipName + "&fieldName=" + fieldName + "&chartXLegend=" + res.chartXLegend + "&chartYUnit=" + res.chartYUnit;
+  //               let backUrl = "/EnergySys/LinePreview/?factoryName=" + factoryName + "&areaName=" + areaName
+  //                   + "&fieldName=" + fieldName + "&equipName=" + equipName + "&chartXLegend=" + res.chartXLegend + "&chartYUnit=" + res.chartYUnit;
+  //               parent.layer.open({
+  //                   title: eval(res.layuiTitle),
+  //                   type: 2,
+  //                   area: eval(res.layuiArea),
+  //                   offset: eval(res.layuiOffset),
+  //                   content:backUrl,             
+  //           });
+		// });
+});
+	</script>
+</body>
+</html>
+
+
+
+

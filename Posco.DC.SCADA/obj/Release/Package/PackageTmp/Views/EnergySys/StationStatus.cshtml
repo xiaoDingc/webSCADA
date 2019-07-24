@@ -1,0 +1,1212 @@
+﻿@{
+    Layout = null;
+}
+
+<script src="~/Scripts/pixi/pixi.min.js"></script>
+<script src="~/Scripts/pixi/dust.js"></script>
+<script src="~/Scripts/pixi/spriteUtilities.js"></script>
+<script src="~/Scripts/pixi/bump.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+@*引用layui作为弹出层*@
+
+<link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+<link href="~/Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+<script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+<script src="~/Content/ListLayui/static/admin/js/common.js"></script>
+<script src="~/Scripts/code/highcharts.js" type="text/javascript"></script>
+<script src="~/Scripts/code/highcharts-more.js" type="text/javascript"></script>
+<style>
+    .highcharts-background {
+        width: 300px;
+        height: 500px;
+    }
+</style>
+<body>
+    <input id="inputHidden" type="hidden" value="@ViewData["infoObject"]" />
+    <form class="layui-form" style="float:left">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <div style="margin:10px 0px 0px 31px ">
+                    <input id="s1" type="radio" name="sta" value="1" lay-filter="status" title="1#空压站" checked>
+                    <input id="s2" type="radio" name="sta" value="2" lay-filter="status" title="2#空压站">
+                    <input id="s3" type="radio" name="sta" value="3" lay-filter="status" title="3#空压站">
+                    <input id="s4" type="radio" name="sta" value="4" lay-filter="status" title="4#空压站">
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- 各项指标雷达图 -->
+    <div style="float:left;position:fixed;margin:100px 0px 0px 50px;width:300px;text-align:center;z-index:2">
+        <div id="spupi" style="margin:0px 0px 0px 10px"></div>
+        <div id="spider" style="margin:0px 0px 0px 50px"></div>
+    </div>
+    <script>
+
+    </script>
+
+    <script type="text/javascript">
+        let stationID;
+        jsonString = $("#inputHidden").val();
+       let jsonRes = eval('(' + jsonString + ')');
+        stationID = "S00" + jsonRes.stationID;
+        $("#s" + jsonRes.stationID).attr("selected", true);
+        //蜘蛛图数据
+        let spiderChoose = parseInt(stationID.substring(3, 4)) - 1;
+
+        $("#spupi").html("UPI:" + jsonRes.spider[4][0] + "kWh/Nm³");
+        //蜘蛛图
+        var spiderCharts = {
+            chart: {
+                polar: true,
+                type: 'line',
+                backgroundColor: {
+                    backgroundColor: 'rgba(0,0,0,0)',
+                    //radialGradient: [],//径向渐变
+                    //stops: [
+                    //    [0, 'rgb(137, 207, 240)'],  // 渐变颜色的起始位置与值
+                    //    [1, 'rgb(137, 207, 240)']
+                    //]
+                }
+            },
+            title: {
+                text: '',
+                x: -40
+            },
+            pane: {
+                size: '80%'
+            },
+            xAxis: {
+                categories: ['BOR', 'ERE', 'TCE', 'PCE', 'DRE'],
+                tickmarkPlacement: 'on',
+                lineWidth: 0,
+                gridLineColor: 'blue',
+                gridLineWidth: 1
+            },
+            yAxis: {
+                gridLineInterpolation: 'polygon',
+                gridLineColor: 'blue',
+                gridLineWidth: 1,
+                lineWidth: 0,
+                min: 0,
+                max: 1
+            },
+            tooltip: {
+                shared: true,
+                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.2f}</b><br/>'
+            },
+            legend: {},
+            series: [{
+                name: (spiderChoose + 1) + '#空压站',
+                data: jsonRes.spider[0],
+                pointPlacement: 'on'
+            }]
+        };
+        $("#spider").highcharts(spiderCharts);
+		//重新渲染表单
+        function renderForm() {
+            layui.use('form', function () {
+                var form = layui.form;//高版本建议把括号去掉,有的低版本，需要加()
+                form.on('radio(status)', function (data) {
+                    //  console.log(data.elem);
+                    stationID = "S00" + data.value;
+                    console.log(stationID);
+                    form.render('radio');
+
+                    let spiderChoose = parseInt(stationID.substring(3, 4)) - 1;
+                    spiderCharts.series[0].name = (spiderChoose + 1) + '#空压站',
+                        $("#spider").highcharts(spiderCharts);
+                    $.ajax({
+                        url: "/EnergySys/StationSpider?stationId=" + stationID,
+                        type: "GET",
+                        success: function (data) {
+                            //upi散点图数据
+                            //蜘蛛图
+                            spiderCharts.series[0].data = data.spider[0];
+                            $("#spupi").html("UPI:" + data.spider[1][0] + "kWh/Nm³");
+                            $("#spider").highcharts(spiderCharts);
+                        }
+                    });
+
+                });
+            });
+        };
+        renderForm();
+        //蜘蛛图定时数据获取
+        function getFiveMinute() {
+            $.ajax({
+                url: "/EnergySys/FiveMHomeIndex",
+                type: "GET",
+                success: function (data) {
+                    //upi散点图数据
+                    //蜘蛛图
+                    spiderCharts.series[0].data = data.spid[0];
+                    $("#spupi").html("UPI:" + data.spid[4][0] + "kWh/Nm³");
+                }
+            });
+        };
+
+        let type = "WebGL";
+        if (!PIXI.utils.isWebGLSupported()) {
+            type = "canvas"
+        }
+        let Application = PIXI.Application,
+            Container = PIXI.Container,
+            loader = PIXI.loader,
+            resources = PIXI.loader.resources,
+            TextureCache = PIXI.utils.TextureCache,
+            Sprite = PIXI.Sprite,
+            Rectangle = PIXI.Rectangle,
+            Graphics = PIXI.Graphics
+
+        let u = new SpriteUtilities(PIXI);
+        let d = new Dust(PIXI);
+        //碰撞检测初始化
+        let b = new Bump(PIXI);
+
+        //当前iframe窗口大小和宽度
+        var canvasWidth = window.innerWidth;
+        var canvasHeight = window.innerHeight;
+
+        //当前电脑的高与宽
+        var initWidth = 1700;
+        var initHeight = 835;
+
+        var wrate = canvasWidth / initWidth;
+        var hrate = canvasHeight / initHeight;
+
+        //显示的图表文字
+        let titleHead = new Array(3);
+        let titleHeadList = new Array("名称", "数据", "单位");
+
+        //显示左侧名称
+        let showLeftName = new Array(16);
+        let showLeftNameList = new Array("总管流量", "总管压力", "耗电量", "单位能耗", "放散量", "空压站外大气温度", "空压站外大气湿度", "循环水总管压力", "循环水总管温度", "循环水总管流量");
+        //显示中间数据
+        let showCenterName = new Array(16);
+        let showCenterNameList = new Array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
+
+        //显示右侧名称
+        let showRightName = new Array(16);
+        let showRightNameList = new Array("Nm³/h", "bar", "kW", "kW*h/Nm³", "Nm³/h", "℃", "RH", "bar", "℃", "Nm³/h");
+
+         
+
+        //6台空压站界面
+        let station6TextPure;
+        //7台空压站界面
+        let station7TextPure;
+        //模拟变量
+        let modifyCount;
+        //create a Pixi App
+        let app = new Application({
+            width: 1620 * wrate,
+            height: 745 * hrate,
+            antialiasing: true,
+            transparent: false,
+            resolution: 1
+        });
+
+        let hexColor = u.color("white");
+        app.renderer.backgroundColor = hexColor; //蓝色 16进制码
+        document.body.appendChild(app.view);
+
+
+        //loader an image and run the 'setup' function when it's done
+        //添加json文件,并加载'setup'函数
+        loader
+            .add([
+                "../Content/Images/PipelineAndFlowArrow.json",
+                "../Content/Images/valve.json",
+                "../Content/Images/station.json",
+                "../Content/Images/station6.json",
+                "../Content/Images/station7.json",
+                "../Content/Images/singal.json",
+                "../Content/Images/dataShow.json",
+            ])
+            .on("progress", loadProgressHandler)
+            .load(setup);
+        //疏水阀加载
+        let redPoint4 = new Array(7);
+        var singalTextPure = new Array(); //先声明一维
+        for (var i = 0; i < 4; i++) { //一维长度为2
+            singalTextPure[i] = new Array(); //再声明二维
+            for (var j = 0; j < 7; j++) { //二维长度为3
+                singalTextPure[i][j] = 0; // 赋值，每个数组元素的值为i+j
+            }
+        }
+
+        //调整位置变量 例如 tempTextPure=xxx;则xxx所代表的元素可以调整位置
+        let tempTextPure;
+
+        //管道初始化纹理
+        let pipeLine = new Array(7);
+
+        //干燥机初始化纹理
+        let dryerTexture = new Array(7);
+
+        //空气压缩机初始化纹理
+        let airCompressTexture = new Array(7);
+
+        //自洁式过滤器
+        // let SelfCleaningFilterTexture = new Array(7);
+
+        //加载效率 功率 UPI
+        let flowTexture = new Array(7);
+        let flowTexture01 = new Array(7);
+        let flowTexture02 = new Array(7);
+
+        //空压机流量 压力文字
+        let flow0Texture = new Array(7);
+        let press0Texture = new Array(7);
+
+        //干燥机 压差及漏点
+        let flowTextureRight = new Array(7);
+        let pressTextureRight = new Array(7);
+
+        //总管流量
+        let totalFlow;
+
+        let run = [];
+        let load = [];
+        let dre = [];
+
+        //第#4空压站第7台类绘制组
+        let fourDevice;
+
+        let pipeLineleft = 0;
+        let pipeLinewidth = 80;
+
+        let dataShowIcon;
+        //This setup function that will run when the image has loaded
+        function setup() {
+
+            dataShowIcon = TextureCache['dataShow.png'];
+
+
+            dataShowIcon = imageFill(dataShowIcon, 1196, 2.2, 0.4, false);
+           
+            //第一层级 
+            var tempX = 140;
+            var tempY = -45;
+
+            //标题名称
+            for (let i = 0; i < titleHead.length; i++) {
+                titleHead[i] = textFillAndinteractive(titleHead[i], 1163 + tempX + i * 118, 98 + tempY, titleHeadList[i], false);
+                titleHead[i].buttonMode = false;
+            }
+            tempTextPure = titleHead[0];
+            //图表左侧位置修改
+            for (let i = 0; i < showLeftName.length; i++) {
+                showLeftName[i] = textFillAndinteractive(showLeftName[i], 1138 + tempX, 133 + tempY + i * 30, showLeftNameList[i], false);
+                showLeftName[i].buttonMode = false;
+            }
+
+            //图表中间位置修改
+            for (let i = 0; i < showCenterName.length; i++) {
+                showCenterName[i] = textFillAndinteractive(showCenterName[i], 1293 + tempX, 133 + tempY + i * 30, showCenterNameList[i], false);
+            }
+            //图表右侧位置修改
+            for (let i = 0; i < showRightName.length; i++) {
+                showRightName[i] = textFillAndinteractive(showRightName[i], 1395 + tempX, 133 + tempY + i * 30, showRightNameList[i], false);
+                showRightName[i].buttonMode = false;
+            }
+
+            ChartStationLoadEvent(showCenterName[0], 20, "Main_Q");//进气压力
+            ChartStationLoadEvent(showCenterName[1], 20, "Main_P");//出气压力
+            ChartStationLoadEvent(showCenterName[2], 20, "ePower");//压差
+            ChartStationLoadEvent(showCenterName[3], 20, "UPI");//露点温度值
+
+            //以下为新加入的
+            ChartStationLoadEvent(showCenterName[4], 20, "FLP");//组合式干燥机压缩机电流值
+            ChartStationLoadEvent(showCenterName[5], 20, "Air_T");//空压机电流 
+            ChartStationLoadEvent(showCenterName[6], 20, "Air_H");//空压机入气压差信号(空气过滤器压差)
+            ChartStationLoadEvent(showCenterName[7], 20, "Water_P");//空压机进气阀开度(进气导叶开度)
+            ChartStationLoadEvent(showCenterName[8], 20, "Water_T");//add 空压机卸放阀开度(放散阀关度)
+            ChartStationLoadEvent(showCenterName[9], 20, "Water_F");//一级冷却回水温度
+            ChartStationLoadEvent(showCenterName[10], 20, "CDyer_ATowerT");//二级冷却回水温度
+            ChartStationLoadEvent(showCenterName[11], 20, "CDyer_BTowerT");//三级冷却回水温度
+
+
+            //管道加载
+            station6TextPure = TextureCache['station6.png'];
+            station7TextPure = TextureCache['station7.png'];
+            //for(i=0;i<6;i++)
+            //    for(j=0;j<7;j++)
+            //singalTextPure[i][j] = TextureCache['singal.png'];
+
+            singalTextPure[0][0] = imageFill(station6TextPure, -25, -85, 1 * 0.8, false);
+            station6TextPure = imageFill(station6TextPure, -25, -85, 1 * 0.8, false);
+
+            station7TextPure = imageFill(station7TextPure, -25, -85, 1 * 0.8, false);
+            // station7TextPure.visible=false;
+
+            //把第4空压站第7类划分到一个组中
+            fourDevice = u.group();
+            app.stage.addChild(fourDevice);
+
+            //第一层级
+            //#7空压机加载时进行的处理
+            //  fourDevice.addChild(pipeLine[5]);
+            var m = 0;
+            //干燥机加载
+            for (let i = 0; i < dryerTexture.length; i++) {
+                dryerTexture[i] = TextureCache['吸附式干燥机.png'];
+                dryerTexture[i] = imageFillAndinteractive(dryerTexture[i],
+                    1025,
+                    22 + 100 * i + m,
+                    0.03,
+                    false);
+			}
+            PositionSetRate(dryerTexture[0], 1025, 22);
+            PositionSetRate(dryerTexture[1], 1025, 132);
+            PositionSetRate(dryerTexture[2], 1025, 237);
+            PositionSetRate(dryerTexture[3], 1025, 342);
+            PositionSetRate(dryerTexture[4], 1025, 442);
+            PositionSetRate(dryerTexture[5], 1025, 547);
+            PositionSetRate(dryerTexture[6], 1025, 657);
+
+            function PositionSetRate(sprite, x, y) {
+                sprite.position.set(x * wrate, y * hrate);
+            }
+
+            //同属第二层级 用于覆盖第一层级
+            //空气压缩机加载
+
+            for (var i = 0; i < airCompressTexture.length; i++) {
+                airCompressTexture[i] = TextureCache['空气压缩机.png'];
+
+                if (i == 2 || i == 3) m = 10;
+                else if (i == 4) m = 15;
+                else if (i >= 5) m = 20;
+                airCompressTexture[i] = imageFillAndinteractive(airCompressTexture[i],
+                    650 - pipeLineleft, 30 + 100 * i + m, 0.65, false);
+            }
+
+            //自洁式过滤器加载
+            //for (var i = 0; i < SelfCleaningFilterTexture.length; i++) {
+            //    SelfCleaningFilterTexture[i] = TextureCache['自洁式过滤器.png'];
+            //    SelfCleaningFilterTexture[i] = imageFillAndinteractive(SelfCleaningFilterTexture[i],
+            //        475 - pipeLineleft, 0.8 * (139 + 133 * i - pipeLinewidth - 15), 0.6, false);
+            //}
+
+            //第二层级 这样会把第一层级部分覆盖达到存在的效果
+            fourDevice.addChild(dryerTexture[6]);
+            fourDevice.addChild(airCompressTexture[6]);
+            //  fourDevice.addChild(SelfCleaningFilterTexture[6]);
+
+
+            //循环加载疏水阀位置
+            //function valveLocation(valve, x, y) {
+            //    for (var i = 0; i < valve.length; i++) {
+            //        valve[i] = imageFill(valve[i], x + pipeLineleft, 0.8 * (139 + 133 * i - pipeLinewidth - 15 + y), 0.1,
+            //            false);
+            //    }
+            //}
+            redLocation(redPoint4, 904, 0);
+            fourDevice.addChild(redPoint4[6]);
+
+            //循环加载信号颜色灯
+            function redLocation(valve, x, y) {
+
+                for (var i = 0; i < valve.length; i++) {
+                    valve[i] = circleFill(valve[i], x + pipeLineleft, 0.8 * (139 + 133 * i - pipeLinewidth - 15 + y), 5, true, "green");
+                    //隐藏所有的状态红点显示
+                    valve[i].visible = false;
+                }
+            }
+
+
+            totalFlow = textFill(totalFlow, 1160, 345, "总管流量 :", debug = false);
+            //tempTextPure = totalFlow;
+
+            // fourDevice.position.set(20, 30);
+            // 空压机加载功率以及UPI等制作
+            powerAndUPIInit(pipeLineleft, pipeLinewidth);
+
+            FlowAreaInit(pipeLineleft, pipeLinewidth);
+            //tempTextPure = flowTextureRight[0];
+
+            //上下左右箭头加载
+            let left = keyboard(37),
+                up = keyboard(38),
+                right = keyboard(39),
+                down = keyboard(40);
+
+            //Left arrow key `release` method  左箭头释放
+            left.release = () => {
+
+            }
+            //Right arrow key 'press' method
+            let change = 1;
+
+            //Left arrow key `press` method
+            left.press = () => {
+                //左键调节
+                tempTextPure.x -= change;
+                console.log(tempTextPure.x + ": " + tempTextPure.y);
+            };
+            right.press = () => {
+                //右键调节
+                tempTextPure.x += change;
+                console.log(tempTextPure.x + ": " + tempTextPure.y);
+            }
+            //Up arrow key 'press' method
+            up.press = () => {
+                //上键调节
+                tempTextPure.y -= change;
+                console.log(tempTextPure.x + ": " + tempTextPure.y);
+            }
+            //Down arrow key 'press' method
+            down.press = (event) => {
+                //下键调节
+                tempTextPure.y += change;
+                console.log(tempTextPure.x + ": " + tempTextPure.y);
+            }
+            //所有干燥机鼠标指向时跳转函数
+            dryerFunction();
+
+            //所有空压机鼠标按下时跳转函数
+            airCompressFunction();
+
+            //自洁式过滤器鼠标点击时指向函数
+            //SelfCleaningFilterFunction();
+
+            //所有空压机鼠标按下时跳转函数
+            function airCompressFunction() {
+                for (let i = 0; i < airCompressTexture.length; i++) {
+                    airCompressTexture[i].on('click', () => { window.location.href = "/EnergySys/CentriStatus?stationID=" + stationID + "&equipId=E00" + (i + 1); });
+                }
+            }
+
+            //所有干燥机鼠标点击时指向函数
+            function dryerFunction() {
+                for (let i = 0; i < dryerTexture.length; i++) {
+                    dryerTexture[i].on('click', () => { window.location.href = "/EnergySys/DryerInnerStatus?stationID=" + stationID + "&equipId=E10" + (i + 1); });
+                }
+            }
+
+            //自洁式过滤器鼠标点击时指向函数
+            //function SelfCleaningFilterFunction() {
+            //    for (let i = 0; i < SelfCleaningFilterTexture.length; i++) {
+            //        SelfCleaningFilterTexture[i].on('click', () => { });
+            //    }
+            //}
+
+            //加载功率 功率 UPI添加鼠标功能函数
+            clickAddAndFunction();
+
+            //空压机流量 压力文字加载函数
+            clickStationFlowAndPressFunc();
+
+            clickDryerPressAndDewpointFunc();
+
+            function clickDryerPressAndDewpointFunc() {
+                for (var i = 0; i < flowTextureRight.length; i++) {
+                    clickEventAdd(flowTextureRight[i]);
+                    ChartLoadEvent(flowTextureRight[i], "E10" + (i + 1), 6, "CDyer_InOutValue");
+                }
+                for (var i = 0; i < pressTextureRight.length; i++) {
+                    clickEventAdd(pressTextureRight[i]);
+                    ChartLoadEvent(pressTextureRight[i], "E10" + (i + 1), 7, "CDyer_LeakT");
+                }
+
+                //#干燥机 压差及漏点
+                // clickEventAdd(flowTextureRight);
+                // ChartLoadEvent(flowTextureRight, "E101", 6, "CDyer_InOutValue");
+                // clickEventAdd(pressTextureRight);
+                // ChartLoadEvent(pressTextureRight, "E101", 7, "CDyer_LeakT");
+            }
+
+            function clickStationFlowAndPressFunc() {
+                for (var i = 0; i < flow0Texture.length; i++) {
+                    clickEventAdd(flow0Texture[i]);
+                    ChartLoadEvent(flow0Texture[i], "E00" + (i + 1), 1, "Q");
+                }
+                for (var i = 0; i < press0Texture.length; i++) {
+                    clickEventAdd(press0Texture[i]);
+                    ChartLoadEvent(press0Texture[i], "E00" + (i + 1), 2, "Press");
+                }
+            }
+
+            function ChartStationLoadEvent(sprite, flagCode, flagName, flagTitle) {
+                sprite.on('click',
+                    () => {
+						let code = flagCode;
+                        let name = flagName;
+                        let title = flagTitle;
+                        layui.use('layer', function () {
+                            var layer = layui.layer;
+                            var index = layer.load(1, {
+                                // content: '加载中',
+                                shade: [0.1, '#000'] //0.1透明度的背景
+                            });
+                            $.ajax({
+                                url: '/EnergySys/layUIAlias',
+                                data: { code: code, stationId: stationID, name: name },
+                                dataType: 'json',
+                                success: function (res) {
+                                    layer.close(index);
+                                    layer.open({
+                                        title: eval(res.title),
+                                        type: 2,
+                                        area: eval(res.area),
+                                        offset: eval(res.offset), //top left
+                                        content: "/EnergySys/LineChartSingleStation/?code=" + code + "&stationId=" +
+                                            stationID + "&name=" + name
+                                    });
+                                }
+                            });
+                        });
+                    });
+            }
+
+            function ChartLoadEvent(sprite, eId, flagCode, flagName, flagTitle) {
+                sprite.on('click',
+                    () => {
+                        let EquipID = eId;
+                        let code = flagCode;
+                        let name = flagName;
+                        let title = flagTitle;
+                        layui.use('layer', function () {
+                            var layer = layui.layer;
+                            var index = layer.load(1, {
+                                // content: '加载中',
+                                shade: [0.1, '#000'] //0.1透明度的背景
+                            });
+                            $.ajax({
+                                url: '/EnergySys/layUIAlias',
+                                data: { code: code, stationId: stationID, equipId: EquipID, name: name },
+                                dataType: 'json',
+                                success: function (res) {
+                                    layer.close(index);
+                                    layer.open({
+                                        title: eval(res.title),
+                                        type: 2,
+                                        area: eval(res.area),
+                                        offset: eval(res.offset), //top left
+                                        content: "/EnergySys/LineChart/?code=" + code + "&stationId=" +
+                                            stationID + "&equipId=" + EquipID + "&name=" + name
+                                    });
+                                }
+                            });
+                        });
+                    });
+            }
+
+            function clickAddAndFunction() {
+                for (var i = 0; i < flowTexture.length; i++) {
+                    clickEventAdd(flowTexture[i]);
+                    ChartLoadEvent(flowTexture[i], "E00" + (i + 1), 3, "LossRatio");
+                }
+                for (var i = 0; i < flowTexture01.length; i++) {
+                    clickEventAdd(flowTexture01[i]);
+                    ChartLoadEvent(flowTexture01[i], "E00" + (i + 1), 4, "ePower");
+                }
+                for (var i = 0; i < flowTexture02.length; i++) {
+                    clickEventAdd(flowTexture02[i]);
+                    ChartLoadEvent(flowTexture02[i], "E00" + (i + 1), 5, "UPI");
+                }
+
+                clickEventAdd(totalFlow);
+                //xxxx 和数据库编码相对应
+                ChartLoadEvent(totalFlow, "xxxx", 10, "Main_Q");
+            }
+
+
+            //添加鼠标点击事件到元素中
+            function clickEventAdd(sprite) {
+                sprite.interactive = true;
+                sprite.buttonMode = true;
+            }
+
+
+
+            initData();
+            function initData() {
+                totalFlow.text = "总管流量: " + jsonRes.station.Main_Q;
+                showCenterName[0].text = jsonRes.station.Main_Q;
+                showCenterName[1].text = jsonRes.station.Main_P;
+                showCenterName[2].text = jsonRes.station.ePower;
+                showCenterName[3].text = jsonRes.station.UPI;
+                showCenterName[4].text = jsonRes.station.FLP;
+                showCenterName[5].text = jsonRes.station.Air_T;
+                showCenterName[6].text = jsonRes.station.Air_H;
+                showCenterName[7].text = jsonRes.station.Water_P;
+                showCenterName[8].text = jsonRes.station.Water_T;
+                showCenterName[9].text = jsonRes.station.Water_F;
+
+				for (let i = 0; i < 6; i++) {
+                    flow0Texture[i].text = jsonRes.centrifuges[5 - i].Q;
+                    press0Texture[i].text = jsonRes.centrifuges[5 - i].Outlet_P;
+                    flowTexture[i].text = jsonRes.centrifuges[5 - i].LossRatio;
+                    flowTexture01[i].text = jsonRes.centrifuges[5 - i].EPower;
+                    flowTexture02[i].text = jsonRes.centrifuges[5 - i].UPI;
+
+                    //flow0Texture[i].text = "流量: " + jsonRes.centrifuges[5 - i].Q;
+                    //press0Texture[i].text = "压力: " + jsonRes.centrifuges[5 - i].Outlet_P;
+                    //flowTexture[i].text = "加载效率:" + jsonRes.centrifuges[5 - i].LossRatio;
+                    //flowTexture01[i].text = "功率:" + jsonRes.centrifuges[5 - i].EPower;
+                    //flowTexture02[i].text = "   UPI:" + jsonRes.centrifuges[5 - i].UPI;
+                    if (jsonRes.drys.length > 0) {
+                        flowTextureRight[i].text = jsonRes.drys[5 - i].CDyer_InOutValue;
+                        pressTextureRight[i].text = jsonRes.drys[5 - i].CDyer_LeakT;
+                        //flowTextureRight[i].text = "压差: " + jsonRes.drys[5 - i].CDyer_InOutValue;
+                        //pressTextureRight[i].text = "露点: " + jsonRes.drys[5 - i].CDyer_LeakT;
+                    } else {
+                        flowTextureRight[i].text = 0;
+                        pressTextureRight[i].text = 0;
+                    }
+                }
+
+                //flow0Texture[0].text = "流量: " + jsonRes.centrifuges[5].Q;
+                //press0Texture[0].text = "压力: " + jsonRes.centrifuges[5].Outlet_P;
+                //flow0Texture[1].text = "流量: " + jsonRes.centrifuges[4].Q;
+                //press0Texture[1].text = "压力: " + jsonRes.centrifuges[4].Outlet_P;
+                //flow0Texture[2].text = "流量: " + jsonRes.centrifuges[3].Q;
+                //press0Texture[2].text = "压力: " + jsonRes.centrifuges[3].Outlet_P;
+                //flow0Texture[3].text = "流量: " + jsonRes.centrifuges[2].Q;
+                //press0Texture[3].text = "压力: " + jsonRes.centrifuges[2].Outlet_P;
+                //flow0Texture[4].text = "流量: " + jsonRes.centrifuges[1].Q;
+                //press0Texture[4].text = "压力: " + jsonRes.centrifuges[1].Outlet_P;
+                //flow0Texture[5].text = "流量: " + jsonRes.centrifuges[0].Q;
+                //press0Texture[5].text = "压力: " + jsonRes.centrifuges[0].Outlet_P;
+
+
+                if (jsonRes.drys[5] == null) {
+
+                } else {
+                    for (let i = 0; i < 6; i++) {
+                        flowTextureRight[i].text = jsonRes.drys[5 - i].CDyer_InOutValue;
+                        pressTextureRight[i].text = jsonRes.drys[5 - i].CDyer_LeakT;
+                        //flowTextureRight[i].text = "压差: " + jsonRes.drys[5 - i].CDyer_InOutValue;
+                        //                  pressTextureRight[i].text = "露点: " + jsonRes.drys[5 - i].CDyer_LeakT;
+                    }
+
+                    //flowTextureRight[0].text = "压差: " + jsonRes.drys[5].CDyer_InOutValue;
+                    //pressTextureRight[0].text = "露点: " + jsonRes.drys[5].CDyer_LeakT;
+                    //flowTextureRight[1].text = "压差: " + jsonRes.drys[4].CDyer_InOutValue;
+                    //pressTextureRight[1].text = "露点: " + jsonRes.drys[4].CDyer_LeakT;
+                    //flowTextureRight[2].text = "压差: " + jsonRes.drys[3].CDyer_InOutValue;
+                    //pressTextureRight[2].text = "露点: " + jsonRes.drys[3].CDyer_LeakT;
+                    //flowTextureRight[3].text = "压差: " + jsonRes.drys[2].CDyer_InOutValue;
+                    //pressTextureRight[3].text = "露点: " + jsonRes.drys[2].CDyer_LeakT;
+                    //flowTextureRight[4].text = "压差: " + jsonRes.drys[1].CDyer_InOutValue;
+                    //pressTextureRight[4].text = "露点: " + jsonRes.drys[1].CDyer_LeakT;
+                    //flowTextureRight[5].text = "压差: " + jsonRes.drys[0].CDyer_InOutValue;
+                    //pressTextureRight[5].text = "露点: " + jsonRes.drys[0].CDyer_LeakT;
+                }
+
+
+                //赋值前清空数组里面的数据
+                run.splice(0);
+                load.splice(0);
+                dre.splice(0);
+                //血条颜色赋值从而进行判断
+                for (var item in jsonRes.centrifuges) {
+                    for (var key in jsonRes.centrifuges[item]) {
+                        if (key == "Run") {
+                            run.push(jsonRes.centrifuges[item][key]);
+                        }
+                        if (key == "Load") {
+                            load.push(jsonRes.centrifuges[item][key]);
+                        }
+                        if (key == "DRE") {
+                            dre.push(jsonRes.centrifuges[item][key]);
+                        }
+                    }
+                }
+            }
+            app.ticker.add(delta => gameLoop(delta));
+        }
+
+
+
+        setInterval(StationSixData, 6000);
+
+        function StationSixData() {
+            console.log("stationID   " + stationID)
+            if (stationID == "undefined") {
+                stationID = "S001";
+            }
+            $.ajax({
+                url: "/EnergySys/StationPerSecData",
+                type: "GET",
+                data: {
+                    stationID: stationID
+                },
+                beforeSend: function () { },
+                success: function (data) {
+                    jsonRes=data;
+                    console.log("data :" + data.centrifuges[6]);
+
+                    // stationID  "S004"
+
+                    let spiderChoose = parseInt(stationID.substring(3, 4)) - 1;
+					spiderCharts.series[0].data = data.spider[0];
+                    $("#spupi").html("UPI:" + data.spider[1][0] + "kWh/Nm³");
+                    spiderCharts.series[0].name = (spiderChoose + 1) + '#空压站',
+                        $("#spider").highcharts(spiderCharts);
+                    totalFlow.text = "总管流量: " + jsonRes.station.Main_Q;
+                    if (typeof (data.centrifuges[6]) == "undefined") {
+                        for (let i = 0; i < 6; i++) {
+                            flow0Texture[i].text = jsonRes.centrifuges[5 - i].Q;
+                            press0Texture[i].text = jsonRes.centrifuges[5 - i].Outlet_P;
+                            flowTexture[i].text = jsonRes.centrifuges[5 - i].LossRatio;
+                            flowTexture01[i].text = jsonRes.centrifuges[5 - i].EPower;
+                            flowTexture02[i].text = jsonRes.centrifuges[5 - i].UPI;
+
+                            //flow0Texture[i].text = "流量: " + data.centrifuges[5-i].Q;
+                            //press0Texture[i].text = "压力: " + data.centrifuges[5-i].Outlet_P;
+                            //flowTexture[i].text = "加载效率:" + data.centrifuges[5-i].LossRatio;
+                            //flowTexture01[i].text = "功率:" + data.centrifuges[5-i].EPower;
+                            //flowTexture02[i].text = "   UPI:" + data.centrifuges[5-i].UPI;
+                            if (jsonRes.drys.length > 0) {
+                                flowTextureRight[i].text = jsonRes.drys[5 - i].CDyer_InOutValue;
+                                pressTextureRight[i].text = jsonRes.drys[5 - i].CDyer_LeakT;
+                                //flowTextureRight[i].text = "压差: " + jsonRes.drys[5 - i].CDyer_InOutValue;
+                                //pressTextureRight[i].text = "露点: " + jsonRes.drys[5 - i].CDyer_LeakT;
+                            } else {
+                                flowTextureRight[i].text = 0;
+                                pressTextureRight[i].text = 0;
+                            }
+						}
+						//如果有值 说明 当前选中的时第4台空压站 需要为其赋值
+                    } else {
+                        for (let i = 0; i <= 6; i++) {
+                            flow0Texture[i].text = data.centrifuges[6 - i].Q;
+                            press0Texture[i].text = data.centrifuges[6 - i].Outlet_P;
+                            flowTexture[i].text = data.centrifuges[6 - i].LossRatio;
+                            flowTexture01[i].text = data.centrifuges[6 - i].EPower;
+                            flowTexture02[i].text = data.centrifuges[6 - i].UPI;
+                            flowTextureRight[i].text = data.drys[6 - i].CDyer_InOutValue;
+                            pressTextureRight[i].text = data.drys[6 - i].CDyer_LeakT;
+                            //flow0Texture[i].text = "流量: " + data.centrifuges[6 - i].Q;
+                            //press0Texture[i].text = "压力: " + data.centrifuges[6 - i].Outlet_P;
+                            //flowTexture[i].text = "加载效率:" + data.centrifuges[6 - i].LossRatio;
+                            //flowTexture01[i].text = "功率:" + data.centrifuges[6 - i].EPower;
+                            //flowTexture02[i].text = "   UPI:" + data.centrifuges[6 - i].UPI;
+                            //flowTextureRight[i].text = "压差: " + data.drys[6 - i].CDyer_InOutValue;
+                            //pressTextureRight[i].text = "露点: " + data.drys[6 - i].CDyer_LeakT;
+                        }
+
+                    }
+
+                    //赋值前清空数组里面的数据
+                    run.splice(0);
+                    load.splice(0);
+                    dre.splice(0);
+                    //血条颜色赋值从而进行判断
+                    for (var item in data.centrifuges) {
+                        for (var key in data.centrifuges[item]) {
+                            if (key == "Run") {
+                                run.push(data.centrifuges[item][key]);
+                            }
+                            if (key == "Load") {
+                                load.push(data.centrifuges[item][key]);
+
+                            }
+                            if (key == "DRE") {
+                                dre.push(data.centrifuges[item][key]);
+                            }
+                        }
+                    }
+                },
+                complete: function (data) {
+
+                },
+                error: function (res) { }
+            });
+        }
+
+        //加载程序进程
+        function loadProgressHandler(loader, resource) {
+            console.log("loading " + resource.url)
+            console.log("progress " + loader.progress + " %");
+        }
+
+        //每秒60帧运行函数
+        //空压机运行状态下  才会有加载卸载状态
+        //停机情况下  显示红色
+        //卸载情况下,显示橙色
+        //加载状态下,显示dre数据
+        function gameLoop(delta) {
+            showCenterName[0].text = jsonRes.station.Main_Q;
+            showCenterName[1].text = jsonRes.station.Main_P;
+            showCenterName[2].text = jsonRes.station.ePower;
+            showCenterName[3].text = jsonRes.station.UPI;
+            showCenterName[4].text = jsonRes.station.FLP;
+            showCenterName[5].text = jsonRes.station.Air_T;
+            showCenterName[6].text = jsonRes.station.Air_H;
+            showCenterName[7].text = jsonRes.station.Water_P;
+            showCenterName[8].text = jsonRes.station.Water_T;
+            showCenterName[9].text = jsonRes.station.Water_F;
+
+
+
+            if (stationID == "S004") {
+                station6TextPure.visible = false;
+                station7TextPure.visible = true;
+                fourDevice.visible = true;
+            } else {
+                station6TextPure.visible = true;
+                station7TextPure.visible = false;
+                fourDevice.visible = false;
+            }
+            if (stationID == "S004") {
+                if (run[6] == 0) {
+
+                } else {
+                    if (load[6] == 0) {
+
+                    } else {
+
+                    }
+                }
+            }
+
+        }
+
+        //用户区域流量文字加载
+        function textFill(textFill, x, y, message, debug, func) {
+            //用气区域 用户压力文字加载
+            textFill = new PIXI.Text(message);
+            //初始文字位置 set(x,y) x:left y:top
+            //textFill.x = 0;
+            //textFill.y = 0;
+            if (debug) {
+                loadMouseEvent(textFill);
+            }
+            textFill.position.set(x * wrate, y * hrate);
+            //文字缩放比例
+            textFill.scale.set(wrate, hrate);
+            textFill.style = {
+                fill: "black",
+                font: "12px"
+            };
+            app.stage.addChild(textFill);
+            return textFill;
+        }
+        function textFillAndinteractive(text, x, y, message, debug, func) {
+            text = textFill(textFill, x, y, message, debug, func)
+            // enable the image to be interactive... this will allow it to respond to mouse and touch events
+            text.interactive = true;
+            // this button mode will mean the hand cursor appears when you roll over the image with your mouse
+            text.buttonMode = true;
+            return text;
+        }
+
+        //鼠标拖放事件函数
+        function loadMouseEvent(sprite) {
+            // create our little sprite friend..
+            // var sprite = new PIXI.Sprite(texture);
+            // enable the sprite to be interactive... this will allow it to respond to mouse and touch events
+            sprite.interactive = true;
+
+            // this button mode will mean the hand cursor appears when you roll over the sprite with your mouse
+            sprite.buttonMode = true;
+
+            // setup events for mouse + touch using
+            // the pointer events
+            // sprite
+            //     .on('click', onDragStart)
+            //     .on('pointerup', onDragEnd)
+            //     .on('pointerupoutside', onDragEnd)
+            //     .on('pointermove', onDragMove);
+
+            // For mouse-only events
+            sprite
+                .on('mousedown', onDragStart)
+                .on('mouseup', onDragEnd)
+                .on('mouseupoutside', onDragEnd)
+                .on('mousemove', onDragMove);
+
+            // For touch-only events
+            // sprite
+            //     .on('touchstart', onDragStart)
+            //     .on('touchend', onDragEnd)
+            //     .on('touchendoutside', onDragEnd)
+            //     .on('touchmove', onDragMove);
+
+        }
+
+
+        //鼠标拖拽开始
+        function onDragStart(event) {
+            // store a reference to the data
+            // the reason for this is because of multitouch
+            // we want to track the movement of this particular touch
+            this.data = event.data;
+            this.alpha = 0.5;
+            this.dragging = true;
+        }
+
+        //鼠标拖拽结束
+        function onDragEnd(event) {
+            // this.alpha = 1;
+            // this.dragging = false;
+            // // set the interaction data to null
+            // this.data = null;
+            this.alpha = 1;
+            this.dragging = false;
+            // set the interaction data to null
+            var newPosition = this.data.getLocalPosition(this.parent);
+            this.x = newPosition.x;
+            this.y = newPosition.y;
+            console.log("this X:" + this.x + " this Y:" + this.y);
+        }
+
+        //鼠标拖拽过程
+        function onDragMove() {
+            // if (this.dragging) {
+            //     var newPosition = this.data.getLocalPosition(this.parent);
+            //      this.x = newPosition.x;
+            //      this.y = newPosition.y;
+            //      console.log("this X:" + this.x + "  this Y:" + this.y);
+            // }
+        }
+
+        function FlowAreaInit(pipeLineleft, pipeLinewidth) {
+
+            //空压机绘制及文字制作
+            // let areaTest;
+            // areaTest = rectangleFill(areaTest,
+            //     x = 750 + pipeLineleft,
+            //     y = 149 +
+            //     142 * 0 -
+            //     pipeLinewidth,
+            //     width = 108,
+            //     height = 24,
+            //     debug = false,
+            //     fillColor = "white");
+            for (let i = 0; i < flow0Texture.length; i++) {
+                flow0Texture[i] = textFill(flow0Texture[i],
+                    x = 730 + pipeLineleft,
+                    y = 93.6 + 105 * i,
+                    "",//流量 :
+                    debug = false);
+            }
+            // tempTextPure = flow0Texture[0];
+            for (let i = 0; i < press0Texture.length; i++) {
+                press0Texture[i] = textFill(press0Texture[i],
+                    x = 792 + pipeLineleft,
+                    y = 93.6 + 105 * i,
+                    "",//压力 :
+                    debug = false);
+            }
+            //tempTextPure = press0Texture[0];
+            //位置修正
+            press0Texture[6].position.set(750, 680.6);
+
+            fourDevice.addChild(flow0Texture[6]);
+            fourDevice.addChild(press0Texture[6]);
+
+            //吸附式干燥机绘制
+            for (let i = 0; i < flowTextureRight.length; i++) {
+                flowTextureRight[i] = textFill(flowTextureRight[i],
+                    x = 1011 + pipeLineleft,
+                    y = 94.6 + 105 * i,
+                    "",//压差 :
+                    debug = false);
+            }
+
+
+            for (let i = 0; i < pressTextureRight.length; i++) {
+                pressTextureRight[i] = textFill(pressTextureRight[i],
+                    x = 1075 + pipeLineleft,
+                    y = 94.6 + 105 * i,
+                    "",//露点 :
+                    debug = false);
+            }
+            //位置修正
+            pressTextureRight[6].position.set(1080, 680.6);
+
+            fourDevice.addChild(flowTextureRight[6]);
+            fourDevice.addChild(pressTextureRight[6]);
+        }
+
+        function powerAndUPIInit(pipeLineleft, pipeLinewidth) {
+            for (let i = 0; i < flowTexture.length; i++) {
+                flowTexture[i] = textFill(flowTexture[i],
+                    x = 792 + pipeLineleft,
+                    y = 13.6 + 105 * i,
+                    "",//加载效率:
+                    debug = false);
+            }
+
+            for (let i = 0; i < flowTexture01.length; i++) {
+                flowTexture01[i] = textFill(flowTexture01[i],
+                    x = 589 + pipeLineleft,
+                    y = 93.6 + 105 * i,
+                    "",//功率:
+                    debug = false);
+            }
+
+            for (let i = 0; i < flowTexture02.length; i++) {
+                flowTexture02[i] = textFill(flowTexture02[i],
+                    x = 659,
+                    y = 93.6 + 105 * i,
+                    "",//UPI:
+                    debug = false);
+            }
+
+            fourDevice.addChild(flowTexture[6]);
+            fourDevice.addChild(flowTexture01[6]);
+            fourDevice.addChild(flowTexture02[6]);
+        }
+
+
+
+        function imageFill(imageFill, x, y, scale, debug, func) {
+            imageFill = new Sprite(imageFill);
+            if (debug) {
+                loadMouseEvent(imageFill);
+            }
+            //缩放大小 1为默认状态
+            //缩放大小 1为默认状态
+            imageFill.scale.set(scale * wrate, scale * hrate);
+            imageFill.position.set(x * wrate, y * hrate);
+            app.stage.addChild(imageFill);
+            return imageFill;
+        }
+
+        function imageFillAndinteractive(image, x, y, scale, debug, func) {
+            image = imageFill(image, x, y, scale, debug, func);
+            // enable the image to be interactive... this will allow it to respond to mouse and touch events
+            image.interactive = true;
+            // this button mode will mean the hand cursor appears when you roll over the image with your mouse
+            image.buttonMode = true;
+            return image;
+        }
+
+        function circleFill(circleFill, x, y, round, debug, fillColor, func) {
+            circleFill = new Graphics();
+            if (fillColor == undefined) {
+                fillColor = "#e6e6e6";
+            }
+            circleFill.beginFill(u.color(fillColor));
+            if (debug) {
+                loadMouseEvent(circleFill);
+            }
+            circleFill.drawCircle(x, y, round);
+            circleFill.endFill();
+            //    let scale = 1 * 0.8;
+            //    circleFill.scale.set(scale);
+            app.stage.addChild(circleFill);
+            return circleFill;
+        }
+
+        //矩形填充
+        function rectangleFill(rectangleFill, x, y, width, height, debug, fillColor, func) {
+            //用气区域流量
+            rectangleFill = new Graphics();
+            if (fillColor == undefined) {
+                fillColor = "#e6e6e6";
+            }
+            rectangleFill.beginFill(u.color(fillColor));
+            if (debug) {
+                loadMouseEvent(rectangleFill);
+            }
+            //   rectangleFill.position.set(x, y);
+            rectangleFill.drawRect(x, y, width, height);
+            rectangleFill.endFill();
+            //   let scale = 1 * 0.8;
+            //    rectangleFill.scale.set(scale);
+            app.stage.addChild(rectangleFill);
+            return rectangleFill;
+        }
+
+        //用户区域流量文字加载
+        function textFill(textFill, x, y, message, debug, func) {
+            //用气区域 用户压力文字加载
+            textFill = new PIXI.Text(message);
+            //初始文字位置 set(x,y) x:left y:top
+            //textFill.x = 0;
+            //textFill.y = 0;
+            if (debug) {
+                loadMouseEvent(textFill);
+            }
+            textFill.position.set(x * wrate, y * hrate);
+            //文字缩放比例
+            textFill.scale.set(wrate, hrate);
+            textFill.style = {
+                fill: "black",
+                font: "13px"
+            };
+            //   let scale = 1 * 0.8;
+            //   textFill.scale.set(scale);
+            app.stage.addChild(textFill);
+            return textFill;
+        }
+
+
+        //键盘事件函数
+        function keyboard(keyCode) {
+            let key = {};
+            key.code = keyCode;
+            key.isDown = false;
+            key.isUp = true;
+            key.press = undefined;
+            key.release = undefined;
+            //The `downHandler`
+            key.downHandler = event => {
+                if (event.keyCode === key.code) {
+                    if (key.isUp && key.press) key.press();
+                    key.isDown = true;
+                    key.isUp = false;
+                }
+                event.preventDefault();
+            };
+
+            //The `upHandler`
+            key.upHandler = event => {
+                if (event.keyCode === key.code) {
+                    if (key.isDown && key.release) key.release();
+                    key.isDown = false;
+                    key.isUp = true;
+                }
+                event.preventDefault();
+            };
+
+            //Attach event listeners
+            window.addEventListener(
+                "keydown",
+                key.downHandler.bind(key),
+                false
+            );
+            window.addEventListener(
+                "keyup",
+                key.upHandler.bind(key),
+                false
+            );
+            return key;
+        }
+        //加载完成
+        window.onload = function () {
+            changeSize();
+        };
+        //重置界面。
+        window.onresize = function () {
+            //myChart.resize();
+            changeSize();
+        }
+        function changeSize() {
+            let canvasWidth = window.innerWidth;
+            let canvasHeight = window.innerHeight;
+            //alert(canvasWidth + ":" + canvasHeight);
+            //当前电脑的高与宽
+            let initWidth = 1700;
+            let initHeight = 835;
+
+            let wrate1 = canvasWidth / initWidth;
+            let hrate1 = canvasHeight / initHeight;
+
+            console.log("old" + $("canvas[data-zr-dom-id=zr_0]").width());
+            console.log("old" + $("canvas[data-zr-dom-id=zr_0]").height());
+            $(".highcharts-container").width(250 * wrate1);
+            $(".highcharts-container").height(400 * wrate1);
+            console.log("new" + $("canvas[data-zr-dom-id=zr_0]").width());
+            console.log("new" + $("canvas[data-zr-dom-id=zr_0]").height());
+        }
+    </script>
+</body>

@@ -1,0 +1,353 @@
+﻿@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>智能控制</title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+    <div class="layui-tab page-content-wrap">
+        <ul class="layui-tab-title">
+            <li class="layui-this">空压机参数</li>
+            <li>空压机优先级选择</li>
+            <li>参数设定</li>
+            <li>启用/禁用自动功能</li>
+            <li>定时器(秒)</li>
+            <li>下一状态</li>
+        </ul>
+        <div class="layui-tab-content">           
+            <!--空压机参数-->
+            <div class="layui-tab-item layui-show">
+                <div class="page-content-wrap">
+                    <div class="layui-form" id="table-list">
+                        <table class="layui-table"  lay-skin="line">
+                            <colgroup>
+                                <col width="100">
+                                <col class="hidden-xs" width="200">
+                                <col class="hidden-xs" width="200">
+                                <col class="hidden-xs" width="200">
+                                <col class="hidden-xs" width="200">
+                                <col width="200">
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>空压机</th>
+                                    <th>状态</th>
+                                    <th>进气阀</th>
+                                    <th>卸载阀</th>
+                                    <th>排气压力</th>
+                                    <th>系统压力</th>
+                                    <th>马达反馈</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="hidden-xs">1</td>
+                                    <td class="hidden-xs">拉出紧急停车已启动</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>-0.351</td>
+                                    <td>-0.351</td>
+                                    <td style="width: 60px; height: 10px; background-color: red"></td>
+                                </tr>
+                                <tr>
+                                    <td class="hidden-xs">2</td>
+                                    <td class="hidden-xs">拉出紧急停车已启动</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>-0.351</td>
+                                    <td>-0.351</td>
+                                    <td style="width: 60px; height: 10px; background-color: yellow"></td>
+                                </tr>
+                                <tr>
+                                    <td class="hidden-xs">3</td>
+                                    <td class="hidden-xs">拉出紧急停车已启动</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>-0.351</td>
+                                    <td>-0.351</td>
+                                    <td style="width: 60px; height: 10px; background-color: #33CC33"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--空压机优先级选择-->
+            <div class="layui-tab-item">
+                <form class="layui-form" style="width: 90%;padding-top: 20px;">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">第一启动：</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="audit" lay-skin="primary" title="1号空压机" checked="">
+                            <input type="radio" name="audit" lay-skin="primary" title="2号空压机" checked="">
+                            <input type="radio" name="audit" lay-skin="primary" title="3号空压机" checked="">
+                        </div>
+                    </div>
+                </form>
+                <form class="layui-form" style="width: 90%;padding-top: 20px;">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">第二启动：</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="audit" lay-skin="primary" title="1号空压机" checked="">
+                            <input type="radio" name="audit" lay-skin="primary" title="2号空压机" checked="">
+                            <input type="radio" name="audit" lay-skin="primary" title="3号空压机" checked="">
+                        </div>
+                    </div>
+                </form>
+                <form class="layui-form" style="width: 90%;padding-top: 20px;">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">第三启动：</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="audit" lay-skin="primary" title="1号空压机" checked="">
+                            <input type="radio" name="audit" lay-skin="primary" title="2号空压机" checked="">
+                            <input type="radio" name="audit" lay-skin="primary" title="3号空压机" checked="">
+                        </div>
+                    </div>
+                </form>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="emailInfo">保存</button>
+                    </div>
+                </div>
+            </div>
+            <!--参数设定-->
+            <div class="layui-tab-item">
+                <div class="page-content-wrap">
+                    <div class="layui-form" id="table-list">
+                        <table class="layui-table"  lay-skin="line">
+                            <colgroup>
+                                <col>
+                                <col class="hidden-xs" width="200">
+                                <col class="hidden-xs" width="200">
+                                <col class="hidden-xs" width="200">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>名称</th>
+                                    <th>设定值</th>
+                                    <th>实际值</th>
+                                    <th>单位</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="hidden-xs">期望的最低压力</td>
+                                    <td class="hidden-xs"><input type="text" name="title" autocomplete="off" class="layui-input" value="0.800" data-id="1"></td>
+                                    <td>0.790</td>
+                                    <td>MPa</td>
+                                </tr>
+                                <tr>
+                                    <td class="hidden-xs">期望的最高压力</td>
+                                    <td class="hidden-xs"><input type="text" name="title" autocomplete="off" class="layui-input" value="0.900" data-id="1"></td>
+                                    <td>/</td>
+                                    <td>MPa</td>
+                                </tr>
+                                <tr>
+                                    <td class="hidden-xs">允许停机压力</td>
+                                    <td class="hidden-xs"><input type="text" name="title" autocomplete="off" class="layui-input" value="0.795" data-id="1"></td>
+                                    <td>/</td>
+                                    <td>MPa</td>
+                                </tr>
+                                <tr>
+                                    <td class="hidden-xs">最高冷却水温度</td>
+                                    <td class="hidden-xs"><input type="text" name="title" autocomplete="off" class="layui-input" value="40.0" data-id="1"></td>
+                                    <td>3276.7</td>
+                                    <td>℃</td>
+                                </tr>
+                                <tr>
+                                    <td class="hidden-xs">最低冷却水压力</td>
+                                    <td class="hidden-xs"><input type="text" name="title" autocomplete="off" class="layui-input" value="0.300" data-id="1"></td>
+                                    <td>0.000</td>
+                                    <td>MPa</td>
+                                </tr>
+                                <tr>
+                                    <td class="hidden-xs">最低冷却水流量</td>
+                                    <td class="hidden-xs"><input type="text" name="title" autocomplete="off" class="layui-input" value="300.0" data-id="1"></td>
+                                    <td>0.0</td>
+                                    <td>m³/h</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--启用禁用自动功能-->
+            <div class="layui-tab-item">
+                <div class="page-content-wrap">
+                    <div class="layui-form" id="table-list">
+                        <table class="layui-table" lay-skin="line">
+                            <colgroup>
+                                <col>
+                                <col class="hidden-xs" width="200">
+                                <col class="hidden-xs" width="200">
+                                <col class="hidden-xs" width="200">
+                                <col class="hidden-xs" width="200">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>设备</th>
+                                    <th>启用</th>
+                                    <th>加载</th>
+                                    <th>卸载</th>
+                                    <th>停机</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="hidden-xs">1号机</td>
+                                    <td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
+                                    <td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
+                                    <td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
+                                    <td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
+                                </tr>
+                                <tr>
+                                    <td class="hidden-xs">2号机</td>
+                                    <td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
+                                    <td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
+                                    <td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
+                                    <td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
+                                </tr>
+                                <tr>
+                                    <td class="hidden-xs">3号机</td>
+                                    <td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
+                                    <td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
+                                    <td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
+                                    <td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--定时器-->
+            <div class="layui-tab-item">
+                <div class="page-content-wrap">
+                    <div class="layui-form" id="table-list">
+                        <table class="layui-table" lay-skin="line">
+                            <colgroup>
+                                <col>
+                                <col class="hidden-xs" width="200">
+                                <col class="hidden-xs" width="200">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>设备</th>
+                                    <th>设定值</th>
+                                    <th>剩余值</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="hidden-xs">空压机启动延时(>=1)</td>
+                                    <td class="hidden-xs"><input type="text" name="title" autocomplete="off" class="layui-input" value="5" data-id="1"></td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td class="hidden-xs">空压机启加载延时(>=2)</td>
+                                    <td class="hidden-xs"><input type="text" name="title" autocomplete="off" class="layui-input" value="20" data-id="1"></td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td class="hidden-xs">空压机卸载延时(>=3)</td>
+                                    <td class="hidden-xs"><input type="text" name="title" autocomplete="off" class="layui-input" value="60" data-id="1"></td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td class="hidden-xs">空压机停机延时(>=300)</td>
+                                    <td class="hidden-xs"><input type="text" name="title" autocomplete="off" class="layui-input" value="300" data-id="1"></td>
+                                    <td>300</td>
+                                </tr>
+                                <tr>
+                                    <td class="hidden-xs">允许操作间隔(>=30)</td>
+                                    <td class="hidden-xs"><input type="text" name="title" autocomplete="off" class="layui-input" value="60" data-id="1"></td>
+                                    <td>0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--下一状态-->
+            <div class="layui-tab-item">
+                <div class="page-content-wrap">
+                    <div class="layui-form" id="table-list">
+                        <table class="layui-table"  lay-skin="line">
+                            <colgroup>
+                                <col>
+                                <col class="hidden-xs" width="200">
+                                <col class="hidden-xs" width="200">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>状态</th>
+                                    <th>值</th>
+                                    <th>显示</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="hidden-xs">启动</td>
+                                    <td class="hidden-xs">None</td>
+                                    <td style="width: 60px; height: 10px; background-color: #33CC33"></td>
+                                </tr>
+                                <tr>
+                                    <td class="hidden-xs">加载</td>
+                                    <td class="hidden-xs">None</td>
+                                    <td style="width: 60px; height: 10px; background-color: yellow"></td>
+                                </tr>
+                                <tr>
+                                    <td class="hidden-xs">卸载</td>
+                                    <td class="hidden-xs">C3</td>
+                                    <td style="width: 60px; height: 10px; background-color: red"></td>
+                                </tr>
+                                <tr>
+                                    <td class="hidden-xs">停机</td>
+                                    <td class="hidden-xs">C3</td>
+                                    <td style="width: 60px; height: 10px; background-color: #ccc"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+    <script>
+			//Demo
+			layui.use(['form', 'element'], function() {
+				var form = layui.form;
+				var element = layui.element;
+				form.render();
+				//监听信息提交
+				form.on('submit(siteInfo)', function(data) {
+					layer.msg(JSON.stringify(data.field));
+					return false;
+				});
+				//监听seo提交
+				form.on('submit(seoInfo)', function(data) {
+					layer.msg(JSON.stringify(data.field));
+					return false;
+				});
+				//监听seo提交
+				form.on('submit(emailInfo)', function(data) {
+					layer.msg(JSON.stringify(data.field));
+					return false;
+				});
+				//监听评论提交
+				form.on('submit(commentInfo)', function(data) {
+					layer.msg(JSON.stringify(data.field));
+					return false;
+				});
+			});
+    </script>
+</body>
+
+</html>

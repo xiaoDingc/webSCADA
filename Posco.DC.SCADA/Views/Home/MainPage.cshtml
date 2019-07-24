@@ -1,0 +1,140 @@
+﻿@model  IEnumerable<Model.SB_Page>
+  
+@*@using StackExchange.Profiling;*@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>MainPage</title>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <link href="~/Content/ListLayui/static/admin/myicon/myfont/iconfont.css" rel="stylesheet" />
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+    <script src="~/Content/ListLayui/static/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="~/Content/ListLayui/static/admin/js/main.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+        ul li{
+            color:white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-layout" id='main-layout'>
+        <!--侧边栏-->
+        <div class="main-layout-side" id="list">
+            <div class="m-logo">        
+            </div>
+            <ul class="layui-nav layui-nav-tree "  lay-filter="leftNav">
+                @foreach (var item in Model)
+                {
+                    if (item.ParentID == 0)
+                    {
+                    <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;" id="@item.ID" class="parentlist"data-id='@item.ID' data-url="@item.URL" data-text="@item.PageNameCN" URL="@item.URL"><i class="iconfont">@Html.Raw(item.IconClass)</i> @item.PageNameCN</a>
+                    @foreach (var subPage in Model)
+                    {
+                        if (item.ID == subPage.ParentID)
+                        {
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="@subPage.URL" data-id='@subPage.ID' data-text="@subPage.PageNameCN" class="childList">
+                                    <span class="l-line"></span>
+                                    @subPage.PageNameCN
+                                </a>
+                            </dd>
+                        </dl>
+                        }   
+                    }
+                </li>
+                    }                  
+                }
+            </ul>
+        </div>
+        <!--右侧内容-->
+        <div class="main-layout-container">
+            <!--头部-->
+            <div class="main-layout-header">
+                @*<div class="menu-btn" id="hideBtn"style="float:left">
+                    <a href="javascript:;">
+                        <span class="iconfont" id="iconlist">&#xe60e;</span>
+                    </a>
+                </div>*@
+                <ul class="layui-nav" lay-filter="rightNav">
+                    <li class="layui-nav-item"><a href="/Home/Index"style="color:black" id="jump" target="_blank">跳至大数据</a></li>
+                    <li class="layui-nav-item"><a href="#"style="color:black" data-url="/Warn/Index" data-id='40' data-text="警报系统"><i class="iconfont">&#xe70a;</i><span class="layui-bg-red" id="alert">@ViewBag.alarmCount</span></a></li>
+                    <li class="layui-nav-item">
+                        <a href="#" data-url="/Home/UserSingle"style="color:black" data-id='50'name="@ViewBag.userId" data-text="个人信息">@ViewBag.userInfo</a>
+                    </li>
+                    <li class="layui-nav-item"><a href="javascript:;"style="color:black"id="exit">退出</a></li>
+                </ul>
+            </div>
+            <!--主体内容-->
+            <div class="main-layout-body">
+                <!--tab 切换-->
+                <div class="layui-tab layui-tab-brief main-layout-tab" lay-filter="tab" lay-allowClose="true">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this welcome" id=""><a href="javascript:;"id="catelog" style="color:white">首页</a></li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <!--1-->
+                            <iframe src="/Home/Page" style="width:100%;height:100%" name="iframe" scrolling="auto" class="iframe" framborder="0"id="iframe"></iframe>
+                            <!--1end-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--遮罩-->
+        <div class="main-mask">
+
+        </div> 
+    </div>
+
+    @*@MiniProfiler.RenderIncludes();*@
+</body>
+</html>
+<script>
+    window.onresize = function () {
+        //$("#list").css({ "height": "100px", "width": "220px" });
+    }
+
+	layui.use('layer', function () {
+		layer = layui.layer;          
+	})
+        
+	//注销按钮退出点击事件
+	$("#exit").click(function () {
+
+		window.location.href = "/Login/Login?Number=1";
+	})
+
+	$("#exit1").click(function () {
+		var iframeObj = $(window.frameElement).attr('name');
+		console.log(iframeObj);
+	})
+	function getCookie(cookieName) {
+		var strCookie = document.cookie;
+		console.log(strCookie);
+		var arrCookie = strCookie.split("; ");
+		for (var i = 0; i < arrCookie.length; i++) {
+			var arr = arrCookie[i].split("=");
+			if (cookieName == arr[0]) {
+				return arr[1];
+			}
+		}
+		return "";
+	}
+	var user_id = getCookie("UserName");//拿到名字为uid的cookie值
+	console.log(user_id);
+</script>

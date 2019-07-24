@@ -1,0 +1,486 @@
+﻿@model Model.VO.AuthorityPage_VO
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ConfigPre</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+    <script src="~/Content/ListLayui/static/admin/js/common.js"></script>
+ 
+  
+</head>
+<body>
+    <div>
+        <div style="margin:0px 7px 2px 10px">
+            <h2>系统角色名称 <button type="button" class="btn btn-success addbtn" style="margin-left:20px;">新增角色</button></h2>
+        </div>
+        <div>
+            <div class="col-lg-2">
+                <div class="list-group" id="roleList">
+                    @foreach (var item in Model.SysRole)
+                    {
+                        <a href="javascript:void(0);" class="list-group-item addRole" name="@item.Name" id="@item.ID">
+                            <i class="fa fa-key"></i> @item.Name
+                        </a>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="panel panel-default">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a href="javascript:void(0):" class="RoleModi">
+                                    角色修改
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="input">
+                            <input type="text" value="" disabled id="disabled" nameid=""style="margin:10px 7px 7px 10px" />
+                            <input type="button" id="up" name=""disabled value="修改"/>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a href="javascript:void(0):" class="RoleUserm">
+                                    角色拥有人员
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="ifrmeid">
+                            <div class="demoTable">
+                                搜索账号：
+                                <div class="layui-inline">
+                                    <input class="layui-input" name="Id" id="UserReload" autocomplete="off" placeholder="输入账号" />
+                                </div>
+                                <button class="layui-btn" data-type="reload" id="layui-btn">搜索</button>
+                                <div class="tt" style="float:right">
+                                    <button class="layui-btn layui-btn-normal" id="User" data-id="0" data-url="/Home/AddUserLayer">添加人员</button>
+                                </div>
+                            </div>
+                            <table class="layui-hide" id="test" lay-filter="test"></table>
+                         
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a href="javascript:void(0):" class="RoleRolem">
+                                    角色拥有权限
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="ifrmeid1">
+                            <div class="demoTable1">
+                                搜索账号：
+                                <div class="layui-inline">
+                                    <input class="layui-input" name="Id" id="RoleReload" autocomplete="off" placeholder="输入权限名" />
+                                </div>
+                                <button class="layui-btn" data-type="reload" id="layui-btn1">搜索</button>
+                                <div class="tt" style="float:right">
+                                    <button class="layui-btn layui-btn-normal" id="Role" data-id="1" data-url="/Home/AddPageLayer">添加权限</button>
+                                </div>
+                            </div>
+                            <table class="layui-hide" id="test1" lay-filter="test1"></table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" data-url="/BackManage/UserModiInfo" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" data-url="/Home/AjaxDelete" lay-event="del">删除</a>
+    </script>
+    <script type="text/html" id="barDemo1">
+        <a class="layui-btn layui-btn-xs" data-url="/BackManage/UserModiInfo" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" data-url="/Home/AjaxRoleDelete" lay-event="del">删除</a>
+    </script>
+</body>
+</html>
+<script>
+    layui.use(['table', 'layer'], function () {
+
+        var table = layui.table;
+        var layer = layui.layer;
+        //角色ID
+        var RoleUser = 0;
+        var list = "";
+        $(".demoTable").hide();
+        $(".demoTable1").hide();
+        
+        //选择角色
+        $(".addRole").click(function () {
+            var That = $(this);
+            $("#disabled").val(That.attr("name"));
+            $("#disabled").removeAttr("disabled");
+            $("#disabled").attr("nameid", That.attr("id"));
+            $("#up").removeAttr("disabled");
+            $("#up").attr("name", That.attr("name"));
+            RoleUser = That.attr("id");
+            $(".demoTable").show();
+            $(".demoTable1").show();
+            //角色人员表
+            list = {
+                elem: '#test',
+                url: '/Home/ConfigPreRoleUser?Roleid=' + RoleUser,
+                toolbar: '#toolbarDemo',
+                cellMinWidth: 80,
+                cols: [[
+                    { field: 'Name', title: '姓名', sort: true },
+                    { field: 'Account', title: '账号', sort: true },
+                    { field: 'AllRole', title: '角色', sort: true },
+                   { fixed: 'right', title: '操作', toolbar: '#barDemo' }
+                ]],
+                id: 'testReload',
+                page: true
+            };
+            //角色权限表
+            list1 = {
+                elem: '#test1',
+                url: '/Home/ConfigPreRolePage?Roleid=' + RoleUser,
+                toolbar: '#toolbarDemo',
+                cellMinWidth: 80,
+                cols: [[
+                    { field: 'rolename', title: '角色名', sort: true },
+                    { field: 'pagename', title: '权限名', sort: true },
+                    { field: 'pageid', title: '权限Id', sort: true, hide: true },
+                     { field: 'parentid', title: '权限父Id', sort: true, hide: true },
+                   { fixed: 'right', title: '操作', toolbar: '#barDemo1' }
+                ]],
+                id: 'testReload1',
+                page: true
+            }
+            //渲染表格
+            var table1=table.render(list);
+           var table2= table.render(list1);
+            table.on('tool(test)', function (obj) {
+                var data = obj.data;
+
+                if (obj.event === 'del') {
+                    var id = $("#disabled").attr("nameid");
+                    var account = data.Account;
+                    var url = $(this).attr('data-url');
+                    layer.confirm('真的删除行么',{
+                        btn:["确定","取消"]
+                    },
+                        function (index, layero) {
+                        $.ajax({
+                            url: url,
+                            type: "GET",
+                            data: { roleid: id ,uaccount:account},
+                            success: function (data) {
+                                if (data > 0) {
+                                    layer.msg("删除成功");
+                                    obj.del();
+                                    layer.close(index);
+                                }
+                            }
+
+                        })
+                        layer.close(index);
+                    });
+                } else if (obj.event === 'edit') {
+                    console.log(data);
+                    //获取当前iframe的name值
+                    var iframeObj = $(window.frameElement).attr('name');
+                    var iframe = $(window.frameElement);
+                    console.log(iframe);
+                    console.log(iframeObj);
+                    var id = data.ID;
+                    var url = $(this).attr('data-url');
+                    page("编辑用户", url + "?uid=" + id, iframeObj, w = "700px", h = "620px");
+                }
+            });
+            table.on('tool(test1)', function (obj) {
+                var data = obj.data;
+
+                if (obj.event === 'del') {
+                    var id = $("#disabled").attr("nameid");
+                    var pageID = data.pageid;
+                    var parentID = data.parentid;
+                    var url = $(this).attr('data-url');
+                    var tip = "";
+                    if (parentID == 0) {
+                        tip = "此权限为主权限，删除会将其子权限一并删除，确定删除吗";
+                    }
+                    else {
+                        tip="确定删除行吗"
+                    }
+                    layer.confirm(tip, {
+                        btn: ["确定", "取消"]
+                    },
+                        function (index, layero) {
+                            $.ajax({
+                                url: url,
+                                type: "GET",
+                                data: { roleid: id, pageId: pageID,parentId:parentID},
+                                success: function (data) {
+                                    if (data >1) {
+                                        layer.msg("删除成功");
+                                        layer.close(index);
+                                        table.render({
+                                            elem: '#test1',
+                                            url: '/Home/ConfigPreRolePage?Roleid=' + id,
+                                            toolbar: '#toolbarDemo',
+                                            cellMinWidth: 80,
+                                            cols: [[
+                                                { field: 'rolename', title: '角色名', sort: true },
+                                                { field: 'pagename', title: '权限名', sort: true },
+                                                { field: 'pageid', title: '权限Id', sort: true, hide: true },
+                                                 { field: 'parentid', title: '权限父Id', sort: true, hide: true },
+                                               { fixed: 'right', title: '操作', toolbar: '#barDemo1' }
+                                            ]],
+                                            id: 'testReload1',
+                                            page: true
+                                        })
+                                    }
+                                    else {
+                                        layer.msg("删除成功");
+                                        obj.del();
+                                        layer.close(index);
+                                    }
+                                }
+                            })
+                            layer.close(index);
+                        });
+                } else if (obj.event === 'edit') {
+                    console.log(data);
+                    //获取当前iframe的name值
+                    var iframeObj = $(window.frameElement).attr('name');
+                    var iframe = $(window.frameElement);
+                    console.log(iframe);
+                    console.log(iframeObj);
+                    var id = data.ID;
+                    var url = $(this).attr('data-url');
+                    page("编辑用户", url + "?uid=" + id, iframeObj, w = "700px", h = "620px");
+                }
+            });
+            //人员表
+            active = {
+                reload: function () {
+                    var UserReload = $('#UserReload').val();
+                    //执行重载
+                    table.reload('testReload', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            account: UserReload,
+                        }
+                    });
+                }
+            };
+            //权限表
+            active1 = {
+                reload: function () {
+                    var RoleReload = $('#RoleReload').val();
+                    //执行重载
+                    table.reload('testReload1', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            showname: RoleReload,
+                        }
+                    });
+                }
+            }
+            //搜索人员表
+            $('.demoTable #layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+            //搜索权限表
+            $('.demoTable1 #layui-btn1').on('click', function () {
+                var type = $(this).data('type');
+                active1[type] ? active1[type].call(this) : '';
+            });
+           
+        })
+        //添加人员表
+        $('.demoTable #User').on('click', function () {
+            var That = $(this);
+            var roleid = $("#disabled").attr("nameid");
+            var id = That.attr('data-id');
+            var url = That.attr('data-url');
+            var iframeObj = $(window.frameElement).attr('name');
+            console.log("人员" + iframeObj);
+            layer.open({
+                type: 2,
+                title: "添加",
+                area: ["700px", "500px"],
+                shade: 0.3,
+                closeBtn: 1,
+                content: url + "?id=" + roleid,
+                end: function () {
+                    table.render({
+
+                        elem: '#test',
+                        url: '/Home/ConfigPreRoleUser?Roleid=' + roleid,
+                        toolbar: '#toolbarDemo',
+                        cellMinWidth: 80,
+                        cols: [[
+                            { field: 'Name', title: '姓名', sort: true },
+                            { field: 'Account', title: '账号', sort: true },
+                            { field: 'AllRole', title: '角色', sort: true },
+                           { fixed: 'right', title: '操作', toolbar: '#barDemo' }
+                        ]],
+                        id: 'testReload',
+                        page: true
+                    })
+                }
+            })
+        })
+        //添加权限表
+        $('.demoTable1 #Role').on('click', function () {
+            var That = $(this);
+            var roleid = $("#disabled").attr("nameid");
+            var id = That.attr('data-id');
+            var url = That.attr('data-url');
+            var iframeObj = $(window.frameElement).attr('name');
+            console.log("quanxian" + iframeObj);
+            layer.open({
+                type: 2,
+                title: "添加权限",
+                area: ["700px", "500px"],
+                shade: 0.3,
+                closeBtn: 1,
+                content: url + "?roleid=" + roleid,
+                end: function () {
+                    table.render({
+                        elem: '#test1',
+                        url: '/Home/ConfigPreRolePage?Roleid=' + roleid,
+                        toolbar: '#toolbarDemo',
+                        cellMinWidth: 80,
+                        cols: [[
+                            { field: 'rolename', title: '角色名', sort: true },
+                            { field: 'pagename', title: '权限名', sort: true },
+                            { field: 'pageid', title: '权限Id', sort: true, hide: true },
+                             { field: 'parentid', title: '权限父Id', sort: true, hide: true },
+                           { fixed: 'right', title: '操作', toolbar: '#barDemo1' }
+                        ]],
+                        id: 'testReload1',
+                        page: true
+                    })
+                }
+            })
+        })
+
+        //点击修改
+        $("#up").click(function () {
+            //修改后的角色名
+            var nowvalue = $("#disabled").val();
+            //原有角色名
+            var beforvalue = $(this).attr("name");
+            if (nowvalue == "") {
+                layer.msg("不可为空", {
+                    btn: ["关闭"],
+                    shade: 0.3,
+                    time:1000000
+                });
+            }
+            if (nowvalue == beforvalue) {
+                layer.msg("请确认已修改角色名称", {
+                    btn: ["关闭"],
+                    shade: 0.3,
+                    time:100000
+                });
+            }
+            else {
+               var update= layer.confirm("确认是否修改", {
+                    btn: ["确认", "取消"],
+                }, function () {
+                    $.ajax({
+                        type: "GET",
+                        url: "/Home/RoleModiInfo",
+                        data: { str: beforvalue, newstr: nowvalue },
+                        success: function (data) {
+                            layer.msg("修改成功", {
+                                time: 1000
+                            }, function () {
+                                window.location.reload();//刷新父页面
+                                //关闭弹窗
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(index); //关闭当前页 					
+                            });
+                        }
+                    })
+                }, function () {
+                    $("#disabled").val(beforvalue);
+                    //关闭弹窗
+                    parent.layer.close(update);  		
+                })
+            }
+        })
+       
+        $(".RoleModi").click(function () {
+            $(".input").toggle();
+        })
+        $(".RoleUserm").click(function () {
+            $(".ifrmeid").toggle(); 
+        })
+        $(".RoleRolem").click(function () {
+            $(".ifrmeid1").toggle();
+        })
+        function validlength(bb){
+            if (bb.length > 20) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        $(".addbtn").click(function () {
+
+            layer.open({
+                type: 1,
+                title: "添加新角色",
+                btn: ["确定", "取消"],
+                shade: 0.3,
+                area: ["300px", "200px"],
+                offset:'50px',
+                content: ' <div>添加先角色<input type="text" maxlength="20"id="childadd"/></div>',
+                yes: function (index, layero) {
+                    var c = $("#childadd").val();
+                    if (c.length > 0) {
+                        $.ajax({
+                            type: "GET",
+                            url: "/Home/RoleList",
+                            data: { str: c },
+                            success: function (data) {
+                                layer.msg("添加成功", {
+                                    time:2000
+                                });
+                                window.location.reload();//刷新父页面
+                                //关闭弹窗
+                                //var index = parent.layer.getFrameIndex(window.name);
+                                layer.close(index); //关闭当前页 
+                            }
+                        })
+                    }
+                    else {
+                        layer.msg("不可为空", {
+                            time:2000
+                        });
+                    }
+                   
+                }
+            })
+        })
+        
+    })
+
+</script>

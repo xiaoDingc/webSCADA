@@ -1,0 +1,195 @@
+﻿@model Model.Split.Splitpage
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PageSplit</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/ListLayui/static/admin/layui/lay/modules/layer.js"></script>
+</head>
+<body>
+        <div>
+            <div>
+                <h4><button class="btn btn-success" id="btnAdd" btnroleid="@Model.RoleId">添加人员</button></h4>
+                    
+                    <form>
+                        <label>显示</label>
+                        <select name="cars" id="sel">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <label>项结果</label>
+                    </form>
+
+                <table class="table table-striped" border="1">
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>账号</th>
+                            <th>所在角色</th>
+                            <th>操作</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                       @*@foreach(var item in Model.userList)
+                       {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.</td>
+                            <td>@item.</td>
+                            <td>修改</td>
+                        </tr>
+                       }*@
+                        @for(int i = 0; i < Model.UserList.Count; i++)
+                        {
+                            <tr>
+                                <td>@Model.UserList[i].Name</td>
+                                <td>@Model.UserList[i].Account</td>
+                                <td>
+                                    @foreach (var item in Model.RoleList[i])
+                                {
+                                    @item
+                                }
+                            </td>
+
+                                
+                                <td><a href="#" class="add"roleid="@Model.RoleId" userid="@Model.UserList[i].ID"name="@Model.UserList[i].Name">添加到</a>||<a href="#" class="delete"roleid="@Model.RoleId" userid="@Model.UserList[i].ID"name="@Model.UserList[i].Name">删除</a></td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="row" style="margin: 10px 0 0 0">
+                
+                <div>
+                    <ul class="pagination">
+                        <li><a href="#">@Model.PageSplit.TotalRecord/@Model.PageSplit.TotalPage</a></li>
+                        <li>@Html.ActionLink("<<", Model.PageSplit.ActionName, Model.PageSplit.ControllerName, new { pageindex = 1,RoleID=Model.RoleId }, new { })</li>
+                        <li>@Html.ActionLink("<", Model.PageSplit.ActionName, Model.PageSplit.ControllerName, new { pageindex = Model.PageSplit.PageIndex - 1, RoleID = Model.RoleId }, new { })</li>
+                        @for (var i = 1; i <= Model.PageSplit.TotalPage; i++)
+                        {
+
+                            <li>@Html.ActionLink(i.ToString(), Model.PageSplit.ActionName, Model.PageSplit.ControllerName, new { pageindex = i , RoleID = Model.RoleId },new { })</li>
+                        }
+                        <li>@Html.ActionLink(">", Model.PageSplit.ActionName, Model.PageSplit.ControllerName, new { pageindex = 1, RoleID = Model.RoleId }, new { })</li>
+                        <li>@Html.ActionLink(">>", Model.PageSplit.ActionName, Model.PageSplit.ControllerName, new { pageindex = Model.PageSplit.TotalPage, RoleID = Model.RoleId }, new { })</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
+<script>
+  
+    $("#sel").val(@Model.PageSize);
+    $(".pagination li").each(function (index, item) {
+
+        if ($(item).children().html() == "@Model.PageSplit.PageIndex") {
+            $(item).addClass("active");
+            if(@Model.PageSplit.PageIndex==1){             
+                $(item).addClass("disabled");
+                $(item).prev().addClass("disabled")
+            }
+            else if("@Model.PageSplit.PageIndex"=="@Model.PageSplit.TotalPage"){
+                $(item).addClass("disabled");
+                $(item).next().addClass("disabled");
+            }         
+        }
+    })
+    //$("#btnAdd").click(function(){
+    //    layer.open({
+    //        type:2,
+    //        area:["400px","300px"],
+    //        shadeClose:true,
+    //        title:"该角色未绑定人员",
+    //        content:"/Home/AddUserLayer/?roleid="+$(this).attr("btnroleid")
+    //    })
+    //})
+    //选择分页一页数量改变事件
+    $("#sel").change(function(){
+  
+        window.location.href="/Home/PageSplit?RoleID="+$("#btnAdd").val()+"&pageSize="+$(this).val();
+        
+    })
+    //添加到点击事件
+    $(".add").click(function(){
+        var usertrans=$(this).attr("userid");
+        layer.open({
+            type:2,
+            area: ['600px', '300px'],
+            shadeClose: true, //点击遮罩关闭
+            title:"该人员未绑定的角色选择",
+            skin:'layui-layer-lan',
+            content: "/Home/addRoleUserByAuthority?roleid="+$(this).attr("roleid")+"&userid="+$(this).attr("userid"),           
+            success:function(layero, index){
+                var body = layer.getChildFrame('body', index);
+                var iframeWin = window[layero.find('iframe')[0]['name']]; 
+                body.find("#btnaddrole").click(function(){
+                    var arr = [];
+                    var arr1 = $(":checked");
+                    $.each(arr1, function (index, item) {
+                        arr.push($(item).val());
+                    })
+                    var jsonstr = JSON.stringify(arr);
+                    $.ajax({
+                        url:"/Home/ajaxAdd",
+                        type:"GET",
+                        data:{str:jsonstr,user:usertrans},
+                        success:function(data){
+                            if(data=1){
+                                layer.close(index);
+                            }
+                        }                            
+                    })                   
+                })
+
+            }
+        })
+
+    })
+    //删除事件点击
+    $(".delete").click(function(){
+        var name=$(this).attr("name");
+        var role=$(this).attr("roleid");
+        var user=$(this).attr("userid");
+        layer.confirm("是否删除"+name,{
+            btn: ['是', '否'],
+            skin:'layui-layer-lan'
+        },function(){
+            $.ajax({
+            url:"/Home/ajaxDelete",
+                type:"GET",
+                data:{roleid:role,userid:user},
+                success:function(data){
+                    if (data== "1") {
+                        layer.alert("保存成功", {
+                            skin: 'layui-layer-lan'
+                           
+                        })
+                        window.location.reload();
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                       
+                    }
+                }
+
+            })
+        }
+        )
+    
+    })
+</script>

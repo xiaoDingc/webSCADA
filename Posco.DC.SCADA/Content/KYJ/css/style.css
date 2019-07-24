@@ -1,0 +1,209 @@
+﻿@charset "utf-8";
+/* 能效智能系统标题CSS */
+
+@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
+    .masked {
+        background-image: -webkit-linear-gradient(left, #0ee5ff, #0e84ff 25%, #0ee5ff 50%, #0e84ff 75%, #0ee5ff);
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -webkit-background-size: 200% 100%;
+        -webkit-animation: masked-animation 0.8s infinite linear;
+    }
+
+    .masked1 {
+        background-image: -webkit-linear-gradient(left, #0ee5ff, #f4ab20 50%, #0ee5ff 50%, #f4ab20 100%, #0ee5ff);
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -webkit-background-size: 200% 100%;
+        -webkit-animation: masked-animation 3s infinite linear;
+       
+    }
+
+    .masked2 {
+        background-image: -webkit-linear-gradient(left, #0ee5ff, #f4ab20 50%, #0ee5ff 50%, #f4ab20 100%, #0ee5ff);
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -webkit-background-size: 200% 100%;
+        -webkit-animation: masked-animation 3s infinite linear;
+    }
+}
+
+@-webkit-keyframes masked-animation {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: -100% 0;
+    }
+}
+
+@-moz-keyframes rotate {
+    100% {
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes rotate {
+    100% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.xzright {
+    -webkit-transform: rotateZ(-360deg);
+    -moz-transform: rotateZ(-360deg);
+    -o-transform: rotateZ(-360deg);
+    -ms-transform: rotateZ(-360deg);
+    transform: rotateZ(-360deg);
+}
+
+.xzleft {
+    -webkit-transform: rotateZ(720deg);
+    -moz-transform: rotateZ(720deg);
+    -o-transform: rotateZ(720deg);
+    -ms-transform: rotateZ(720deg);
+    transform: rotateZ(720deg);
+}
+
+.value {
+    /*width: 200px;*/
+    width:200px;
+    height: 115px;
+    float: left;
+    z-index: 7;
+}
+
+.value-k {
+    width:115px;
+    height: 115px;
+    position: relative; /*绝对定位*/
+    bottom: 30px;
+}
+
+.value-k .valuexz1 {
+    width: 115px;
+    height: 115px;
+    position: absolute; /*绝对定位*/
+    top: 0px;
+    left: 0px;
+    z-index: 8;
+    filter: alpha(opacity=50); /*支持 IE 浏览器*/
+    -moz-opacity: 0.50; /*支持 FireFox 浏览器*/
+    opacity: 0.50; /*支持 Chrome, Opera, Safari 等浏览器*/
+    background: no-repeat url("../images/gif-7-1.png") left top;
+    -webkit-background-size: 125px 62px;
+    -moz-background-size: 125px 62px;
+    background-size:115px 115px;
+    -webkit-border-radius: 62px;
+    border-radius: 62px;
+    -moz-transition: all .2s;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+    -moz-animation: rotate 2s infinite linear;
+    -webkit-animation: rotate 2s infinite linear;
+    animation: rotate 2s infinite linear;
+}
+
+.value-k .valuexz2 {
+    width: 100px;
+    height: 100px;
+    position: absolute; /*绝对定位*/
+    top: 0px;
+    left: 0px;
+    z-index: 9;
+    filter: alpha(opacity=70); /*支持 IE 浏览器*/
+    -moz-opacity: 0.70; /*支持 FireFox 浏览器*/
+    opacity: 0.70; /*支持 Chrome, Opera, Safari 等浏览器*/
+    background: no-repeat url("../images/gif-7-2.png") left top;
+    -webkit-background-size: 125px 62px;
+    -moz-background-size: 125px 62px;
+    background-size: 125px 125px;
+    -webkit-border-radius: 62px;
+    border-radius: 62px;
+    -moz-transition: all .3s;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    -moz-animation: rotate 3s infinite linear;
+    -webkit-animation: rotate 3s infinite linear;
+    animation: rotate 3s infinite linear;
+}
+
+.value-k .valuexz3 {
+    width: 125px;
+    height: 125px;
+    position: absolute; /*绝对定位*/
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    filter: alpha(opacity=50); /*支持 IE 浏览器*/
+    -moz-opacity: 0.50; /*支持 FireFox 浏览器*/
+    opacity: 0.50; /*支持 Chrome, Opera, Safari 等浏览器*/
+    background: no-repeat url("../images/gif-7-3.png") left top;
+    -webkit-background-size: 125px 62px;
+    -moz-background-size: 125px 62px;
+    background-size: 125px 125px;
+    -webkit-border-radius: 62px;
+    border-radius: 62px;
+    -moz-transition: all .0.5s;
+    -webkit-transition: all .0.5s;
+    transition: all .0.5s;
+    -moz-animation: rotate 0.5s infinite linear;
+    -webkit-animation: rotate 0.5s infinite linear;
+    animation: rotate 0.5s infinite linear;
+}
+
+.value-k .valuezt1 {
+    width: 115px;
+    height: 40px;
+    padding-top: 20px;
+    margin: 35px auto 0 auto;
+    color: #00e4ff;
+    opacity: 0.8;
+    font-size:16px;
+    text-align: center;
+}
+.energysize{
+    font-size:26px;
+    margin-top:-13px;
+}
+.energymargin{
+    margin-top:0px;
+     font-size:15px;
+}
+.value-k .valuezt2 {
+    width: 115px;
+    height: 50px;
+    color: #fc9004;
+    opacity: 0.88;
+    font-weight: bold;
+    font: 'ds-digitalbold';
+    text-align: center;
+}
+
+.title_top{
+    width: 1990px;
+}
+
+.title-top-con {
+    position: absolute;
+    letter-spacing: 6px;
+}

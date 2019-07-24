@@ -1,0 +1,397 @@
+﻿@model Model.AP_PressDesign_Conclusion
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>压力设定列表</title>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+    <script src="~/Content/ListLayui/static/admin/js/common.js"></script>
+    <style>
+        .numTitle {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+           background-color:#2f3545;
+           color:white;
+            border:1px solid white;
+
+        }
+         .numTitle1 {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+           background-color:#f25c66;
+            border:1px solid white;
+        }
+           .numTitle3{
+             width: 30px;
+            height: 30px;
+             text-align: center;
+             border:1px solid white;
+             background-color:#eaeaec;
+        }
+           .numTitle2{
+             width: 30px;
+            height: 30px;
+             text-align: center;
+             border:1px solid white;
+             background-color:whitesmoke;
+        }
+        .pressTitle {
+            width: 90px;
+            height: 30px;
+            text-align: center;
+           background-color:#2f3545;
+           color:white;
+            border:1px solid white;
+        }
+         .pressTitle1 {
+            width: 90px;
+            height: 30px;
+            text-align: center;
+           background-color:#eaeaec;
+           color:black;
+            border:1px solid white;
+        }
+        .timeTitle{
+             width: 30px;
+            height: 155px;
+            text-align: center;
+            border:1px solid white;
+            background-color:#2f3545;
+           color:#f25c66;
+        }
+        .col-center-block {
+            float: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-tab page-content-wrap">
+        <ul class="layui-tab-title">
+            <li class="layui-this">压力设定实时记录</li>
+            <li>压力设定历史记录</li>
+        </ul>
+        <div class="layui-tab-content">
+            <input type="hidden" id="hidesort" value="@ViewBag.Sort" />
+            <input type="hidden" id="hidestr" value="@ViewBag.str" />
+            <input type="hidden" id="hidetime" value="@ViewBag.time" />
+            <input type="hidden" id="hideupi" value="@ViewBag.upi" />
+            <div class="layui-tab-item layui-show">
+                <div style="float:left">
+                    <table border="0" id="table0">
+                        <tr>
+                            <td class="timeTitle" id="time"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="float:left">
+                    <table border="0" id="table1">
+                        <thead>
+                            <tr>
+                                <th class="pressTitle"></th>
+                                <th class="pressTitle">启动压力设定</th>
+                                <th class="numTitle">1</th>
+                                <th class="numTitle">2</th>
+                                <th class="numTitle">3</th>
+                                <th class="numTitle">4</th>
+                                <th class="numTitle">5</th>
+                                <th class="numTitle">6</th>
+                                <th class="pressTitle">启动压力设定</th>
+                                <th class="numTitle">1</th>
+                                <th class="numTitle">2</th>
+                                <th class="numTitle">3</th>
+                                <th class="numTitle">4</th>
+                                <th class="numTitle">5</th>
+                                <th class="numTitle">6</th>
+                                <th class="pressTitle">启动压力设定</th>
+                                <th class="numTitle">1</th>
+                                <th class="numTitle">2</th>
+                                <th class="numTitle">3</th>
+                                <th class="numTitle">4</th>
+                                <th class="numTitle">5</th>
+                                <th class="numTitle">6</th>
+                                <th class="pressTitle">启动压力设定</th>
+                                <th class="numTitle">1</th>
+                                <th class="numTitle">2</th>
+                                <th class="numTitle">3</th>
+                                <th class="numTitle">4</th>
+                                <th class="numTitle">5</th>
+                                <th class="numTitle">6</th>
+                                <th class="numTitle">7</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablebody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="layui-tab-item">
+                <div style="float:right">
+                    <button class="layui-btn" id="refresh">刷新</button>
+                </div>
+                <iframe src="/IntgerControl/PressDesignConList" frameborder="0" id="child"></iframe>
+            </div>
+        </div>
+        </div>
+        
+</body>
+</html>
+<script>
+    layui.use('layer', function () {
+        var layer = layui.layer;
+        let sort = JSON.parse($("#hidesort").val());
+        let str = JSON.parse($("#hidestr").val());
+        console.log(sort);
+        console.log(str);
+        let time = JSON.parse($("#hidetime").val());
+        let upi = JSON.parse($("#hideupi").val());
+        $("#time").html(time+"</br>upi:"+upi);
+        var strhtml1 = '';
+        for (var i = 0; i < 4; i++) {
+            //基础负载
+            strhtml1 += '<tr><td class="pressTitle">' + str[i] + '</td>';
+            var count = 0;
+            //空压站1
+            if (sort[count][i] > 0) {
+                strhtml1 += '<td class="pressTitle1">' + sort[count][i] + '</td>';
+            }
+            else {
+                strhtml1 += '<td class="pressTitle1"></td>';
+            }
+            $.each(sort[count+4], function (index, item) {
+                if (item == sort[count][i]&&item!=0) {
+                    strhtml1 += '<td class="numTitle1"></td>';
+                  
+                }
+                else {
+                    if (i % 2 == 0) {
+                        strhtml1 += '<td class="numTitle2"></td>';
+                    }
+                    else {
+                        strhtml1 += '<td class="numTitle3"></td>';
+                    }
+                }
+            })
+            count += 1;
+            //空压站2
+            if (sort[count][i] > 0) {
+                strhtml1 += '<td class="pressTitle1">' + sort[count][i] + '</td>';
+            }
+            else {
+                strhtml1 += '<td class="pressTitle1"></td>';
+            }
+
+            $.each(sort[count + 4], function (index, item) {
+                if (item == sort[count][i] && item != 0) {
+                    strhtml1 += '<td class="numTitle1"></td>';
+                   
+                }
+                else {
+                    if (i % 2 == 0) {
+                        strhtml1 += '<td class="numTitle2"></td>';
+                    }
+                    else {
+                        strhtml1 += '<td class="numTitle3"></td>';
+                    }
+                }
+            })
+            count += 1;
+            //空压站3
+            if (sort[count][i] > 0) {
+                strhtml1 += '<td class="pressTitle1">' + sort[count][i] + '</td>';
+            }
+            else {
+                strhtml1 += '<td class="pressTitle1"></td>';
+            }
+            $.each(sort[count + 4], function (index, item) {
+                if (item == sort[count][i] && item != 0) {
+                    strhtml1 += '<td class="numTitle1"></td>';
+                }
+                else {
+                    if (i % 2 == 0) {
+                        strhtml1 += '<td class="numTitle2"></td>';
+                    }
+                    else {
+                        strhtml1 += '<td class="numTitle3"></td>';
+                    }
+                }
+            })
+            count += 1;
+            //空压站4
+            if (sort[count][i] > 0) {
+                strhtml1 += '<td class="pressTitle1">' + sort[count][i] + '</td>';
+            }
+            else {
+                strhtml1 += '<td class="pressTitle1"></td>';
+            }
+            $.each(sort[count + 4], function (index, item) {
+                if (item == sort[count][i] && item != 0) {
+                    strhtml1 += '<td class="numTitle1"></td>';
+                }
+                else {
+                    if (i % 2 == 0) {
+                        strhtml1 += '<td class="numTitle2"></td>';
+                    }
+                    else {
+                        strhtml1 += '<td class="numTitle3"></td>';
+                    }
+                }
+            })
+            strhtml1 += '</tr>';
+        }
+        $("#tablebody").append(strhtml1);
+        function SixRefresh() {
+            $.ajax({
+                type: "GET",
+                url: "/IntgerControl/SixSecond",
+                success: function (data) {
+                    if (data.mess == "有") {
+                        let sort = data.value;
+                        console.log(sort);
+                       
+                        let str = data.str;
+                        console.log(str);
+                        let time = data.time;
+                        let upi = data.upi;
+                        $("#time").html(time+"</br>upi:"+upi);
+                        $("#tablebody").empty();
+                        var strhtml = '';
+                        for (var i = 0; i < 4; i++) {
+                            //基础负载
+                            strhtml += '<tr><td class="pressTitle">' + str[i] + '</td>';
+                            var count = 0;
+                            //空压站1
+                            if (sort[count][i] > 0) {
+                                strhtml += '<td class="pressTitle1">' + sort[count][i] + '</td>';
+                            }
+                            else {
+                                strhtml += '<td class="pressTitle1"></td>';
+                            }
+                            $.each(sort[count + 4], function (index, item) {
+                                if (item == sort[count][i]&&item!=0) {
+                                    strhtml += '<td class="numTitle1"></td>';
+                                }
+                                else {
+                                    if (i % 2 == 0) {
+                                        strhtml += '<td class="numTitle2"></td>';
+                                    }
+                                    else {
+                                        strhtml += '<td class="numTitle3"></td>';
+                                    }
+                                }
+                            })
+                            count += 1;
+                            //空压站2
+                            if (sort[count][i] > 0) {
+                                strhtml += '<td class="pressTitle1">' + sort[count][i] + '</td>';
+                            }
+                            else {
+                                strhtml += '<td class="pressTitle1"></td>';
+                            }
+                            $.each(sort[count + 4], function (index, item) {
+                                if (item == sort[count][i] && item != 0) {
+                                    strhtml += '<td class="numTitle1"></td>';
+                                }
+                                else {
+                                    if (i % 2 == 0) {
+                                        strhtml += '<td class="numTitle2"></td>';
+                                    }
+                                    else {
+                                        strhtml += '<td class="numTitle3"></td>';
+                                    }
+                                }
+                            })
+                            count += 1;
+                            //空压站3
+                            if (sort[count][i] > 0) {
+                                strhtml += '<td class="pressTitle1">' + sort[count][i] + '</td>';
+                            }
+                            else {
+                                strhtml += '<td class="pressTitle1"></td>';
+                            }
+                            $.each(sort[count + 4], function (index, item) {
+                                if (item == sort[count][i] && item != 0) {
+                                    strhtml += '<td class="numTitle1"></td>';
+                                }
+                                else {
+                                    if (i % 2 == 0) {
+                                        strhtml += '<td class="numTitle2"></td>';
+                                    }
+                                    else {
+                                        strhtml += '<td class="numTitle3"></td>';
+                                    }
+                                }
+                            })
+                            count += 1;
+                            //空压站4
+                            if (sort[count][i] > 0) {
+                                strhtml += '<td class="pressTitle1">' + sort[count][i] + '</td>';
+                            }
+                            else {
+                                strhtml += '<td class="pressTitle1"></td>';
+                            }
+                            $.each(sort[count + 4], function (index, item) {
+                                if (item == sort[count][i] && item != 0) {
+                                    strhtml += '<td class="numTitle1"></td>';
+                                }
+                                else {
+                                    if (i % 2 == 0) {
+                                        strhtml += '<td class="numTitle2"></td>';
+                                    }
+                                    else {
+                                        strhtml += '<td class="numTitle3"></td>';
+                                    }
+                                }
+                            })
+                            strhtml += '</tr>';
+                        }
+                        $("#tablebody").append(strhtml);
+                    }
+                }
+            })
+        }
+        setInterval(SixRefresh, 1000 * 6);
+        $("#refresh").on('click', function () {
+            //获取frame
+            var cana = document.getElementById("child");
+            //变成空白
+            cana.style.display = "none"
+            var index = layer.load(1, {
+                shade: [0.1, '#fff'] //0.1透明度的白色背景
+            });
+            $("#child").attr("src", "/IntgerControl/PressDesignConList");
+            cana.onload = function () {
+                layer.close(index);
+                cana.style.display = "block";
+            }
+
+        })
+        function changeFrameArea() {
+            var height = $(document).height();
+            var width = $(document).width();
+            $("#child").innerWidth(width-40);
+            $("#child").innerHeight(height-145);
+        }
+        window.onload = function () {
+            changeFrameArea();
+        };
+        window.onresize = function () {
+            changeFrameArea();
+        }
+    })
+</script>

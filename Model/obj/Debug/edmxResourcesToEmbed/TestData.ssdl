@@ -1,0 +1,1196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestLWSCADAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AP_AdsorptionDryer_History">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="StationID" Type="char" MaxLength="4" />
+    <Property Name="EquipID" Type="char" MaxLength="4" />
+    <Property Name="Run" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDryer_CondPre" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDryer_EvapPre" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDryer_InletPre" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDryer_OutPre" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_InOutValue" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_YSJ_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_JRQ_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_INT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_OutT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_LeakT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_ATowerT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_BTowerT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_HeatTowerMidT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_HeatTowerOutT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_DewPoint" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Loss_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Heater_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Blower_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Purge_T" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Purge_P" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Purge_DP" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Inlet_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Outlet_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UPI" Type="decimal" Precision="12" Scale="3" />
+    <Property Name="Load_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RUN_Time" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RunTime_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Dry_Trap" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ValveK" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ValveG" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="AP_AdsorptionDryer_Real">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="StationID" Type="char" MaxLength="4" />
+    <Property Name="EquipID" Type="char" MaxLength="4" />
+    <Property Name="Run" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDryer_CondPre" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDryer_EvapPre" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDryer_InletPre" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDryer_OutPre" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_InOutValue" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_YSJ_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_JRQ_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_INT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_OutT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_LeakT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_ATowerT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_BTowerT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_HeatTowerMidT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_HeatTowerOutT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_DewPoint" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Loss_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Heater_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Blower_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Purge_T" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Purge_P" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Purge_DP" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Inlet_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Outlet_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UPI" Type="decimal" Precision="12" Scale="3" />
+    <Property Name="Load_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RUN_Time" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RunTime_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Dry_Trap" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ValveK" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ValveG" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="AP_AdsorptionDryer_Statistics">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="StationID" Type="char" MaxLength="4" />
+    <Property Name="EquipID" Type="char" MaxLength="4" />
+    <Property Name="YMDH" Type="char" MaxLength="1" />
+    <Property Name="Run" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDryer_CondPre" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDryer_EvapPre" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDryer_InletPre" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDryer_OutPre" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_InOutValue" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_YSJ_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_JRQ_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_INT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_OutT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_LeakT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_ATowerT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_BTowerT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_HeatTowerMidT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_HeatTowerOutT" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CDyer_DewPoint" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Loss_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Heater_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Blower_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Purge_T" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Purge_P" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Purge_DP" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Inlet_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Outlet_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UPI" Type="decimal" Precision="12" Scale="3" />
+    <Property Name="Load_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RUN_Time" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RunTime_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Dry_Trap" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ValveK" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ValveG" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="AP_Centrifuge_History">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="StationID" Type="char" MaxLength="4" />
+    <Property Name="EquipID" Type="char" MaxLength="4" />
+    <Property Name="Outlet_T" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Outlet_P" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RET_T1" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RET_T2" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RET_T3" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Accumulated_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Inlet_dp" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="C" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="InletIOpen" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="DiscgargeOpen" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="T3Air" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="T3Pressure" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="HydraulicAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="PrimaryAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="TwoStageAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ThreeStageAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Oil_TemAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Load_TemAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Unload_TemAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Rphase_TemAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ePower" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="eQ" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Run_Time" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="PCE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="DRE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ERE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UPI" Type="decimal" Precision="12" Scale="4" />
+    <Property Name="Rank" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Monthly_Rank" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Run" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Load" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RunTime_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Part_Load_Rat" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="standard_P" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="LossRatio" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Ret_Trap1" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Ret_Trap2" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Ret_Trap3" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="AP_Centrifuge_Real">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="StationID" Type="char" MaxLength="4" />
+    <Property Name="EquipID" Type="char" MaxLength="4" />
+    <Property Name="Outlet_T" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Outlet_P" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RET_T1" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RET_T2" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RET_T3" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Accumulated_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Inlet_dp" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="C" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="InletIOpen" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="DiscgargeOpen" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="T3Air" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="T3Pressure" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="HydraulicAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="PrimaryAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="TwoStageAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ThreeStageAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Oil_TemAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Load_TemAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Unload_TemAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Rphase_TemAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ePower" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="eQ" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Run_Time" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="PCE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="DRE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ERE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UPI" Type="decimal" Precision="12" Scale="4" />
+    <Property Name="Rank" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Monthly_Rank" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Run" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Load" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RunTime_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Part_Load_Rat" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="standard_P" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="LossRatio" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Ret_Trap1" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Ret_Trap2" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Ret_Trap3" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="AP_Centrifuge_Statistics">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="StationID" Type="char" MaxLength="4" />
+    <Property Name="EquipID" Type="char" MaxLength="4" />
+    <Property Name="YMDH" Type="char" MaxLength="1" />
+    <Property Name="Outlet_T" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Outlet_P" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RET_T1" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RET_T2" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RET_T3" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Accumulated_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Inlet_dp" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="C" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="InletIOpen" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="DiscgargeOpen" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="T3Air" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="T3Pressure" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="HydraulicAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="PrimaryAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="TwoStageAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ThreeStageAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Oil_TemAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Load_TemAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Unload_TemAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Rphase_TemAir" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ePower" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="eQ" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Run_Time" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="PCE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="DRE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ERE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UPI" Type="decimal" Precision="12" Scale="4" />
+    <Property Name="Rank" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Monthly_Rank" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Run" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Load" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RunTime_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Part_Load_Rat" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="standard_P" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="LossRatio" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Ret_Trap1" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Ret_Trap2" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Ret_Trap3" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="AP_Factory_History">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="Dewpoint" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="SumPower" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ProduceFlowStation" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ProduceFlowCentrifuge" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UseFlow" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="PipelinePressure" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="FlowLoss" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UPI" Type="decimal" Precision="12" Scale="4" />
+    <Property Name="LossRatio" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_Rated_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_Rated_power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="DRE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="TCE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RUN_NUM" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="AP_Factory_Real">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" Nullable="false" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="Dewpoint" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="SumPower" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ProduceFlowStation" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ProduceFlowCentrifuge" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UseFlow" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="PipelinePressure" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="FlowLoss" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UPI" Type="decimal" Precision="12" Scale="4" />
+    <Property Name="LossRatio" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_Rated_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_Rated_power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="DRE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="TCE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RUN_NUM" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="AP_Factory_Statistics">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="YMDH" Type="char" MaxLength="1" />
+    <Property Name="Dewpoint" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="SumPower" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ProduceFlowStation" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ProduceFlowCentrifuge" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UseFlow" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="PipelinePressure" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="FlowLoss" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UPI" Type="decimal" Precision="12" Scale="4" />
+    <Property Name="LossRatio" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_Rated_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_Rated_power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="DRE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="TCE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RUN_NUM" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="AP_PressDesign_Conclusion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Time" Type="datetime" />
+    <Property Name="Conclusion" Type="nvarchar" MaxLength="1500" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AP_PressDesign_Real">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="FactoryID" Type="nchar" MaxLength="4" />
+    <Property Name="StationID" Type="nchar" MaxLength="10" />
+    <Property Name="EquipID" Type="nchar" MaxLength="10" />
+    <Property Name="PressDesign" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="OldPressDesign" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="AP_Station_History">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="StationID" Type="nvarchar" MaxLength="15" />
+    <Property Name="Air_T" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Air_H" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Water_P" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Water_T" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Water_F" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_P" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line1_V" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line1_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line1_PF" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line1_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line2_V" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line2_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line2_PF" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line2_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RUN_NUM" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="REQ_NUM" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ePower" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UPI" Type="decimal" Precision="12" Scale="4" />
+    <Property Name="PCE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="DRE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ERE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RunTime_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="FLP" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="PressureLoss" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Dewpoint" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_Rated_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UPI_Save" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Part_Load_Ratio" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RunTime" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Energy_Save" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Power_Save" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Energy_Save_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Power_Save_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Energy_Save_Cost" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Power_Save_Cost" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CompressorPower" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Loss_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Dryer_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Sum_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_Rated_power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ReleaseRate" Type="decimal" Precision="12" Scale="3" />
+    <Property Name="eQ_MainSum" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CentrifugeSumQ" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="TCE" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="AP_Station_Real">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="StationID" Type="nvarchar" MaxLength="15" />
+    <Property Name="Air_T" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Air_H" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Water_P" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Water_T" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Water_F" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_P" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line1_V" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line1_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line1_PF" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line1_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line2_V" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line2_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line2_PF" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line2_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RUN_NUM" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="REQ_NUM" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ePower" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UPI" Type="decimal" Precision="12" Scale="4" />
+    <Property Name="PCE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="DRE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ERE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RunTime_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="FLP" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="PressureLoss" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Dewpoint" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_Rated_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UPI_Save" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Part_Load_Ratio" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RunTime" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Energy_Save" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Power_Save" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Energy_Save_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Power_Save_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Energy_Save_Cost" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Power_Save_Cost" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CompressorPower" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Loss_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Dryer_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Sum_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_Rated_power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ReleaseRate" Type="decimal" Precision="12" Scale="3" />
+    <Property Name="eQ_MainSum" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CentrifugeSumQ" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="TCE" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="AP_Station_Statistics">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="StationID" Type="nvarchar" MaxLength="15" />
+    <Property Name="YMDH" Type="char" MaxLength="1" />
+    <Property Name="Air_T" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Air_H" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Water_P" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Water_T" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Water_F" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_P" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line1_V" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line1_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line1_PF" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line1_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line2_V" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line2_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line2_PF" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line2_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RUN_NUM" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="REQ_NUM" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ePower" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UPI" Type="decimal" Precision="12" Scale="4" />
+    <Property Name="PCE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="DRE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ERE" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RunTime_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="FLP" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="PressureLoss" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Dewpoint" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_Rated_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="UPI_Save" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Line_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Part_Load_Ratio" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="RunTime" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Energy_Save" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Power_Save" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Energy_Save_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Power_Save_Rate" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Energy_Save_Cost" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Power_Save_Cost" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CompressorPower" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Loss_Q" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Dryer_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Sum_Power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Main_Rated_power" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="ReleaseRate" Type="decimal" Precision="12" Scale="3" />
+    <Property Name="eQ_MainSum" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="CentrifugeSumQ" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="TCE" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="AP_WaterPump_History">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="StationID" Type="char" MaxLength="4" />
+    <Property Name="EquipID" Type="char" MaxLength="4" />
+    <Property Name="Pump1_Run" Type="bit" />
+    <Property Name="Pump1_Fault" Type="bit" />
+    <Property Name="Pump2_Run" Type="bit" />
+    <Property Name="Pump2_Fault" Type="bit" />
+    <Property Name="Pump3_Run" Type="bit" />
+    <Property Name="Pump3_Fault" Type="bit" />
+    <Property Name="Pump4_Run" Type="bit" />
+    <Property Name="Pump4_Fault" Type="bit" />
+    <Property Name="Cooling_Tower1_Run" Type="bit" />
+    <Property Name="Cooling_Tower1_Fault" Type="bit" />
+    <Property Name="Cooling_Tower2_Run" Type="bit" />
+    <Property Name="Cooling_Tower2_Fault" Type="bit" />
+    <Property Name="Pump1_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Pump2_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Pump3_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Pump4_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Cooling_Tower1_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Cooling_Tower2_A" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="AP_WaterPump_Real">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="StationID" Type="char" MaxLength="4" />
+    <Property Name="EquipID" Type="char" MaxLength="4" />
+    <Property Name="Pump1_Run" Type="bit" />
+    <Property Name="Pump1_Fault" Type="bit" />
+    <Property Name="Pump2_Run" Type="bit" />
+    <Property Name="Pump2_Fault" Type="bit" />
+    <Property Name="Pump3_Run" Type="bit" />
+    <Property Name="Pump3_Fault" Type="bit" />
+    <Property Name="Pump4_Run" Type="bit" />
+    <Property Name="Pump4_Fault" Type="bit" />
+    <Property Name="Cooling_Tower1_Run" Type="bit" />
+    <Property Name="Cooling_Tower1_Fault" Type="bit" />
+    <Property Name="Cooling_Tower2_Run" Type="bit" />
+    <Property Name="Cooling_Tower2_Fault" Type="bit" />
+    <Property Name="Pump1_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Pump2_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Pump3_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Pump4_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Cooling_Tower1_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Cooling_Tower2_A" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="AP_WaterPump_Statistics">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="StationID" Type="char" MaxLength="4" />
+    <Property Name="EquipID" Type="char" MaxLength="4" />
+    <Property Name="YMDH" Type="char" MaxLength="1" />
+    <Property Name="Pump1_Run" Type="bit" />
+    <Property Name="Pump1_Fault" Type="bit" />
+    <Property Name="Pump2_Run" Type="bit" />
+    <Property Name="Pump2_Fault" Type="bit" />
+    <Property Name="Pump3_Run" Type="bit" />
+    <Property Name="Pump3_Fault" Type="bit" />
+    <Property Name="Pump4_Run" Type="bit" />
+    <Property Name="Pump4_Fault" Type="bit" />
+    <Property Name="Cooling_Tower1_Run" Type="bit" />
+    <Property Name="Cooling_Tower1_Fault" Type="bit" />
+    <Property Name="Cooling_Tower2_Run" Type="bit" />
+    <Property Name="Cooling_Tower2_Fault" Type="bit" />
+    <Property Name="Pump1_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Pump2_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Pump3_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Pump4_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Cooling_Tower1_A" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Cooling_Tower2_A" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="BB_Area">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="char" MaxLength="4" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Introduction" Type="nvarchar" MaxLength="10" />
+    <Property Name="Latitude" Type="decimal" Precision="12" Scale="6" />
+    <Property Name="Longtitude" Type="decimal" Precision="12" Scale="6" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+    <Property Name="FactoryID" Type="int" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="Valid" Type="char" MaxLength="1" />
+    <Property Name="InputSize" Type="int" />
+  </EntityType>
+  <EntityType Name="BB_ChartAlias">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="code" Type="int" />
+    <Property Name="factoryId" Type="nvarchar" MaxLength="20" />
+    <Property Name="stationID" Type="nvarchar" MaxLength="20" />
+    <Property Name="EquipID" Type="nvarchar" MaxLength="20" />
+    <Property Name="AreaId" Type="nvarchar" MaxLength="20" />
+    <Property Name="name" Type="nvarchar" MaxLength="20" />
+    <Property Name="factoryName" Type="nvarchar" MaxLength="20" />
+    <Property Name="stationName" Type="nvarchar" MaxLength="20" />
+    <Property Name="EquipName" Type="nvarchar" MaxLength="20" />
+    <Property Name="AreaName" Type="nvarchar" MaxLength="20" />
+    <Property Name="FieldName" Type="nvarchar" MaxLength="20" />
+    <Property Name="layuiTitle" Type="nvarchar" MaxLength="50" />
+    <Property Name="layuiArea" Type="nvarchar" MaxLength="50" />
+    <Property Name="layuiOffset" Type="nvarchar" MaxLength="50" />
+    <Property Name="chartYUnit" Type="nvarchar" MaxLength="50" />
+    <Property Name="chartXLegend" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="BB_Data_Check">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TableName" Type="nvarchar(max)" />
+    <Property Name="FieldName" Type="nvarchar(max)" />
+    <Property Name="StationID" Type="nchar" MaxLength="4" />
+    <Property Name="EquipID" Type="nchar" MaxLength="4" />
+    <Property Name="AreaID" Type="nchar" MaxLength="4" />
+    <Property Name="ResMax" Type="decimal" Precision="12" Scale="4" />
+    <Property Name="ResMin" Type="decimal" Precision="12" Scale="4" />
+    <Property Name="DisplayOrder" Type="int" Nullable="false" />
+    <Property Name="UpperLimit" Type="real" Nullable="false" />
+    <Property Name="LowerLimit" Type="real" Nullable="false" />
+    <Property Name="BaseValue" Type="real" />
+    <Property Name="DataSource" Type="nvarchar(max)" />
+    <Property Name="Unit" Type="nvarchar(max)" />
+    <Property Name="Valid" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="BB_Data_Error_Area">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TableName" Type="nvarchar" MaxLength="200" />
+    <Property Name="FieldName" Type="nvarchar" MaxLength="200" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="AreaID" Type="char" MaxLength="4" />
+    <Property Name="AbnormalValue" Type="nvarchar" MaxLength="20" />
+    <Property Name="DataSource" Type="int" />
+    <Property Name="OccurTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="BB_Data_Error_Equ">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TableName" Type="nvarchar" MaxLength="200" />
+    <Property Name="FieldName" Type="nvarchar" MaxLength="200" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="StationID" Type="char" MaxLength="4" />
+    <Property Name="EquipID" Type="char" MaxLength="4" />
+    <Property Name="AbnormalValue" Type="nvarchar" MaxLength="20" />
+    <Property Name="DataSource" Type="int" />
+    <Property Name="OccurTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="BB_Data_Error_Sta">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TableName" Type="nvarchar" MaxLength="200" />
+    <Property Name="FieldName" Type="nvarchar" MaxLength="200" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="StationID" Type="char" MaxLength="4" />
+    <Property Name="AbnormalValue" Type="nvarchar" MaxLength="20" />
+    <Property Name="DataSource" Type="int" />
+    <Property Name="OccurTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="BB_Data_Exception_Area">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TableName" Type="nvarchar" MaxLength="200" />
+    <Property Name="FieldName" Type="nvarchar" MaxLength="200" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="AreaID" Type="char" MaxLength="4" />
+    <Property Name="AbnormalValue" Type="nvarchar" MaxLength="20" />
+    <Property Name="DataSource" Type="int" />
+    <Property Name="OccurTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="BB_Data_Exception_Equ">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TableName" Type="nvarchar" MaxLength="200" />
+    <Property Name="FieldName" Type="nvarchar" MaxLength="200" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="StationID" Type="char" MaxLength="4" />
+    <Property Name="EquipID" Type="char" MaxLength="4" />
+    <Property Name="AbnormalValue" Type="nvarchar" MaxLength="20" />
+    <Property Name="DataSource" Type="int" />
+    <Property Name="OccurTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="BB_Data_Exception_MeasureMeter">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TableName1" Type="nvarchar" MaxLength="200" />
+    <Property Name="FieldName1" Type="nvarchar" MaxLength="200" />
+    <Property Name="FactoryID1" Type="char" MaxLength="4" />
+    <Property Name="StationID1" Type="char" MaxLength="4" />
+    <Property Name="EquipID1" Type="char" MaxLength="4" />
+    <Property Name="AreaID1" Type="char" MaxLength="4" />
+    <Property Name="value1" Type="nvarchar" MaxLength="20" />
+    <Property Name="TableName2" Type="nvarchar" MaxLength="200" />
+    <Property Name="FieldName2" Type="nvarchar" MaxLength="200" />
+    <Property Name="FactoryID2" Type="char" MaxLength="4" />
+    <Property Name="StationID2" Type="char" MaxLength="4" />
+    <Property Name="EquipID2" Type="char" MaxLength="4" />
+    <Property Name="AreaID2" Type="char" MaxLength="4" />
+    <Property Name="value2" Type="nvarchar" MaxLength="20" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+    <Property Name="OccurTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="BB_Data_Exception_Sta">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TableName" Type="nvarchar" MaxLength="200" />
+    <Property Name="FieldName" Type="nvarchar" MaxLength="200" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="StationID" Type="char" MaxLength="4" />
+    <Property Name="AbnormalValue" Type="nvarchar" MaxLength="20" />
+    <Property Name="DataSource" Type="int" />
+    <Property Name="OccurTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="BB_Factory">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="code" Type="char" MaxLength="4" />
+    <Property Name="Name" Type="nvarchar" MaxLength="10" />
+    <Property Name="Introduction" Type="nvarchar" MaxLength="10" />
+    <Property Name="Product" Type="nvarchar" MaxLength="10" />
+    <Property Name="AnnualOutput" Type="nvarchar" MaxLength="5" />
+    <Property Name="Latitude" Type="decimal" Precision="12" Scale="6" />
+    <Property Name="Longtitude" Type="decimal" Precision="12" Scale="6" />
+    <Property Name="Altitude" Type="decimal" Precision="12" Scale="6" />
+    <Property Name="Size" Type="decimal" Precision="12" Scale="6" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="Valid" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="BB_Instrument">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="char" MaxLength="4" />
+    <Property Name="Type" Type="char" MaxLength="2" />
+    <Property Name="Rated_Q" Type="varchar" MaxLength="10" />
+    <Property Name="DesignPressure" Type="varchar" MaxLength="10" />
+    <Property Name="Rated_V" Type="varchar" MaxLength="10" />
+    <Property Name="Rated_A" Type="varchar" MaxLength="10" />
+    <Property Name="Rated_Power" Type="varchar" MaxLength="10" />
+    <Property Name="Dewpoint" Type="varchar" MaxLength="10" />
+    <Property Name="Manufacture" Type="varchar" MaxLength="10" />
+    <Property Name="RunYear" Type="char" MaxLength="23" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+    <Property Name="StationID" Type="int" />
+    <Property Name="FactoryID" Type="int" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="Valid" Type="char" MaxLength="1" />
+    <Property Name="DateOfProductionTime" Type="datetime" />
+    <Property Name="SerialNumber" Type="nvarchar" MaxLength="20" />
+    <Property Name="ExFlangeSize" Type="int" />
+    <Property Name="ShapeSize" Type="int" />
+    <Property Name="Refrigerantype" Type="char" MaxLength="2" />
+    <Property Name="AdsorbentType" Type="char" MaxLength="2" />
+    <Property Name="FilterNum" Type="int" />
+    <Property Name="GasConsumptionRate" Type="decimal" Precision="9" Scale="2" />
+    <Property Name="AreaID" Type="int" />
+    <Property Name="PrimaryIntercoolerPower" Type="decimal" Precision="9" Scale="2" />
+    <Property Name="SecondaryIntercoolerPower" Type="decimal" Precision="9" Scale="2" />
+    <Property Name="ThirdintercoolerPower" Type="decimal" Precision="9" Scale="2" />
+  </EntityType>
+  <EntityType Name="BB_MeasureMeter">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="char" MaxLength="4" />
+    <Property Name="Type" Type="char" MaxLength="2" />
+    <Property Name="Variety" Type="char" MaxLength="2" />
+    <Property Name="MeasurementRange" Type="varchar" MaxLength="10" />
+    <Property Name="RunYear" Type="char" MaxLength="23" />
+    <Property Name="CalibrationTime" Type="datetime" />
+    <Property Name="Manufacture" Type="nvarchar" MaxLength="100" />
+    <Property Name="Location" Type="nvarchar" MaxLength="100" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+    <Property Name="InstrumentID" Type="int" />
+    <Property Name="AreaID" Type="int" />
+    <Property Name="FactoryID" Type="int" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="Valid" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="BB_Station">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="char" MaxLength="4" />
+    <Property Name="Name" Type="nvarchar" MaxLength="10" />
+    <Property Name="Introduction" Type="nvarchar" MaxLength="10" />
+    <Property Name="Latitude" Type="decimal" Precision="12" Scale="6" />
+    <Property Name="Longtitude" Type="decimal" Precision="12" Scale="6" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+    <Property Name="FactoryID" Type="int" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="Valid" Type="char" MaxLength="1" />
+    <Property Name="GasMainSize" Type="int" />
+    <Property Name="DeviceBindMode" Type="char" MaxLength="1" />
+    <Property Name="StationArea" Type="decimal" Precision="12" Scale="6" />
+    <Property Name="NearGasArea" Type="decimal" Precision="12" Scale="6" />
+    <Property Name="StationControlSystem" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="BB_Threshold">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="SetValue" Type="decimal" Precision="9" Scale="2" />
+    <Property Name="CurrentValue" Type="decimal" Precision="9" Scale="2" />
+    <Property Name="classify" Type="nvarchar" MaxLength="5" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" />
+    <Property Name="RealDescription" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="OpcHelperItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EnumTag" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tag" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MaxValue" Type="float" />
+    <Property Name="MinValue" Type="float" />
+    <Property Name="Time" Type="nvarchar(max)" />
+    <Property Name="Type" Type="char" MaxLength="1" />
+    <Property Name="Description" Type="nvarchar" MaxLength="100" />
+    <Property Name="Value" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="OpcHelperItems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EnumTag" Type="nvarchar(max)" />
+    <Property Name="Tag" Type="nvarchar(max)" />
+    <Property Name="Value" Type="nvarchar(max)" />
+    <Property Name="Time" Type="nvarchar(max)" />
+    <Property Name="Quality" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="PG_Area_History">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" Nullable="false" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="AreaID" Type="char" MaxLength="4" />
+    <Property Name="Inlet_SQ" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Inlet_AP" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="PG_Area_Real">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="AreaID" Type="char" MaxLength="4" />
+    <Property Name="Inlet_SQ" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Inlet_AP" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="PG_Area_Statistics">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DayID" Type="char" MaxLength="2" />
+    <Property Name="FactoryID" Type="char" MaxLength="4" />
+    <Property Name="AreaID" Type="char" MaxLength="4" />
+    <Property Name="YMDH" Type="char" MaxLength="1" />
+    <Property Name="Inlet_SQ" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Inlet_AP" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="PLCBase">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SignName" Type="nvarchar" MaxLength="100" />
+    <Property Name="SignType" Type="nvarchar" MaxLength="100" />
+    <Property Name="PLCSignValue" Type="bit" />
+    <Property Name="SingAlias" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="RE_SysRolePage">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SysRoleID" Type="int" />
+    <Property Name="PageID" Type="int" />
+  </EntityType>
+  <EntityType Name="RE_SysRoleUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="uniqueidentifier" />
+    <Property Name="SysRoleID" Type="int" />
+  </EntityType>
+  <EntityType Name="Re_UserRole1">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="uniqueidentifier" />
+    <Property Name="RoleID" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="RE_UserStation">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="StationID" Type="int" />
+    <Property Name="FactoryID" Type="int" />
+  </EntityType>
+  <EntityType Name="SB_Client">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="20" />
+    <Property Name="Type" Type="char" MaxLength="2" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="Telephone" Type="varchar" MaxLength="12" />
+    <Property Name="CompanyMail" Type="varchar" MaxLength="30" />
+    <Property Name="Contacts" Type="nvarchar" MaxLength="4" />
+    <Property Name="ContactsCellone" Type="char" MaxLength="11" />
+    <Property Name="ContactsMail" Type="varchar" MaxLength="30" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+    <Property Name="state" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="SB_Log">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="5" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="IPAddress" Type="varchar" MaxLength="15" />
+    <Property Name="PageURL" Type="varchar" MaxLength="100" />
+    <Property Name="PageNameCN" Type="nvarchar" MaxLength="20" />
+    <Property Name="OperateType" Type="char" MaxLength="1" />
+    <Property Name="OperateRecord" Type="nvarchar" MaxLength="500" />
+    <Property Name="OperateTime" Type="datetime" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+    <Property Name="Valid" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="SB_OperateHistory">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="5" />
+    <Property Name="IPAddress" Type="varchar" MaxLength="15" />
+    <Property Name="OperateType" Type="char" MaxLength="2" />
+    <Property Name="OperateChildType" Type="char" MaxLength="2" />
+    <Property Name="PageURL" Type="varchar" MaxLength="100" />
+    <Property Name="PageNameCN" Type="nvarchar" MaxLength="20" />
+    <Property Name="OperateRecord" Type="nvarchar" MaxLength="500" />
+    <Property Name="OperateTime" Type="datetime" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+    <Property Name="InstrumentID" Type="int" />
+    <Property Name="AreaID" Type="int" />
+    <Property Name="StationID" Type="int" />
+    <Property Name="FactoryID" Type="int" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="Valid" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="SB_Page">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ShowName" Type="nvarchar" MaxLength="20" />
+    <Property Name="PageNameCN" Type="nvarchar" MaxLength="20" />
+    <Property Name="PageNameEN" Type="varchar" MaxLength="50" />
+    <Property Name="URL" Type="varchar" MaxLength="200" />
+    <Property Name="ParentID" Type="int" />
+    <Property Name="SortN" Type="int" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="200" />
+    <Property Name="Valid" Type="char" MaxLength="1" />
+    <Property Name="IconClass" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="SB_SysRole">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="20" />
+    <Property Name="Valid" Type="char" MaxLength="1" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="SB_TableDictionary">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TableNameEN" Type="varchar" MaxLength="40" />
+    <Property Name="TableNameCN" Type="nvarchar" MaxLength="20" />
+    <Property Name="ColumnNameEN" Type="varchar" MaxLength="40" />
+    <Property Name="ColumnNameCN" Type="nvarchar" MaxLength="20" />
+    <Property Name="DicCode" Type="varchar" MaxLength="5" />
+    <Property Name="DicCodeCN" Type="nvarchar" MaxLength="20" />
+    <Property Name="IsDefault" Type="char" MaxLength="1" />
+    <Property Name="IsMaintenance" Type="char" MaxLength="1" />
+    <Property Name="SortNo" Type="int" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+    <Property Name="Valid" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="SB_User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Account" Type="varchar" MaxLength="50" />
+    <Property Name="PassWord" Type="varchar" MaxLength="20" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserType" Type="char" MaxLength="1" />
+    <Property Name="Sex" Type="char" MaxLength="1" />
+    <Property Name="IDNo" Type="varchar" MaxLength="18" />
+    <Property Name="Cellphone" Type="nchar" MaxLength="11" />
+    <Property Name="Email" Type="varchar" MaxLength="30" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+    <Property Name="State" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="SB_WarnLog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WarnType" Type="char" MaxLength="1" />
+    <Property Name="WarnContent" Type="nvarchar" MaxLength="50" />
+    <Property Name="WarnTime" Type="datetime" />
+    <Property Name="InstrumentID" Type="int" />
+    <Property Name="AreaID" Type="int" />
+    <Property Name="StationID" Type="int" />
+    <Property Name="FactoryID" Type="int" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+    <Property Name="Status" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="UPIEnergy">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StationID" Type="nvarchar" MaxLength="5" />
+    <Property Name="EquipID" Type="nvarchar" MaxLength="5" />
+    <Property Name="UPI" Type="decimal" Precision="12" Scale="4" />
+    <Property Name="Run" Type="decimal" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityContainer Name="TestLWSCADAModelStoreContainer">
+    <EntitySet Name="AP_AdsorptionDryer_History" EntityType="Self.AP_AdsorptionDryer_History" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP_AdsorptionDryer_Real" EntityType="Self.AP_AdsorptionDryer_Real" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP_AdsorptionDryer_Statistics" EntityType="Self.AP_AdsorptionDryer_Statistics" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP_Centrifuge_History" EntityType="Self.AP_Centrifuge_History" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP_Centrifuge_Real" EntityType="Self.AP_Centrifuge_Real" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP_Centrifuge_Statistics" EntityType="Self.AP_Centrifuge_Statistics" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP_Factory_History" EntityType="Self.AP_Factory_History" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP_Factory_Real" EntityType="Self.AP_Factory_Real" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP_Factory_Statistics" EntityType="Self.AP_Factory_Statistics" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP_PressDesign_Conclusion" EntityType="Self.AP_PressDesign_Conclusion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP_PressDesign_Real" EntityType="Self.AP_PressDesign_Real" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP_Station_History" EntityType="Self.AP_Station_History" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP_Station_Real" EntityType="Self.AP_Station_Real" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP_Station_Statistics" EntityType="Self.AP_Station_Statistics" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP_WaterPump_History" EntityType="Self.AP_WaterPump_History" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP_WaterPump_Real" EntityType="Self.AP_WaterPump_Real" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP_WaterPump_Statistics" EntityType="Self.AP_WaterPump_Statistics" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BB_Area" EntityType="Self.BB_Area" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BB_ChartAlias" EntityType="Self.BB_ChartAlias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BB_Data_Check" EntityType="Self.BB_Data_Check" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BB_Data_Error_Area" EntityType="Self.BB_Data_Error_Area" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BB_Data_Error_Equ" EntityType="Self.BB_Data_Error_Equ" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BB_Data_Error_Sta" EntityType="Self.BB_Data_Error_Sta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BB_Data_Exception_Area" EntityType="Self.BB_Data_Exception_Area" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BB_Data_Exception_Equ" EntityType="Self.BB_Data_Exception_Equ" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BB_Data_Exception_MeasureMeter" EntityType="Self.BB_Data_Exception_MeasureMeter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BB_Data_Exception_Sta" EntityType="Self.BB_Data_Exception_Sta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BB_Factory" EntityType="Self.BB_Factory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BB_Instrument" EntityType="Self.BB_Instrument" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BB_MeasureMeter" EntityType="Self.BB_MeasureMeter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BB_Station" EntityType="Self.BB_Station" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BB_Threshold" EntityType="Self.BB_Threshold" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OpcHelperItem" EntityType="Self.OpcHelperItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OpcHelperItems" EntityType="Self.OpcHelperItems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PG_Area_History" EntityType="Self.PG_Area_History" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PG_Area_Real" EntityType="Self.PG_Area_Real" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PG_Area_Statistics" EntityType="Self.PG_Area_Statistics" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PLCBase" EntityType="Self.PLCBase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RE_SysRolePage" EntityType="Self.RE_SysRolePage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RE_SysRoleUser" EntityType="Self.RE_SysRoleUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Re_UserRole1" EntityType="Self.Re_UserRole1" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RE_UserStation" EntityType="Self.RE_UserStation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SB_Client" EntityType="Self.SB_Client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SB_Log" EntityType="Self.SB_Log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SB_OperateHistory" EntityType="Self.SB_OperateHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SB_Page" EntityType="Self.SB_Page" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SB_SysRole" EntityType="Self.SB_SysRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SB_TableDictionary" EntityType="Self.SB_TableDictionary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SB_User" EntityType="Self.SB_User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SB_WarnLog" EntityType="Self.SB_WarnLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UPIEnergy" EntityType="Self.UPIEnergy" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

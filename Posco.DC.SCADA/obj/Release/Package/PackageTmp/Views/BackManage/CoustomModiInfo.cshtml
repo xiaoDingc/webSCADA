@@ -1,0 +1,153 @@
+﻿@model Model.BussionObject.CustomShow_BO
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ModiInfo</title>
+    <link href="../../Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="../../Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="../../Content/ListLayui/static/admin/layui/layui.js"></script>
+</head>
+<body>
+    @*@using (Html.BeginForm(Html.BeginForm(,,FormMethod.Post,new { @class="layui-form"})))*@
+    <form class="layui-form" id="editForm" style="width: 90%;padding-top: 20px; margin:0 auto;">
+        @Html.AntiForgeryToken()
+
+        
+            <h4>修改客户信息</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(model => model.boID, htmlAttributes: new { @class = "control-label", @id="hide" })
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.boName, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.boName, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.boName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.boType, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.boType, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.boType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.boAddress, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.boAddress, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.boAddress, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.boTelephone, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.boTelephone, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.boTelephone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.boCompanyMail, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.boCompanyMail, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.boCompanyMail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.boContacts, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.boContacts, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.boContacts, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.boContactsCellone, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.boContactsCellone, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.boContactsCellone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.boContactsMail, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.boContactsMail, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.boContactsMail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.boRemark, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.boRemark, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.boRemark, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.bostate, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.bostate, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.bostate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+               
+            </div>              
+    </form>
+    
+</body>
+</html>
+<script>
+		layui.use('form', function() {
+			var form = layui.form;
+			//监听提交
+			form.on('submit(formDemo)', function(data) {
+                var index = parent.layer.getFrameIndex(window.name);
+                console.log("window.name:" + window.name + " index:" + index);
+                console.log(data);
+				$.ajax({
+                    url: '/BackManage/CoustomModiInfoAjax',
+					type:'post',
+					data:data.field,
+					dataType:'json',
+					success:function(res) {
+						if(res.msg == "OK") {
+							layer.msg("修改成功", {
+								time:2000,
+                                icon:1,
+							}, function() {
+                                window.parent.location.reload();//刷新父页面
+                                window.parent.location.reload();//刷新父页面
+								//关闭弹窗
+								var index = parent.layer.getFrameIndex(window.name);
+								parent.layer.close(index); //关闭当前页
+							});
+
+						}
+					}
+				});
+				return false;
+			});
+		});
+</script>

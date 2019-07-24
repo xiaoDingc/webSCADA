@@ -1,0 +1,177 @@
+﻿@model Model.BussionObject.MeasureMeterShow_BO
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MeasureMeterModi</title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="../../Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+</head>
+<body>
+    <form class="layui-form" id="editForm" style="width: 90%;padding-top: 20px; margin:0 auto;">
+        @Html.AntiForgeryToken()
+            <h4>测量仪器修改</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID, htmlAttributes: new { @id = "hide" })
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Variety, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.Variety, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.Variety, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.MeasurementRange, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.MeasurementRange, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.MeasurementRange, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.RunYear, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.RunYear, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.RunYear, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.CalibrationTime, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.CalibrationTime, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.CalibrationTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Manufacture, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.Manufacture, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.Manufacture, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+          
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.InstrumentID, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.InstrumentID, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.InstrumentID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.AreaID, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.DropDownListFor(model => model.AreaID, ViewBag.Area as SelectList, new { })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.FactoryID, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.DropDownListFor(model => model.FactoryID, ViewBag.Factory as SelectList, new { })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.ClientID, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.DropDownListFor(model => model.ClientID, ViewBag.Client as SelectList, new { })
+                </div>
+            </div>
+        <div class="layui-form-item">
+            @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "layui-form-label" })
+            <div class="layui-input-block">
+                @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "layui-input" } })
+                @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+            </div>
+        </div>
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Valid, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.DropDownListFor(model => model.Valid, ViewBag.State as SelectList, new { })
+                </div>
+            </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+</form>
+</body>
+</html>
+<script>
+    layui.use('form', function () {
+        var form = layui.form;
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            var index = parent.layer.getFrameIndex(window.name);
+            $.ajax({
+                url: '/BackManage/MeasureMeterModi',
+                type: 'post',
+                data: data.field,
+                dataType: 'json',
+                success: function (data) {
+                    if (data == "OK") {
+                        layer.msg("修改成功", {
+                            time: 1000
+                        }, function () {
+                            window.parent.location.reload();//刷新父页面
+                            //关闭弹窗
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index); //关闭当前页
+                        });
+                    }
+                    else {
+                        layer.msg("不能为空", {
+                            icon:1
+                        })
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>
+

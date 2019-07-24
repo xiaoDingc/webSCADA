@@ -1,0 +1,94 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddUserLayer</title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+</head>
+<body>
+    <button></button>
+    <input type="hidden" value="@ViewBag.rr" id="hide"/>
+    <div class="layui-btn-group demoTable">
+        <button class="layui-btn" data-type="getCheckData">选中行保存</button>
+        </div>
+        <table class="layui-hide" id="AddRoleUser" lay-filter="test" ></table>
+</body>
+</html>
+<script>
+    layui.use(['table','layer'], function () {
+        var table = layui.table;
+        var $ = layui.$;
+        var layer = layui.layer;
+        table.render({
+            elem: '#AddRoleUser',
+            url: '/Home/AddUserLayerJson?roleid=' + $("#hide").val(),
+            cellMinWidth: 80,
+            cols: [[
+                { type: 'checkbox' },
+                { field: 'Name', title: '姓名', sort: true },
+                { field: 'Account', title: '账号', sort: true }
+            ]],
+            id: 'testReload',
+            page: true
+
+        });
+        table.on('checkbox(demo)', function (obj) {
+            console.log(obj)
+        });
+        $('.demoTable .layui-btn').on('click', function () {
+
+            var checkStatus = table.checkStatus('testReload');
+            var strarr = [];
+            if (checkStatus.data.length > 0) {
+                $.each(checkStatus.data, function (index, item) {
+                    strarr[index] = item.ID
+                })
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/ajaxAddUser",
+                    data: { str: JSON.stringify(strarr), roleid: $("#hide").val() },
+                    success: function (data) {
+                        layer.msg("添加成功", {
+                            time: 1000
+                        }, function () {
+                            //window.parent.location.reload();//刷新父页面
+                            //关闭弹窗
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index); //关闭当前页 
+                           
+                        });
+                    
+                  }
+                })
+            }
+            
+        })
+        
+     
+                
+        
+    })
+    //$("#layeraddrole").click(function () {
+    //    var arr = [];
+    //    var arr1 = $(":checked");
+    //    $.each(arr1, function (index, item) {
+    //        arr.push($(item).val());
+    //    })
+    //    var jsontrans = JSON.stringify(arr);
+    //    var jsonroelid = $("#hide").val();
+    //    $.get("/Home/ajaxAddUser", { str: jsontrans,roleid:jsonroelid }, function (result) {
+    //        if (result == 1) {
+    //            window.parent.location.reload();
+    //            var index = parent.layer.getFrameIndex(window.name);
+    //            parent.layer.close(index);
+    //        }
+    //    })
+    //})
+</script>

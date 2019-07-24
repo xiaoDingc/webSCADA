@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4447D1C6-5B59-43DE-8257-62A7BB2F5082}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Repository</RootNamespace>
+    <AssemblyName>Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Posco.DC.SCADA\Posco.DC.SCADA\bin\linkDll\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\BaseDBContext.cs" />
+    <Compile Include="Base\BaseRepository.cs" />
+    <Compile Include="Base\IBaseRepository.cs" />
+    <Compile Include="IRepository\IAP_AdsorptionDryer_HistoryRepository.cs" />
+    <Compile Include="IRepository\IAP_AdsorptionDryer_RealRepository.cs" />
+    <Compile Include="IRepository\IAP_AdsorptionDryer_StatisticsRepository.cs" />
+    <Compile Include="IRepository\IAP_Centrifuge_HistoryRepository.cs" />
+    <Compile Include="IRepository\IAP_Centrifuge_RealRepository.cs" />
+    <Compile Include="IRepository\IAP_Centrifuge_StatisticsRepository.cs" />
+    <Compile Include="IRepository\IAP_Factory_HistoryRepository.cs" />
+    <Compile Include="IRepository\IAP_Factory_RealRepository.cs" />
+    <Compile Include="IRepository\IAP_Factory_StatisticsRepository.cs" />
+    <Compile Include="IRepository\IAP_PressDesign_ConclusionRepository.cs" />
+    <Compile Include="IRepository\IAP_PressDesign_RealRepository.cs" />
+    <Compile Include="IRepository\IAP_Station_HistoryRepository.cs" />
+    <Compile Include="IRepository\IAP_Station_RealRepository.cs" />
+    <Compile Include="IRepository\IAP_Station_StatisticsRepository.cs" />
+    <Compile Include="IRepository\IAP_WaterPump_HistoryRepository.cs" />
+    <Compile Include="IRepository\IAP_WaterPump_RealRepository.cs" />
+    <Compile Include="IRepository\IAP_WaterPump_StatisticsRepository.cs" />
+    <Compile Include="IRepository\IBB_AreaRepository.cs" />
+    <Compile Include="IRepository\IBB_ChartAliasRepository.cs" />
+    <Compile Include="IRepository\IBB_Data_CheckRepository.cs" />
+    <Compile Include="IRepository\IBB_Data_Exception_AreaRepository.cs" />
+    <Compile Include="IRepository\IBB_Data_Exception_EquRepository.cs" />
+    <Compile Include="IRepository\IBB_Data_Exception_StaRepository.cs" />
+    <Compile Include="IRepository\IBB_FactoryRepository.cs" />
+    <Compile Include="IRepository\IBB_InstrumentRepository.cs" />
+    <Compile Include="IRepository\IBB_MeasureMeterRepository.cs" />
+    <Compile Include="IRepository\IBB_StationRepository.cs" />
+    <Compile Include="IRepository\IBB_ThresholdRepository.cs" />
+    <Compile Include="IRepository\IOpcHelperItemRepository.cs" />
+    <Compile Include="IRepository\IOpcHelperItemsRepository.cs" />
+    <Compile Include="IRepository\IPG_Area_HistoryRepository.cs" />
+    <Compile Include="IRepository\IPG_Area_RealRepository.cs" />
+    <Compile Include="IRepository\IPG_Area_StatisticsRepository.cs" />
+    <Compile Include="IRepository\IPLCBaseRepository.cs" />
+    <Compile Include="IRepository\IRepository.cs" />
+    <Compile Include="IRepository\IRE_SysRolePageRepository.cs" />
+    <Compile Include="IRepository\IRE_SysRoleUserRepository.cs" />
+    <Compile Include="IRepository\IRe_UserRole1Repository.cs" />
+    <Compile Include="IRepository\IRE_UserStationRepository.cs" />
+    <Compile Include="IRepository\ISB_ClientRepository.cs" />
+    <Compile Include="IRepository\ISB_LogRepository.cs" />
+    <Compile Include="IRepository\ISB_OperateHistoryRepository.cs" />
+    <Compile Include="IRepository\ISB_PageRepository.cs" />
+    <Compile Include="IRepository\ISB_SysRoleRepository.cs" />
+    <Compile Include="IRepository\ISB_TableDictionaryRepository.cs" />
+    <Compile Include="IRepository\ISB_UserRepository.cs" />
+    <Compile Include="IRepository\ISB_WarnLogRepository.cs" />
+    <Compile Include="IRepository\IUPIEnergyRepository.cs" />
+    <Compile Include="IRepository\OpcHelperItemRepository.cs" />
+    <Compile Include="IRepository\OpcHelperItemsRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AP_AdsorptionDryer_HistoryRepository.cs" />
+    <Compile Include="Repository\AP_AdsorptionDryer_RealRepository.cs" />
+    <Compile Include="Repository\AP_AdsorptionDryer_StatisticsRepository.cs" />
+    <Compile Include="Repository\AP_Centrifuge_HistoryRepository.cs" />
+    <Compile Include="Repository\AP_Centrifuge_RealRepository.cs" />
+    <Compile Include="Repository\AP_Centrifuge_StatisticsRepository.cs" />
+    <Compile Include="Repository\AP_Factory_HistoryRepository.cs" />
+    <Compile Include="Repository\AP_Factory_RealRepository.cs" />
+    <Compile Include="Repository\AP_Factory_StatisticsRepository.cs" />
+    <Compile Include="Repository\AP_PressDesign_ConclusionRepository.cs" />
+    <Compile Include="Repository\AP_PressDesign_RealRepository.cs" />
+    <Compile Include="Repository\AP_Station_HistoryRepository.cs" />
+    <Compile Include="Repository\AP_Station_RealRepository.cs" />
+    <Compile Include="Repository\AP_Station_StatisticsRepository.cs" />
+    <Compile Include="Repository\AP_WaterPump_HistoryRepository.cs" />
+    <Compile Include="Repository\AP_WaterPump_RealRepository.cs" />
+    <Compile Include="Repository\AP_WaterPump_StatisticsRepository.cs" />
+    <Compile Include="Repository\BB_AreaRepository.cs" />
+    <Compile Include="Repository\BB_ChartAliasRepository.cs" />
+    <Compile Include="Repository\BB_Data_CheckRepository.cs" />
+    <Compile Include="Repository\BB_Data_Exception_AreaRepository.cs" />
+    <Compile Include="Repository\BB_Data_Exception_EquRepository.cs" />
+    <Compile Include="Repository\BB_Data_Exception_StaRepository.cs" />
+    <Compile Include="Repository\BB_FactoryRepository.cs" />
+    <Compile Include="Repository\BB_InstrumentRepository.cs" />
+    <Compile Include="Repository\BB_MeasureMeterRepository.cs" />
+    <Compile Include="Repository\BB_StationRepository.cs" />
+    <Compile Include="Repository\BB_ThresholdRepository.cs" />
+    <Compile Include="Repository\PG_Area_HistoryRepository.cs" />
+    <Compile Include="Repository\PG_Area_RealRepository.cs" />
+    <Compile Include="Repository\PG_Area_StatisticsRepository.cs" />
+    <Compile Include="Repository\PLCBaseRepository.cs" />
+    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\RE_SysRolePageRepository.cs" />
+    <Compile Include="Repository\RE_SysRoleUserRepository.cs" />
+    <Compile Include="Repository\Re_UserRole1Repository.cs" />
+    <Compile Include="Repository\RE_UserStationRepository.cs" />
+    <Compile Include="Repository\SB_ClientRepository.cs" />
+    <Compile Include="Repository\SB_LogRepository.cs" />
+    <Compile Include="Repository\SB_OperateHistoryRepository.cs" />
+    <Compile Include="Repository\SB_PageRepository.cs" />
+    <Compile Include="Repository\SB_SysRoleRepository.cs" />
+    <Compile Include="Repository\SB_TableDictionaryRepository.cs" />
+    <Compile Include="Repository\SB_UserRepository.cs" />
+    <Compile Include="Repository\SB_WarnLogRepository.cs" />
+    <Compile Include="Repository\UPIEnergyRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Posco.DC.Model.csproj">
+      <Project>{ae52d47f-ac1f-4ba8-91b5-3de4b54e7394}</Project>
+      <Name>Posco.DC.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,212 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TrendArea</title>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <style>
+        .col-center-block {
+            float: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <input type="hidden" value="@ViewBag.Area" id="hide" />
+
+    <div id="kwnow" style="max-width:1000px;min-width:800px;height:500px" class="col-center-block"></div>
+
+
+    <script src="~/Scripts/code/highcharts.js"></script>
+    @*<script src="~/Scripts/code/modules/exporting.js"></script>
+    <script src="~/Scripts/code/modules/export.csv.js"></script>*@
+    <script src="~/Scripts/code/highcharts-more.js"></script>
+</body>
+</html>
+<script>
+    var hide = $("#hide").val();
+    var json = JSON.parse(hide);
+    console.log(json);
+    var yarr = [];
+    var seriesarr = [];
+    var Aid = JSON.stringify(json.Aid);
+    var AName = JSON.stringify(json.Aname);
+    var strlist = ["用气量", "压力"];
+    var unitlist = ["N㎥/h", "bar"];
+    //var numAid = json.Aid.replace(/[^1-9]/ig, "");
+    var titlename = "";
+    if (json.Aid.length < 2) {
+        titlename += json.Aidname[0];
+        let Q=[];
+        let P=[];
+        let reslist=[];
+        $.each(json.Res,function(index,item){
+            Q[index]=[item.time,item.flow];
+            P[index]=[item.time,item.press];
+        })
+        reslist[0]=Q;reslist[1]=P;
+        $.each(strlist, function (index, item) {
+            $.each(json.Aname, function (i, j) {
+                if (item == j) {
+                    if (i % 2 == 0) {
+                        yarr.push({
+                            title: {
+                                text:item+"("+unitlist[index]+")"
+                            }
+                        })
+                    }
+                    else {
+                        yarr.push({
+                            opposite:true,
+                            title: {
+                                text: item + "(" + unitlist[index] + ")"
+                            }
+                        })
+                    }
+                    titlename += item + "-";
+                    seriesarr.push({
+                        name: item,
+                        yAxis: i,
+                        data:reslist[index]
+                    })
+                }
+            })
+        })
+        titlename += "时间图";
+    }
+    else {
+        titlename = "用户区域" + json.Aname[0] + "-时间图";
+        $.each(strlist, function (i, j) {
+            if (j == json.Aname[0]) {
+                yarr.push({
+                    title: {
+                        text:j+"("+unitlist[i]+")"
+                        }
+                })
+            }
+        })
+        $.each(json.Res, function (index, item) {
+            let Q = [];
+            let P = [];
+            let reslist = [];
+            $.each(item, function (i, j) {
+                Q[i] = [j.time, j.flow];
+                P[i] = [j.time, j.press];
+            })
+            reslist[0] = Q; reslist[1] = P;
+            $.each(strlist, function (i, j) {
+                if (j == json.Aname[0]) {
+                    seriesarr.push({
+                        name: json.Aidname[index],
+                        data:reslist[i]
+                    })
+                }
+            })
+        })
+    }
+    Highcharts.setOptions({
+        lang: {
+            printChart: "打印图表",
+            downloadJPEG: "下载JPEG 图片",
+            downloadPDF: "下载PDF文档",
+            downloadPNG: "下载PNG图片",
+            downloadSVG: "下载SVG矢量图",
+            resetZoom: "还原",
+        }
+    });
+    var kwnowCharts = {
+        chart: {
+            type: 'spline',
+            zoomType: 'xy',
+            events: {
+                load: function () {
+                    var series = this.series;
+                    setInterval(function () {
+                        $.ajax({
+                            type: "GET",
+                            url: "/EnergySys/TrendAreaAjax",
+                            data: { aid:Aid,aname:AName},
+                            success: function (data) {
+                                if (data.area.length < 2) {
+                                    let pointarr = [];
+                                    point = [data.Res.time, data.Res.flow];
+                                    point1 = [data.Res.time, data.Res.press];
+                                    pointarr[0] = point; pointarr[1] = point1;
+                                    $.each(strlist, function (index, item) {
+                                        $.each(data.field, function (i, j) {
+                                            if (item == j) {
+                                                series[i].addPoint(pointarr[index], true, true);
+                                            }
+                                        })
+                                    })
+                                }
+                                else {
+                                    $.each(data.Res, function (index, item) {
+                                        let pointarr = [];
+                                        point = [item.time, item.flow];
+                                        point1 = [item.time, item.press];
+                                        pointarr[0] = point; pointarr[1] = point1;
+                                        $.each(strlist, function (i, j) {
+                                            if (j == data.field[0]) {
+                                                series[index].addPoint(pointarr[i], true, true);
+                                            }
+                                        })
+                                    })
+                                }
+                            }
+                        })
+                    }, 6000);
+                }
+            }
+
+        },
+        title: {
+            text: titlename
+        },
+        subtitle: {
+        },
+        credits: {
+            enabled: false     //不显示LOGO
+        },
+        xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 150,
+            title: {
+                text: '时间'
+            }
+        },
+        yAxis: yarr,
+        exporting: {
+            filename: '总耗电量实时数据',
+            csv: {
+            }
+        },
+        Legend: {
+        },
+        tooltip: {
+            shared: true,
+            crosshairs: true,
+            xDateFormat: '%Y-%m-%d %H:%M:%S',
+        },
+        //plotOptions: {
+        //    spline: {
+        //        marker: {
+        //            radius: 4,
+        //            lineColor: '#666666',
+        //            lineWidth: 1
+        //        }
+        //    }
+        //},
+
+        series: seriesarr
+    };
+    $("#kwnow").highcharts(kwnowCharts);
+    </script>

@@ -1,0 +1,14 @@
+E:\WorkSpaces\Posco.DC.SCADA\Model\bin\Release\Model.dll.config
+E:\WorkSpaces\Posco.DC.SCADA\Model\bin\Release\Model.dll
+E:\WorkSpaces\Posco.DC.SCADA\Model\bin\Release\Model.pdb
+E:\WorkSpaces\Posco.DC.SCADA\Model\bin\Release\EntityFramework.dll
+E:\WorkSpaces\Posco.DC.SCADA\Model\bin\Release\EntityFramework.SqlServer.dll
+E:\WorkSpaces\Posco.DC.SCADA\Model\bin\Release\EntityFramework.xml
+E:\WorkSpaces\Posco.DC.SCADA\Model\bin\Release\EntityFramework.SqlServer.xml
+E:\WorkSpaces\Posco.DC.SCADA\Model\bin\Release\zh-Hans\EntityFramework.resources.dll
+E:\WorkSpaces\Posco.DC.SCADA\Model\bin\Release\zh-Hans\EntityFramework.SqlServer.resources.dll
+E:\WorkSpaces\Posco.DC.SCADA\Model\obj\Release\Posco.DC.Model.csprojAssemblyReference.cache
+E:\WorkSpaces\Posco.DC.SCADA\Model\obj\Release\Posco.DC.Model.csproj.CoreCompileInputs.cache
+E:\WorkSpaces\Posco.DC.SCADA\Model\obj\Release\Posco.DC.Model.csproj.CopyComplete
+E:\WorkSpaces\Posco.DC.SCADA\Model\obj\Release\Model.dll
+E:\WorkSpaces\Posco.DC.SCADA\Model\obj\Release\Model.pdb

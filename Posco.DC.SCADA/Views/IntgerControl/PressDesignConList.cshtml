@@ -1,0 +1,261 @@
+﻿@model Model.ViewObject.PressDesign 
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PressDesignConList</title>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+    <style>
+          .numTitle {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+           background-color:#2f3545;
+           color:white;
+            border:1px solid white;
+
+        }
+         .numTitle1 {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+           background-color:#f25c66;
+            border:1px solid white;
+        }
+           .numTitle3{
+             width: 30px;
+            height: 30px;
+             text-align: center;
+             border:1px solid white;
+             background-color:#eaeaec;
+        }
+           .numTitle2{
+             width: 30px;
+            height: 30px;
+             text-align: center;
+             border:1px solid white;
+             background-color:whitesmoke;
+        }
+        .pressTitle {
+            width: 90px;
+            height: 30px;
+            text-align: center;
+           background-color:#2f3545;
+           color:white;
+            border:1px solid white;
+        }
+         .pressTitle1 {
+            width: 90px;
+            height: 30px;
+            text-align: center;
+           background-color:#eaeaec;
+           color:black;
+            border:1px solid white;
+        }
+        .timeTitle{
+             width: 30px;
+            height: 155px;
+            text-align: center;
+            border:1px solid white;
+            background-color:#2f3545;
+           color:#f25c66;
+        }
+    </style>
+</head>
+<body>
+    <div> 
+        <input type="hidden" id="counthide" value="@ViewBag.Count"/>
+        @for (var iiii= 0;iiii < Model.ListGet.Count;iiii++)
+        {
+            <div class="layui-row">
+                <div style="float:left;margin:0 0 0 20px">
+                    <table border="0" id="table0">
+                        <tr>
+                            <td class="timeTitle" id="time">@Html.Raw(Model.Time[iiii]+"</br>upi:"+Model.upiarr[iiii] )</td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="float:left">
+                    <table border="0" id="table1">
+                        <thead>
+                            <tr>
+                                <th class="pressTitle"></th>
+                                <th class="pressTitle">启动压力设定</th>
+                                <th class="numTitle">1</th>
+                                <th class="numTitle">2</th>
+                                <th class="numTitle">3</th>
+                                <th class="numTitle">4</th>
+                                <th class="numTitle">5</th>
+                                <th class="numTitle">6</th>
+                                <th class="pressTitle">启动压力设定</th>
+                                <th class="numTitle">1</th>
+                                <th class="numTitle">2</th>
+                                <th class="numTitle">3</th>
+                                <th class="numTitle">4</th>
+                                <th class="numTitle">5</th>
+                                <th class="numTitle">6</th>
+                                <th class="pressTitle">启动压力设定</th>
+                                <th class="numTitle">1</th>
+                                <th class="numTitle">2</th>
+                                <th class="numTitle">3</th>
+                                <th class="numTitle">4</th>
+                                <th class="numTitle">5</th>
+                                <th class="numTitle">6</th>
+                                <th class="pressTitle">启动压力设定</th>
+                                <th class="numTitle">1</th>
+                                <th class="numTitle">2</th>
+                                <th class="numTitle">3</th>
+                                <th class="numTitle">4</th>
+                                <th class="numTitle">5</th>
+                                <th class="numTitle">6</th>
+                                <th class="numTitle">7</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var i = 0; i < 4; i++)
+                            {
+                                <tr>
+                                    <td class="pressTitle">@Model.pressarr[i] </td>
+                                    @if (Model.ListSet[iiii][i] > 0)
+                                    {
+                                        <td class="pressTitle1">@Model.ListSet[iiii][i]</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="pressTitle1"></td>
+                                    }
+                                    @for(var j=0;j<6;j++)
+                                    {
+                                        if (Model.ListGet[iiii][j] == Model.ListSet[iiii][i]&& Model.ListGet[iiii][j]!=0)
+                                        {
+                                            <td class="numTitle1"></td>
+                                        }
+                                        else
+                                        {
+                                            if (i % 2 == 0)
+                                            {
+                                                <td class="numTitle2"></td>
+                                            }
+                                            else
+                                            {
+                                                <td class="numTitle3"></td>
+                                            }
+                                        }
+                                    }
+                                    @if (Model.ListSet[iiii][i+4] > 0)
+                                    {
+                                        <td class="pressTitle1">@Model.ListSet[iiii][i+4] </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="pressTitle1"></td>
+                                    }
+                                    @for (var j = 0; j < 6; j++)
+                                    {
+                                        if (Model.ListGet[iiii][j + 6] == Model.ListSet[iiii][i + 4]&&Model.ListGet[iiii][j + 6]!=0)
+                                        {
+                                            <td class="numTitle1"></td>
+                                        }
+                                        else
+                                        {
+                                            if (i % 2 == 0)
+                                            {
+                                                <td class="numTitle2"></td>
+                                            }
+                                            else
+                                            {
+                                                <td class="numTitle3"></td>
+                                            }
+                                        }
+                                    }
+                                    @if (Model.ListSet[iiii][i + 8] > 0)
+                                    {
+                                        <td class="pressTitle1">@Model.ListSet[iiii][i + 8] </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="pressTitle1"></td>
+                                    }
+                                    @for (var j = 0; j < 6; j++)
+                                    {
+                                        if (Model.ListGet[iiii][j + 12] == Model.ListSet[iiii][i + 8]&& Model.ListGet[iiii][j + 12]!=0)
+                                        {
+                                            <td class="numTitle1"></td>
+                                        }
+                                        else
+                                        {
+                                            if (i % 2 == 0)
+                                            {
+                                                <td class="numTitle2"></td>
+                                            }
+                                            else
+                                            {
+                                                <td class="numTitle3"></td>
+                                            }
+                                        }
+                                    }
+                                    @if (Model.ListSet[iiii][i + 12] > 0)
+                                    {
+                                        <td class="pressTitle1">@Model.ListSet[iiii][i + 12] </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="pressTitle1"></td>
+                                    }
+                                    @for (var j = 0; j < 7; j++)
+                                    {
+                                        if (Model.ListGet[iiii][j + 18] == Model.ListSet[iiii][i + 12]&& Model.ListGet[iiii][j + 18]!=0)
+                                        {
+                                            <td class="numTitle1"></td>
+                                        }
+                                        else
+                                        {
+                                            if (i % 2 == 0)
+                                            {
+                                                <td class="numTitle2"></td>
+                                            }
+                                            else
+                                            {
+                                                <td class="numTitle3"></td>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        <div id="pagesplit"></div>
+    </div>
+</body>
+</html>
+<script>
+    layui.use('laypage', function () {
+        var laypage = layui.laypage;
+        var arr = JSON.parse($("#counthide").val());
+        var usecount = parseInt(arr.Count);
+        var usecurr = parseInt(arr.Curr);
+        var uselimit = parseInt(arr.Limit);
+        laypage.render({
+            elem: 'pagesplit'
+         , count: usecount
+         , layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
+            , limit: uselimit
+            ,curr:usecurr
+           , limits: [3, 5, 7, 50]
+         , jump: function (obj,first) {
+             if (!first) {
+                 window.location.href = "/IntgerControl/PressDesignConList?limit=" + obj.limit + "&curr=" + obj.curr;
+             }
+         }
+        });
+    })
+</script>

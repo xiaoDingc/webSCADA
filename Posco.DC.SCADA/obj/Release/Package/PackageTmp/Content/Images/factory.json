@@ -1,0 +1,20 @@
+{"frames": {
+
+"factory.svg":
+{
+	"frame": {"x":0,"y":0,"w":1824,"h":870},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1824,"h":870},
+	"sourceSize": {"w":1824,"h":870}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "factory.png",
+	"format": "RGBA8888",
+	"size": {"w":1824,"h":870},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:847d8d57fe63acdd41ec651728631b63:f2c79929c7c78f6ad68372b566a7a37e:6f709d966622fc1b6c5e4025e33ed04a$"
+}
+}

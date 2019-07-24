@@ -1,0 +1,198 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TrendFacProducePressSumPower</title>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <style>
+        .col-center-block {
+            float: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <input type="hidden" value="@ViewBag.FacFSP" id="hide"/>
+   
+        <div id="kwnow" style="max-width:1000px;min-width:800px;height:500px" class="col-center-block" ></div> 
+    
+       
+    <script src="~/Scripts/code/highcharts.js"></script>
+    @*<script src="~/Scripts/code/modules/exporting.js"></script>
+    <script src="~/Scripts/code/modules/export.csv.js"></script>*@
+    <script src="~/Scripts/code/highcharts-more.js"></script>                
+</body>
+
+</html>
+<script>
+    var hide = $("#hide").val();
+    var json = JSON.parse(hide);
+    var tranarr = JSON.stringify(json.Numlist);
+    var yarr = [];
+    var seriesarr = [];
+    var titlename = "";
+    var strlist = ["产气量", "电功率", "压力", "单耗", "DRE", "BOR", "开机台数", "压缩空气露点"];
+    var unitlist = ["N㎥/h", "kW", "bar", "kWh/N㎥", "%", "%", "个", "℃"];
+    var title = json.namelist;
+    let upi = [];
+    let Dre = [];
+    let Bor = [];
+    let Run = [];
+    var flow = [];
+    var sumpower = [];
+    var press = [];
+    let dewp = [];
+    var reslist = [];
+    $.each(json.Res, function (index,item) {
+        flow[index] = [item.time, item.flow];
+        sumpower[index] = [item.time, item.epower];
+        press[index] = [item.time, item.press];
+        upi[index] = [item.time, item.upi];
+        Dre[index] = [item.time, item.dre];
+        Bor[index] = [item.time, item.bor];
+        Run[index] = [item.time, item.run];
+        dewp[index] = [item.time, item.dewp];
+    })
+    reslist[0] = flow; reslist[1] = sumpower; reslist[2] = press; reslist[3] = upi; reslist[4] = Dre; reslist[5] = Bor; reslist[6] = Run; reslist[7] = dewp;
+    if (title.length < 2) {
+        $.each(strlist, function (index, item) {
+            if (item == title[0]) {
+                yarr.push({
+                    title: {
+                        text: item + "(" +unitlist[index]+ ")"
+                    }
+                })
+                titlename = item + "-时间图";
+                seriesarr.push({
+                    name: item,
+                    data:reslist[index]
+                })
+            }
+        })
+    }
+    else {
+        $.each(strlist, function (index, item) {
+            $.each(json.namelist, function (i, j) {
+                if (j == item) {
+                    if(i%2==0){
+                    yarr.push({
+                        title: {
+                            text: item + "(" + unitlist[index] + ")"
+                        },
+                       
+                    })
+                    }
+                    else {
+                        yarr.push({
+                            title: {
+                                text: item + "(" + unitlist[index] + ")"
+                            },
+                            opposite: true
+                        })
+                    }
+                    titlename += item + "-";
+                    seriesarr.push({
+                        name: item,
+                        yAxis: i,
+                        data: reslist[index]
+                    })
+                }
+
+            })
+
+        })
+        titlename += "时间图";
+    }
+    Highcharts.setOptions({
+        lang: {
+            printChart: "打印图表",
+            downloadJPEG: "下载JPEG 图片",
+            downloadPDF: "下载PDF文档",
+            downloadPNG: "下载PNG图片",
+            downloadSVG: "下载SVG矢量图",
+            resetZoom: "还原",
+        }
+    });
+    var kwnowCharts = {
+        chart: {
+            type: 'spline',
+            zoomType: 'xy',
+            events: {
+                load: function () {
+                    var series = this.series;
+                    setInterval(function () {
+                        $.ajax({
+                            type: "GET",
+                            url: "/EnergySys/TrendFacProducePressSumPowerAjax",
+                            data:{id:tranarr},
+                            success: function (data) {
+                                console.log(data);
+                                var pointarr = [];
+                                    var point = [data.Res.time, data.Res.flow];
+                                    var point1 = [data.Res.time, data.Res.epower];
+                                    var point2 = [data.Res.time, data.Res.press];
+                                    var point3 = [data.Res.time, data.Res.upi];
+                                    var point4 = [data.Res.time, data.Res.dre];
+                                    var point5 = [data.Res.time, data.Res.bor];
+                                    var point6 = [data.Res.time, data.Res.run];
+                                    var point7 = [data.Res.time, data.Res.dewp];
+                                    pointarr[0] = point; pointarr[1] = point1; pointarr[2] = point2; pointarr[3] = point3; pointarr[4] = point4; pointarr[5] = point5; pointarr[6] = point6; pointarr[7] = point7;
+                                    $.each(strlist, function (index, item) {
+                                        $.each(data.namelist, function (i, j) {
+                                            if (item == j) {
+                                                series[i].addPoint(pointarr[index], true, true);
+                                            }
+                                        })
+                                    })
+                            }
+                        })
+                    }, 6000);
+                }
+            }
+
+        },
+        title: {
+            text: titlename
+        },
+        subtitle: {
+        },
+        credits: {
+            enabled: false     //不显示LOGO 
+        },
+        xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 150,
+            title: {
+                text:'时间'
+            }
+        },
+        yAxis: yarr,
+        Legend: {
+        },
+        tooltip: {
+            shared: true,
+            crosshairs: true,
+            xDateFormat: '%Y-%m-%d %H:%M:%S',
+        },
+        //plotOptions: {
+        //    spline: {
+        //        marker: {
+        //            radius: 4,
+        //            lineColor: '#666666',
+        //            lineWidth: 1
+        //        }
+        //    }
+        //},
+
+        series: seriesarr
+    };
+    $("#kwnow").highcharts(kwnowCharts);
+</script>

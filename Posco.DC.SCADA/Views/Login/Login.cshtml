@@ -1,0 +1,136 @@
+﻿@model Model.ModelViews.LoginInfo
+@*@using StackExchange.Profiling;*@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/LoginCSS/default.css" rel="stylesheet" />
+    <link href="~/Content/LoginCSS/demo.css" rel="stylesheet" />
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/LoginCSS/loaders.css" rel="stylesheet" />
+    <link href="~/Content/LoginCSS/styles.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/LoginJS/stopExecutionOnTimeout.js?t=1"></script>
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+    <script src="~/Scripts/LoginJS/Particleground.js"></script>
+    <script src="~/Scripts/LoginJS/Treatment.js"></script>
+    <script src="~/Scripts/LoginJS/jquery.mockjax.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+    <script language="JavaScript">
+        if (window != top)
+            top.location.href = location.href;
+    </script>
+
+
+
+</head>
+<body>
+    <div class='login' style="background-color:#155d91">
+        <div class='login_title'>
+            <h1 style="position:absolute; top:20px; left:20px; font-size:18pt;opacity:1">欢迎登陆能效管控系统</h1>
+            <span style="opacity:1">用户登录</span>
+        </div>
+
+
+        @using (Html.BeginForm("Login","Login",FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class='login_fields'>
+                    <div class='login_fields__user'>
+                        <div class='icon'>
+
+                            <img src="~/Images/LoginImg/user_icon_copy.png" />
+                        </div>
+
+                        @Html.EditorFor(model => model.ULoginName, new { htmlAttributes = new { @class = "form-control", @placeholder = "用户名", @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.ULoginName, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class='login_fields__password'>
+                        <div class='icon'>
+
+                            <img src="~/Images/LoginImg/lock_icon_copy.png" />
+                        </div>
+
+                        @Html.PasswordFor(model => model.ULoginPWD, new { htmlAttributes = new { @class = "form-control", @placeholder = "密码", @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.ULoginPWD, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class='login_fields__submit'>
+                        <input type="submit" value='登录' />
+                    </div>
+                </div>
+            </div>
+        }
+        <div class='success'>
+        </div>
+        <div class='disclaimer'>
+            <p>上海浦昊节能环保科技有限公司</p>
+        </div>
+    </div>
+
+    @*@MiniProfiler.RenderIncludes();*@
+    
+</body>
+</html>
+<script>
+    //粒子背景特效
+    $('body').particleground({
+        dotColor: '#E8DFE8',
+        lineColor: '#133b88'
+    });
+    $('input[name="pwd"]').focus(function () {
+        $(this).attr('type', 'password');
+    });
+    $('input[type="text"]').focus(function () {
+        $(this).prev().animate({ 'opacity': '1' }, 200);
+    });
+    $('input[type="text"],input[type="password"]').blur(function () {
+        $(this).prev().animate({ 'opacity': '.5' }, 200);
+    });
+    $('input[name="login"],input[name="pwd"]').keyup(function () {
+        var Len = $(this).val().length;
+        if (!$(this).val() == '' && Len >= 5) {
+            $(this).next().animate({
+                'opacity': '1',
+                'right': '30'
+            }, 200);
+        } else {
+            $(this).next().animate({
+                'opacity': '0',
+                'right': '20'
+            }, 200);
+        }
+    });
+    //获取cookie
+    function getCookie(cookieName) {
+        var strCookie = document.cookie;
+        var arrCookie = strCookie.split("; ");
+        for(var i = 0; i < arrCookie.length; i++){
+            var arr = arrCookie[i].split("=");
+            if(cookieName == arr[0]){
+                return arr[1];
+            }
+        }
+        return "";
+    }
+    var user_id = getCookie("UserName");//拿到名字为uid的cookie值
+    var pwd = getCookie("UserPwd");
+  
+</script>

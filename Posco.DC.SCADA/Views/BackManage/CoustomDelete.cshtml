@@ -1,0 +1,122 @@
+﻿@model Model.BussionObject.CustomShow_BO
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+   
+</head>
+<body>
+    <h3>你确定删除此客户信息?</h3>
+    <div>
+        <h4>该客户信息</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.boID)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boID)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boType)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boType)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boAddress)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boAddress)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boTelephone)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boTelephone)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boCompanyMail)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boCompanyMail)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boContacts)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boContacts)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boContactsCellone)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boContactsCellone)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boContactsMail)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boContactsMail)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boRemark)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boRemark)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.bostate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.bostate)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm("CoustomDelete", "BackManage",FormMethod.Post)) {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                @Html.HiddenFor(model=>model.boID)
+                <input type="submit" value="删除" class="btn btn-default" /> |
+                @Html.ActionLink("返回列表", "CoustomList", "BackManage");
+            </div>
+        }
+    </div>
+</body>
+</html>

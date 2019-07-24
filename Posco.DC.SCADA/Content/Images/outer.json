@@ -1,0 +1,20 @@
+{"frames": {
+
+"outer.svg":
+{
+	"frame": {"x":0,"y":0,"w":74,"h":36},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":74,"h":36},
+	"sourceSize": {"w":74,"h":36}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "outer.png",
+	"format": "RGBA8888",
+	"size": {"w":74,"h":36},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:88f444c58117bafd7ec155d3bd75e45a:bcbab08d40f555df93184ba356a63ea4:cba64cdaf34f4058b7decd3bbc3d1070$"
+}
+}

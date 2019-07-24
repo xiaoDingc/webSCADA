@@ -1,0 +1,213 @@
+﻿@model Model.ModelViews.DateTime_View
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>总产气量概率分布直方图</title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+</head>
+<body>
+    
+            <input type="hidden" value="@ViewBag.fpres" id="hide"/>
+    <div class="demoTable" style="float:right;margin:0 20px 20px 0">
+        搜索开始时间：
+        <div class="layui-inline">
+            <input type="text" class="layui-input" value="@Model.Time1" id="starttime">
+        </div>
+        搜索结束时间：
+        <div class="layui-inline">
+            <input type="text" class="layui-input" value="@Model.Time2" id="endtime">
+        </div>
+        <button class="layui-btn" id="layui-btn">搜索</button>
+    </div>
+    <div class="layui-row">
+
+        <div id="produceflow" style="height: 600px; max-width: 900px; margin: 0 auto">
+        </div>
+    </div>
+        <script src="~/Scripts/code/highcharts.js"></script>
+        <script src="~/Scripts/code/highcharts-more.src.js"></script>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        var bb = [];
+        var aa = $("#hide").val();
+        var aaa = JSON.parse(aa);
+        console.log(JSON.parse(aa));
+        $.each(aaa.a, function (index, item) {
+            bb[index]=item;
+        })
+        var cccc = aaa.x;
+        var useca = aaa.ca;
+        var startDate = $("#starttime").val();
+        var endDate = $("#endtime").val();
+        Highcharts.setOptions({
+            lang: {
+                printChart: "",
+                downloadJPEG: "daochu",
+                downloadPDF: "",
+                downloadPNG: "",
+                downloadSVG: "",
+                openInCloud: '',
+                resetZoom: "还原"
+            }
+        });
+        var produceflowCharts = {
+            chart: {
+                type: 'column',
+                zoomType: 'xy',
+            },
+            title: {
+                text: '空压系统总产气量概率直方图'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: cccc,
+                crosshair: true,
+                title: {
+                    text: '产气量(N㎥/h)'
+                },
+                tickmarkPlacement:'on'
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '概率(%)'
+                }
+            },
+            tooltip: {
+                //headerFormat: '<span style="font-size:10px">大于{point.key}小于下一个刻度</span><table>',
+                //pointFormat: '<tr><td style="color:{series.color};padding:0">概率: </td>' + '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr>',
+                //footerFormat: '</table>',
+                formatter:function(){
+                    var uc = parseInt(this.x) + parseInt(useca);
+                    var s = '<b>' + '产气量区间(' + this.x + '-' + uc + ')</b>' + '</br><b>概率:' + this.y + '</b>';
+                    return s;
+                },
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: '工厂产气量-概率',
+                data:bb
+            }]
+        };
+   
+        $('#produceflow').highcharts(produceflowCharts);
+        console.log(produceflowCharts.tooltip.formatter);
+        function getFrequency() {
+            var xarr = produceflowCharts.xAxis.categories;
+            var xarrJson = JSON.stringify(xarr);
+            $.ajax({
+                url: "/EfficiencyAnalysis/ProduceFlow",
+                type: "GET",
+                data: { strJson: xarrJson,begintime:startDate,endtime:endDate},
+                success: function (data) {
+                    var arr = [];
+                    $.each(data.a, function (index, item) {
+                        arr[index] = item;
+                    })
+
+                    produceflowCharts.series[0].data = arr;
+                    produceflowCharts.xAxis.categories = data.x;
+                    produceflowCharts.tooltip = {
+                        formatter: function () {
+                            var uc = parseInt(this.x) + parseInt(data.ca);
+                            var s = '<b>' + '产气量区间(' + this.x + '-' + uc + ')</b>' + '</br><b>概率:' + this.y + '</b>';
+                            return s;
+                        },
+                        shared: true,
+                        useHTML: true
+                    }
+                    $('#produceflow').highcharts(produceflowCharts);
+                }
+            });
+        }
+    //日历
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            var starttime = laydate.render({
+                elem: "#starttime",
+                type: "datetime",
+                max: getNowFormatDate(),
+                done: function (value, date) {
+                    if (value != "") {
+                        date.month = date.month - 1;
+                        endtime.config.min = date;
+                    }
+                }
+            })
+            var endtime = laydate.render({
+                elem: "#endtime",
+                type: "datetime",
+                max: getNowFormatDate(),
+                done: function (value, date) {
+                    if (value != "") {
+                        date.month = date.month - 1;
+                        starttime.config.max = date;
+                    }
+                }
+            })
+        })
+        function getNowFormatDate() {
+            var date = new Date();
+            console.log("shi:" + date);
+            var seperator1 = "-";
+            var seperator2 = ":";
+            var month = date.getMonth() + 1;
+            console.log("yue:" + month)
+            var strDate = date.getDate();
+            console.log("tian:" + strDate);
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                + " " + date.getHours() + seperator2 + date.getMinutes()
+                + seperator2 + date.getSeconds();
+            console.log(currentdate);
+            return currentdate;
+        }
+        //搜索按钮点击事件
+        $("#layui-btn").click(function () {
+        startDate = $("#starttime").val();
+        endDate = $("#endtime").val();
+        var begin = new Date("" + startDate + "");
+        var end = new Date("" + endDate + "");     
+        var time1 = begin.getTime();
+        var time2 = end.getTime();
+        var subtract = (time2 - time1) / 1000;
+        var day = parseInt(subtract / (24 * 60 * 60));
+        if (startDate == "" || endDate == "") {
+            alert("请按要求选择开始和结束时间")
+        }
+        else if (subtract <= 0) {
+        alert("开始时间大于等于结束时间，不可查询，请重新选择")
+        }
+        else if (day > 360) {
+            alert("开始和结束时间间隔太大，请重新选择，不要大于360天");
+        }
+        else {
+            getFrequency();
+        }
+    })        
+    });
+</script>

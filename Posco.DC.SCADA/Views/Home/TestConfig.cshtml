@@ -1,0 +1,308 @@
+﻿@model Model.VO.AuthorityPage_VO
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ConfigPre</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Scripts/KYJ/jquery-1.8.0.min.js" type="text/javascript"></script>
+    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+
+</head>
+<body>
+    <div>
+        <div id="addrole">
+            <form>
+                <div class="vv">
+                    <label>输入角色名</label><input type="text" value="" id="tinput" />
+                </div>
+            </form>
+        </div>
+        <div style="margin:-30px 7px 2px 10px">
+            <h2>系统角色名称 <button type="button" class="btn btn-success addbtn" style="margin-left:20px;">新增角色</button></h2>
+        </div>
+        <div>
+            <div class="col-lg-2">
+                <div class="list-group" id="roleList">
+                    @foreach (var item in Model.SysRole)
+                    {
+                        <a href="javascript:void(0);" class="list-group-item addRole" name="@item.Name" id="@item.ID">
+                            <i class="fa fa-key"></i> @item.Name
+                        </a>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="panel panel-default">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a href="javascript:void(0):" class="sysroleinfo">
+                                    角色基本信息
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="input">
+                            <input type="text" value="" disabled id="disabled" style="margin:10px 7px 7px 10px" /><input type="text" value="" id="inview" name="" /> <input type="button" value="修改" class="btn btn-info" id="btndis" disabled /><input type="button" value="修改" class="btn btn-info" id="btnno" /><input type="button" value="保存" class="btn btn-succes" id="btnbao" />&nbsp;&nbsp;<input type="button" value="取消" class="btn btn-warning" id="btncal" />
+                            <!--隐藏文本框-->
+                            <input type="hidden" value="10" id="hidden" />
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a href="javascript:void(0):" class="sysuserinfo">
+                                    角色拥有人员
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="ifrmeid">
+                            <iframe src="" style="height:300px;width:100%" id="iframe1" name="pagesplit"></iframe>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="authoriinfo"
+                                   href="javascript:void(0):">
+                                    页面权限管理
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="pro">
+                            <div class="pro1">
+                                <input type="button" class="btn btn-succes" id="authroitybtn" value="保存" />
+                                <ul>
+                                    @foreach (var item in Model.viewList)
+                                    {
+                                        if (item.childPage.Count > 0)
+                                        {
+                                            <li>
+                                                <div>
+                                                    <label><input type="checkbox" name="check" value="@item.Page.ID" class="checkparent" />@item.Page.PageNameCN</label>
+                                                    <ul>
+                                                        @foreach (var ii in item.childPage)
+                                                        {
+                                                            <li>
+                                                                <div><label><input type="checkbox" name="check" value="@ii.ID" class="checkchild" num="@item.Page.ID" disabled />@ii.PageNameCN</label></div>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <div><label><input type="checkbox" name="check" value="@item.Page.ID" />@item.Page.PageNameCN</label></div>
+                                            </li>
+                                        }
+
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+   
+    $(".checkparent").click(function () {
+        var num = $(this).val();
+        var state = $(this).attr("checked");
+        if (state == "checked") {
+            $(":checkbox[num='" + num + "']").attr("disabled", false);
+            $(":checkbox[num='" + num + "']").attr("checked","checked")
+        }
+        else {
+            $(":checkbox[num='" + num + "']").attr("disabled", true);
+            $(":checkbox[num='" + num + "']").removeAttr("checked");
+        }
+
+    })
+    //隐藏显示
+   
+    
+        document.getElementById("iframe1").src = "/Home/PageSplit?RoleID="+$(this).attr("id");
+        $("#btnno").click(function () {
+            $("#disabled").hide();
+            $("#inview").show();
+            $("#inview").val($("#disabled").val());
+            $("#btnno").hide();
+            $("#btnbao").show();
+            $("#btncal").show();
+        })
+        $("#btncal").click(function () {
+            $("#disabled").show();
+            $("#inview").hide();
+
+            $("#btnno").show();
+            $("#btnbao").hide();
+            $("#btncal").hide();
+        })
+        $("#btnbao").click(function () {
+            $("#btnbao").hide();
+            $("#btncal").hide();
+
+            $("#btnno").show();
+            $("#inview").hide();
+            $("#disabled").show();
+            var data = $("#inview").val();
+
+            var userdata = $("[id='" + num + "']").attr("name");
+
+
+            $.get("/Home/RoleModiInfo", { str: userdata,Newstr:data }, function (result) {
+
+
+                if (result != null) {
+                    //var a = ("<a href=\"javascript:void(0);\" class=\"list-group-item addRole\" name=\"" + data + "\">" + "<i class=\"fa fa-key\">" + "</i>" + data + "</a>");
+                    //$("#roleList").append(a);
+
+                    $("[id='" + num + "']").html("<i class=\"fa fa-key\"> </i>" + data);
+                    $("[id='" + num + "']").attr("name", data);
+                    $("#disabled").val(data);
+
+                    document.getElementById("iframe1").src = "/Home/PageSplit?RoleID=" +$("[id='" + num + "']").attr("id");
+
+                }
+            })
+
+        })
+ 
+
+   //角色信息DIV下拉
+    $(".sysroleinfo").click(function () {
+
+        if ($(".input").is(":hidden")) {
+            $(".input").slideDown(500);
+        }
+        else {
+            $(".input").slideUp(500);
+        }
+    })
+    //角色用户分页div下拉
+    $(".sysuserinfo").click(function () {
+        $(".input").slideUp(500);
+        $(".pro").slideUp(500);
+        if ($(".ifrmeid").is(":hidden")) {
+            $(".ifrmeid").slideDown(500);
+        }
+        else {
+            $(".ifrmeid").slideUp(500);
+        }
+    })
+    //权限保存按钮点击事件
+
+    $("#authroitybtn").click(function () {
+        //layer.open({
+        //    type: 1,
+        //    area: ['600px', '360px'],
+        //    shadeClose: true, //点击遮罩关闭
+        //    content: '\<\div style="padding:20px;">自定义内容\<\/div>'
+        //});
+       var con= layer.confirm('确认是否保存', {
+            btn: ['保存', '取消'],
+            skin:'layui-layer-lan'
+        }, function () {
+            var arr = [];
+            var arr1 = $(":checked");
+            $.each(arr1, function (index, item) {
+                arr.push($(item).val());
+            })
+            var jsonstr = JSON.stringify(arr);
+            var ii;
+            var lock = false;
+            if(!lock){
+            $.ajax({
+                url: "/Home/AuthoritySet",
+                type: "GET",
+                dataType: "json",
+                async: true,
+                data: { str: jsonstr, str1: $("#hidden").val() },
+                beforeSend:function(){
+                    ii=layer.load(2, {
+                        shade: [0.1, '#fff'] //0.1透明度的白色背景)
+                    });
+                    layer.close(con);
+                },
+                success: function (result) {
+                    if (result.value == "1") {
+                        layer.close(ii);
+                        layer.alert("保存成功", {
+                            skin: 'layui-layer-lan'
+                            , closeBtn: 0
+                        }
+                        //, function () {
+                        //    //window.parent.location.reload();
+                        //    //var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                        //    //parent.layer.close(index);
+                        //}
+                        )
+                    }
+                }
+            })
+        }
+        }
+        )
+    })
+    //权限DIV下拉
+    $(".authoriinfo").click(function () {
+        $(".ifrmeid").slideUp(500);
+
+        if ($(".pro").is(":hidden")) {
+            $(".pro").slideDown(500);
+        }
+        else {
+            $(".pro").slideUp(500);
+        }
+    })
+    //增加角色按钮点击事件
+    $(".addbtn").click(function () {
+        layer.open({
+            type: 1,
+            area: ['300px', '120px'],
+            shadeClose: true, //点击遮罩关闭
+            title:"新增角色",
+
+            skin:'layui-layer-lan',
+            content: $("#addrole"),
+            btn: ['保存', '取消'],
+            yes:function(index,layeor) {
+
+                var data = $("#tinput").val();
+                $.ajax({
+                    url: "/Home/roleList",
+                    type:"GET",
+                    data: { str: data },
+                    async: false,
+                    success: function (result) {
+                        if (result != null) {
+                            var a = ("<a href=\"javascript:void(0);\" class=\"list-group-item addRole\" name=\"" + data + "\" id=\"" + result.ID + "\">" + "<i class=\"fa fa-key\">" + "</i>" + data + "</a>");
+                            $("#roleList").append(a);
+                            window.location.href = "/Home/ConfigPre";
+                            layer.close(index);
+                        }
+                    }
+                })
+            }
+        });
+
+        })
+
+
+
+</script>

@@ -1,0 +1,77 @@
+﻿@{
+    Layout = null;
+}
+<script src="~/Scripts/pixi/jquery-3.3.1.min.js"></script>
+
+<script src="~/Content/ListLayui/static/admin/lib/ueditor/third-party/highcharts/highstock.js"></script>
+<script src="~/Content/ListLayui/static/admin/lib/ueditor/third-party/highcharts/modules/exporting.js"></script>
+
+
+<input id="hdData" type="hidden" value="@ViewData["infoObject"]" />
+<div id="container" style="min-width:400px;height:400px"></div>
+<script>
+    var datas = [];
+    var chart = {
+        chart: {
+            type: 'spline',
+            zoomType: "xy",
+        },
+        title: {
+            text: ''
+        },
+        
+        subtitle: {
+            text: ''
+        }, credits: {
+            enabled: false     //不显示LOGO 
+        },
+        xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 150,
+            title: {
+                text: '时间'
+            },
+        },
+        yAxis: {
+            title: {
+                text: ''
+            },
+        },
+        tooltip: {
+            crosshairs: true,
+            shared: true,
+            xDateFormat: '%Y-%m-%d %H:%M:%S',
+        },
+        plotOptions: {
+            spline: {
+                marker: {
+                    radius: 4,
+                    // lineColor: '#666666',
+                    lineWidth: 1
+                }
+            }
+        },
+        series: [{
+            name: '流量值',
+            marker: {
+                symbol: 'square'
+            },
+            data: datas
+        }]
+    };
+
+    var jsonString = $("#hdData").val();
+    var jsonRes = eval('(' + jsonString + ')');
+    chart.title.text = jsonRes.stationId + " " + jsonRes.equipId + " " + jsonRes.name;
+    //y轴名称获取
+    chart.yAxis.title.text = jsonRes.chartYUnit;
+    //x轴图例名称获取
+    chart.series[0].name = jsonRes.chartXLegend;
+    //遍历数组值，并赋值到datas中
+    $.each(jsonRes.data, function (index, item) {
+        datas[index] = [item.DateTime, item.value];
+    });
+
+    $('#container').highcharts(chart);
+</script>
+

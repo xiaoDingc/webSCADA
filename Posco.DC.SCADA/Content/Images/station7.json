@@ -1,0 +1,20 @@
+{"frames": {
+
+"station7.png":
+{
+	"frame": {"x":0,"y":0,"w":1912,"h":1088},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1912,"h":1088},
+	"sourceSize": {"w":1912,"h":1088}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "station7.png",
+	"format": "RGBA8888",
+	"size": {"w":1912,"h":1088},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:f6ba055e374f1d7dde7b074ed3654e25:0a270f4ceb69caf722a63e41c73f8274:ef9015c9e22a20341c24c582f304dfc9$"
+}
+}

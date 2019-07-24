@@ -1,0 +1,153 @@
+﻿@model  Model.BB_Instrument
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>设备信息列表</title>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+    <script src="~/Content/ListLayui/static/admin/js/common.js"></script>
+</head>
+<body>
+    <br />
+    <br />
+    <div class="demoTable">
+        @* <button class="layui-btn" data-type="reload" id="layui-btn">搜索</button> *@
+        <div class="tt" style="float:right"> 
+             <button class="layui-btn layui-btn-normal" id="User" data-id="1" data-url="/BackManage/InstrumentAdd">添加设备</button>
+        </div> 
+    </div>
+    <br />
+    <br />
+    <br />
+    <table class="layui-hide" id="test" lay-filter="test"></table>
+    <script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" data-url="/BackManage/InstrumentModiInfo" lay-event="edit">编辑</a>
+   @* <a class="layui-btn layui-btn-danger layui-btn-xs" data-url="/BackManage/InstrumentDelete" lay-event="del">删除</a>*@
+    </script>
+</body>
+</html>
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+        //方法级渲染
+        table.render({
+            elem: '#test',
+            url: '/BackManage/InstrumentListJSON',
+            toolbar: '#toolbarDemo',
+            cellMinWidth: 80,
+            cols: [[
+                { field: 'ID', title: 'ID', sort: true, hide: true },
+                { field: 'ClientID', title: '客户名称', sort: true },
+                { field: 'FactoryID', title: '工厂名称', sort: true },
+                { field: 'StationID', title: '空压站名称', sort: true }, 
+                { field: 'Code', title: '编码', sort: true },
+                { field: 'Type', title: '类型', sort: true },
+                { field: 'Rated_Q', title: '额定排气量(N㎥/h)', sort: true },
+                { field: 'DesignPressure', title: '设定压力(㎏/㎠)', sort: true },
+                { field: 'Rated_V', title: '额定电压(V)', sort: true },
+                { field: 'Rated_A', title: '额定电流(A)', sort: true },
+                { field: 'Rated_Power', title: '额定功率(KW)', sort: true },
+                { field: 'Dewpoint', title: '露点(℃)', sort: true },
+                { field: 'Manufacture', title: '制造商', sort: true },
+                { field: 'RunYear', title: '投入运行年份', sort: true },
+                { field: 'Remark', title: '备注', sort: true },  
+                { field: 'DateOfProductionTime', title: '出厂日期', sort: true },
+                { field: 'SerialNumber', title: '出厂编号', sort: true },
+                { field: 'ExFlangeSize', title: '排气法兰尺寸(DN)', sort: true },
+                { field: 'ShapeSize', title: '外形尺寸(mm*mm*mm)', sort: true },
+                { field: 'Refrigerantype', title: '制冷剂类型', sort: true },
+                { field: 'AdsorbentType', title: '吸附剂类型', sort: true },
+                //{ field: 'FilterNum', title: '过滤器数量', sort: true },
+                //{ field: 'GasConsumptionRate', title:'耗气量', sort: true },
+                { field: 'PrimaryIntercoolerPower', title: '一级中冷器功率', sort: true },
+                { field: 'SecondaryIntercoolerPower', title: '二级中冷器功率', sort: true },
+                { field: 'ThirdintercoolerPower', title: '三级中冷器功率', sort: true },
+                { field: 'Valid', title: '有效性', sort: true },
+                { fixed: 'right', title: '操作', toolbar: '#barDemo' }
+            ]],
+            id: 'testReload',
+            page: true
+        });
+        //监听行工具事件
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'del') {
+                var id = data.ID;
+                var url = $(this).attr('data-url');
+                layer.confirm('真的删除行么', function (index, layero) {
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: { uid: id },
+                        success: function (data) {
+                            if (data > 0) {
+                                layer.close(index);
+                                window.location.reload();
+                            }
+                        }
+
+                    })
+                    layer.close(index);
+                });
+            } else if (obj.event === 'edit') {
+                console.log(data);
+                //获取当前iframe的name值
+                var iframeObj = $(window.frameElement).attr('name');
+                var iframe = $(window.frameElement);
+                console.log(iframe);
+                console.log(iframeObj);
+                var id = data.ID;
+                var url = $(this).attr('data-url');
+                page("编辑用户", url + "?uid=" + id, iframeObj, w = "700px", h = "620px");
+            }
+        });
+
+        var $ = layui.$, active = {
+            reload: function () {
+                //var demoReload = $('#demoReload').val();
+                //var nameReload = $("#nameReload").val();
+                //var contactReload = $("#contactReload").val();
+                //var stateReload = $("#stateReload").val();
+                //执行重载
+                table.reload('testReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        //account: demoReload,
+                        //contact: contactReload,
+                        //name: nameReload,
+                        //state: stateReload
+                    }
+                });
+            }
+        };
+        $('.demoTable #layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        $('.demoTable #User').on('click', function () {
+            var That = $(this);
+            var id = That.attr('data-id');
+            var url = That.attr('data-url');
+            var iframeObj = $(window.frameElement).attr('name');
+            //将iframeObj传递给父级窗口
+            page("添加", url + "?id=" + id, iframeObj, w = "700px", h = "500px");
+            return false;
+        });
+    })
+
+
+</script>

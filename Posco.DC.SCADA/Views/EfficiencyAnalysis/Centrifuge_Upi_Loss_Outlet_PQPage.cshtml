@@ -1,0 +1,277 @@
+﻿@model  Model.ModelViews.DateTime_View
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>空压机UPI放散率压力流量图</title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+</head>
+<body>
+   
+    <input type="hidden" value="@ViewBag.faceres" id="hide" />
+    <input type="hidden" id="sId" value="@ViewBag.Fsidcid" />
+    <div class="demoTable" style="float:right;margin:0 20px 20px 0">
+        搜索开始时间：
+        <div class="layui-inline">
+            <input type="text" class="layui-input" value="@Model.Time1" id="starttime">
+        </div>
+        搜索结束时间：
+        <div class="layui-inline">
+            <input type="text" class="layui-input" value="@Model.Time2" id="endtime">
+        </div>
+        <button class="layui-btn" id="layui-btn">搜索</button>
+    </div>
+    <div class="layui-row">
+        <div id="centrifugeupilossmainpq" style="height: 600px; width: 900px; margin: 0 auto">
+        </div>
+        </div>
+        <script src="~/Scripts/code/highcharts.js"></script>
+        <script src="~/Scripts/code/highcharts-more.src.js"></script>
+</body>
+</html>
+<script>
+
+        $(document).ready(function () {
+            var bb = [];
+            var startDate = $("#starttime").val();
+            var endDate = $("#endtime").val();
+            let strvalue = $("#hide").val();
+            var sidValue = $("#sId").val().charAt(3, 1);
+            var cidValue = $("#sId").val().charAt(7, 1);
+            var titlename = sidValue + '#空压站' + + cidValue + '# 空压机UPI-放散率散点图';//标题
+            let json = JSON.parse(strvalue);
+            var ee = [];
+            $.each(json, function (index, item) {
+                ee[index] = [item.loss, item.upi];
+            })
+            bb.push({
+                name: sidValue + '#空压站' + + cidValue + '# 空压机放散率(%)',
+                data:ee
+            })
+            //$.each(JSON.parse(str), function (index, item) {
+            //    var carr = [];
+            //    var carr1 = [];
+            //    var carr2 = [];               
+            //    $.each(item, function (i, j) {
+            //        carr[i] = [j.upi, j.loss];
+            //        carr1[i] = [j.upi, j.p];
+            //        carr2[i] = [j.upi, j.q];                    
+            //    })
+            //    bb.push({
+            //        name: index + 1 + "#空压站放散率",
+            //        yAxis: 0,
+            //        data: carr,
+            //        tooltip: {
+            //            headerFormat: '<b>{series.name}</b><br>',
+            //            pointFormat: '{point.x}kw/min'
+            //        }
+            //    },
+            //               {
+            //                   name: index + 1 + "#空压站压力",
+            //                   yAxis: 1,
+            //                   data:carr1,
+            //                   tooltip: {
+            //                       headerFormat: '<b>{series.name}</b><br>',
+            //                       pointFormat: '{point.x}kw/min'
+            //                   }
+            //               },
+            //               {
+            //                   name: index + 1 + "空压站流量",
+            //                   yAxis: 2,
+            //                   data: carr2,
+            //                   tooltip: {
+            //                       headerFormat: '<b>{series.name}</b><br>',
+            //                       pointFormat: '{point.x}kw/min'
+            //                   }
+            //               }
+            //               )
+            //})
+            
+            Highcharts.setOptions({
+                lang: {
+                    printChart: "打印图表",
+                    downloadJPEG: "下载JPEG 图片",
+                    downloadPDF: "下载PDF文档",
+                    downloadPNG: "下载PNG图片",
+                    downloadSVG: "下载SVG矢量图",
+                    resetZoom: "还原"
+                }
+            });
+            var centrifugeupilossmainpqCharts = {
+                chart: {
+                    type: 'scatter',
+                    zoomType: 'xy',
+                },
+                title: {
+                    text:titlename
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    title: {
+                        enabled: true,
+                        text: '放散率(%)'
+                    },
+                    startOnTick: true,
+                    endOnTick: true,
+                    showLastLabel: true
+                },
+                yAxis: {
+                    title: {
+                        text: 'UPI(kWh/Nm³)'
+                    },
+                    //startOnTick: false,
+                    //endOnTick: true,
+                    tickInterval: 0.001
+
+                },
+                legend: {
+                    //layout: 'vertical',
+                    //align: 'right',
+                    //verticalAlign: 'top',
+                    //y: 80,
+                    //navigation: {
+                    //    activeColor: 'red',
+                    //    animation: true,
+                    //    arrowSize: 15,
+                    //    inactiveColor: '#CCC',
+                    //    style: {
+                    //        fontWeight: 'bold',
+                    //        color: '#333',
+                    //        fontSize: '12px'
+                    //    }
+                    //}
+                },
+                plotOptions: {
+                    scatter: {
+                        animation:false,
+                        marker: {
+                            radius: 5,
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    lineColor: 'rgb(100,100,100)'
+                                }
+                            }
+                        },
+                        states: {
+                            hover: {
+                                marker: {
+                                    enabled: false
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<b>{series.name}</b><br>',
+                            pointFormat: '{point.y}kWh/N㎥<br>{point.x}%'
+                        }
+                    }
+                },
+                series: bb
+            };
+            $("#centrifugeupilossmainpq").highcharts(centrifugeupilossmainpqCharts);
+            function getCenUpilossmainpq() {
+                var startDate1 = $("#starttime").val();
+                var endDate1 = $("#endtime").val();
+                $.ajax({
+                    url: "/EfficiencyAnalysis/CentrifugeUpiLossOutletpQ",
+                    type: "GET",
+                    data: { begintime: startDate1, endtime: endDate1, sid: $("#sId").val() },
+                    success: function (data) {
+                        var arr0 = [];
+                        var arrjson = [];
+                        $.each(data, function (index, item) {
+                            arr0[index] = [item.loss, item.upi];
+                        })
+                        arrjson.push({
+                            name:sidValue + '#空压站' + + cidValue + '# 空压机放散率(%)',
+                            data: arr0
+                        })
+                        centrifugeupilossmainpqCharts.series = arrjson;
+                        $("#centrifugeupilossmainpq").highcharts(centrifugeupilossmainpqCharts);
+                    }
+                })
+            }
+
+            //日历
+            layui.use('laydate', function () {
+                var laydate = layui.laydate;
+                var starttime = laydate.render({
+                    elem: "#starttime",
+                    type: "datetime",
+                    max: getNowFormatDate(),
+                    done: function (value, date) {
+                        if (value != "") {
+                            date.month = date.month - 1;
+                            endtime.config.min = date;
+                        }
+                    }
+                })
+                var endtime = laydate.render({
+                    elem: "#endtime",
+                    type: "datetime",
+                    max: getNowFormatDate(),
+                    done: function (value, date) {
+                        if (value != "") {
+                            date.month = date.month - 1;
+                            starttime.config.max = date;
+                        }
+                    }
+                })
+            })
+            function getNowFormatDate() {
+                var date = new Date();
+                console.log("shi:" + date);
+                var seperator1 = "-";
+                var seperator2 = ":";
+                var month = date.getMonth() + 1;
+                console.log("yue:" + month)
+                var strDate = date.getDate();
+                console.log("tian:" + strDate);
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                    + " " + date.getHours() + seperator2 + date.getMinutes()
+                    + seperator2 + date.getSeconds();
+                console.log(currentdate);
+                return currentdate;
+            }
+            //搜索按钮点击事件
+            $("#layui-btn").click(function () {
+
+                startDate = $("#starttime").val();
+                endDate = $("#endtime").val();
+                var begin = new Date("" + startDate + "");
+                var end = new Date("" + endDate + "");
+                var time1 = begin.getTime();
+                var time2 = end.getTime();
+                var subtract = (time2 - time1) / 1000;
+                var day = parseInt(subtract / (24 * 60 * 60));
+                if (startDate == "" || endDate == "") {
+                    alert("请按要求选择开始和结束时间")
+                }
+                else if (day > 360) {
+                    alert("开始和结束时间间隔太大，请重新选择，不要大于360天");
+                }
+                else if (subtract <= 0) {
+                    alert("开始时间大于等于结束时间，不可查询，请重新选择")
+                }
+                else {
+                    getCenUpilossmainpq();
+                }
+            })
+        });
+
+</script>

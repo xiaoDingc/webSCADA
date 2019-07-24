@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{20D6C086-1B3D-4FA7-BC2C-B9688B516B13}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Services</RootNamespace>
+    <AssemblyName>Services</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Posco.DC.SCADA\Posco.DC.SCADA\bin\linkDll\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Posco.DC.SCADA\Posco.DC.SCADA\bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\BaseServices.cs" />
+    <Compile Include="Base\IBaseServices.cs" />
+    <Compile Include="IServices\IAP_AdsorptionDryer_HistoryServices.cs" />
+    <Compile Include="IServices\IAP_AdsorptionDryer_RealServices.cs" />
+    <Compile Include="IServices\IAP_AdsorptionDryer_StatisticsServices.cs" />
+    <Compile Include="IServices\IAP_Centrifuge_HistoryServices.cs" />
+    <Compile Include="IServices\IAP_Centrifuge_RealServices.cs" />
+    <Compile Include="IServices\IAP_Centrifuge_StatisticsServices.cs" />
+    <Compile Include="IServices\IAP_Factory_HistoryServices.cs" />
+    <Compile Include="IServices\IAP_Factory_RealServices.cs" />
+    <Compile Include="IServices\IAP_Factory_StatisticsServices.cs" />
+    <Compile Include="IServices\IAP_PressDesign_ConclusionServieces.cs" />
+    <Compile Include="IServices\IAP_PressDesign_RealServices.cs" />
+    <Compile Include="IServices\IAP_Station_HistoryServices.cs" />
+    <Compile Include="IServices\IAP_Station_RealServices.cs" />
+    <Compile Include="IServices\IAP_Station_StatisticsServices.cs" />
+    <Compile Include="IServices\IAP_WaterPump_HistoryServices.cs" />
+    <Compile Include="IServices\IAP_WaterPump_RealServices.cs" />
+    <Compile Include="IServices\IAP_WaterPump_StatisticsServices.cs" />
+    <Compile Include="IServices\IBB_AreaServices.cs" />
+    <Compile Include="IServices\IBB_ChartAliasServices.cs" />
+    <Compile Include="IServices\IBB_Data_CheckServices.cs" />
+    <Compile Include="IServices\IBB_Data_Exception_AreaServices.cs" />
+    <Compile Include="IServices\IBB_Data_Exception_EquServices.cs" />
+    <Compile Include="IServices\IBB_Data_Exception_StaServices.cs" />
+    <Compile Include="IServices\IBB_FactoryServices.cs" />
+    <Compile Include="IServices\IBB_InstrumentServices.cs" />
+    <Compile Include="IServices\IBB_MeasureMeterServices.cs" />
+    <Compile Include="IServices\IBB_StationServices.cs" />
+    <Compile Include="IServices\IBB_ThresholdServices.cs" />
+    <Compile Include="IServices\IUPIEnergyServices.cs" />
+    <Compile Include="IServices\IOpcHelperItemServices.cs" />
+    <Compile Include="IServices\IOpcHelperItemsServices.cs" />
+    <Compile Include="IServices\IPG_Area_HistoryServices.cs" />
+    <Compile Include="IServices\IPG_Area_RealServices.cs" />
+    <Compile Include="IServices\IPG_Area_StatisticsServices.cs" />
+    <Compile Include="IServices\IPLCBaseServices.cs" />
+    <Compile Include="IServices\IRE_SysRolePageServices.cs" />
+    <Compile Include="IServices\IRE_SysRoleUserServices.cs" />
+    <Compile Include="IServices\IRe_UserRole1Services.cs" />
+    <Compile Include="IServices\IRE_UserStationServices.cs" />
+    <Compile Include="IServices\ISB_ClientServices.cs" />
+    <Compile Include="IServices\ISB_LogServices.cs" />
+    <Compile Include="IServices\ISB_OperateHistoryServices.cs" />
+    <Compile Include="IServices\ISB_PageServices.cs" />
+    <Compile Include="IServices\ISB_SysRoleServices.cs" />
+    <Compile Include="IServices\ISB_TableDictionaryServices.cs" />
+    <Compile Include="IServices\ISB_UserServices.cs" />
+    <Compile Include="IServices\ISB_WarnLogServices.cs" />
+    <Compile Include="IServices.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AP_AdsorptionDryer_HistoryServices.cs" />
+    <Compile Include="Services\AP_AdsorptionDryer_RealServices.cs" />
+    <Compile Include="Services\AP_AdsorptionDryer_StatisticsServices.cs" />
+    <Compile Include="Services\AP_Centrifuge_HistoryServices.cs" />
+    <Compile Include="Services\AP_Centrifuge_RealServices.cs" />
+    <Compile Include="Services\AP_Centrifuge_StatisticsServices.cs" />
+    <Compile Include="Services\AP_Factory_HistoryServices.cs" />
+    <Compile Include="Services\AP_Factory_RealServices.cs" />
+    <Compile Include="Services\AP_Factory_StatisticsServices.cs" />
+    <Compile Include="Services\AP_PressDesign_ConclusionServices.cs" />
+    <Compile Include="Services\AP_PressDesign_RealServices.cs" />
+    <Compile Include="Services\AP_Station_HistoryServices.cs" />
+    <Compile Include="Services\AP_Station_RealServices.cs" />
+    <Compile Include="Services\AP_Station_StatisticsServices.cs" />
+    <Compile Include="Services\AP_WaterPump_HistoryServices.cs" />
+    <Compile Include="Services\AP_WaterPump_RealServices.cs" />
+    <Compile Include="Services\AP_WaterPump_StatisticsServices.cs" />
+    <Compile Include="Services\BB_AreaServices.cs" />
+    <Compile Include="Services\BB_ChartAliasServices.cs" />
+    <Compile Include="Services\BB_Data_CheckServices.cs" />
+    <Compile Include="Services\BB_Data_Exception_AreaServices.cs" />
+    <Compile Include="Services\BB_Data_Exception_EquServices.cs" />
+    <Compile Include="Services\BB_Data_Exception_StaServices.cs" />
+    <Compile Include="Services\BB_FactoryServices.cs" />
+    <Compile Include="Services\BB_InstrumentServices.cs" />
+    <Compile Include="Services\BB_MeasureMeterServices.cs" />
+    <Compile Include="Services\BB_StationServices.cs" />
+    <Compile Include="Services\BB_ThresholdServices.cs" />
+    <Compile Include="Services\OpcHelperItemServices.cs" />
+    <Compile Include="Services\OpcHelperItemsServices.cs" />
+    <Compile Include="Services\PG_Area_HistoryServices.cs" />
+    <Compile Include="Services\PG_Area_RealServices.cs" />
+    <Compile Include="Services\PG_Area_StatisticsServices.cs" />
+    <Compile Include="Services\PLCBaseServices.cs" />
+    <Compile Include="Services\RE_SysRolePageServices.cs" />
+    <Compile Include="Services\RE_SysRoleUserServices.cs" />
+    <Compile Include="Services\Re_UserRole1Services.cs" />
+    <Compile Include="Services\RE_UserStationServices.cs" />
+    <Compile Include="Services\SB_ClientServices.cs" />
+    <Compile Include="Services\SB_LogServices.cs" />
+    <Compile Include="Services\SB_OperateHistoryServices.cs" />
+    <Compile Include="Services\SB_PageServices.cs" />
+    <Compile Include="Services\SB_SysRoleServices.cs" />
+    <Compile Include="Services\SB_TableDictionaryServices.cs" />
+    <Compile Include="Services\SB_UserServices.cs" />
+    <Compile Include="Services\SB_WarnLogServices.cs" />
+    <Compile Include="Services\Services.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Services\UPIEnergyServices.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonHelper\Posco.DC.CommonHelper.csproj">
+      <Project>{D2795C0C-2ADE-4B39-BBB6-EC8F81665A9F}</Project>
+      <Name>Posco.DC.CommonHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Posco.DC.Model.csproj">
+      <Project>{AE52D47F-AC1F-4BA8-91B5-3DE4B54E7394}</Project>
+      <Name>Posco.DC.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository\Posco.DC.Repository.csproj">
+      <Project>{4447D1C6-5B59-43DE-8257-62A7BB2F5082}</Project>
+      <Name>Posco.DC.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

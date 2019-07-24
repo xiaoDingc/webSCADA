@@ -1,0 +1,87 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>WarnRecord</title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <link href="~/Content/Newcss/his_record.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/layDate-v5.0.9/laydate/laydate.js"></script>
+    <style>
+        .disabled {
+            pointer-events: none;
+        }
+    </style>
+
+</head>
+<body>
+    
+        <div class="layui-form-item">
+            <label class="layui-form-label">起始时间</label>
+            <div class="layui-input-inline">
+                <input type="text" value="" class="layui-input" id="starttime">
+            </div>
+            <div></div>
+            <label class="layui-form-label">结束时间</label>
+            <div class="layui-input-inline">
+                <input type="text" value="" class="layui-input" id="endtime">
+            </div>
+            <div class="layui-form-mid" style="padding:0!important">
+                <button class="layui-btn" id="jj">查询</button><button class="layui-btn layui-btn-normal" id="output">导出excel</button>
+            </div>
+        </div>
+    <div class="page-content-wrap" id="paa">
+        <div class="layui-form" id="table-char1">
+            <table class="layui-table" lay-skin="line" id="table-rr1">
+                <thead>
+                    <tr>
+                        <th>时间</th>
+                        <th style="text-align:center">报警内容</th>
+                        <th style="text-align:center">报警类型</th>
+                        <th style="text-align:center">是否已处理</th>
+                    </tr>
+                </thead>
+                <tbody id="toto"></tbody>
+            </table>
+        </div>
+    </div>
+    <div><ul class="pagination"><li style="width:60px"><a href="#" id="back" num="0">上一页</a></li><li style="width:60px"><a href="#" id="next" num="2">下一页</a></li></ul></div>
+   
+    
+</body>
+</html>
+<script>
+    var str = "";
+    for (var i = 0; i < 10; i++) {
+        str += '<tr style="text-align:center"><td class="hidden-xs">25</td><td class="hidden-xs">18</td><td class="hidden-xs">20</td><td>是</td></tr>'
+
+    }
+    $("#toto").append(str);
+    var starttime = laydate.render({
+        elem: "#starttime",
+        type: "datetime",
+        done: function (value, date) {
+            if (value != "") {
+                date.month = date.month - 1;
+                endtime.config.min = date;
+            }
+        }
+    })
+    var endtime = laydate.render({
+        elem: "#endtime",
+        type: "datetime",
+        done: function (value, date) {
+            if (value != "") {
+                date.month = date.month - 1;
+                starttime.config.max = date;
+            }
+        }
+    })
+</script>

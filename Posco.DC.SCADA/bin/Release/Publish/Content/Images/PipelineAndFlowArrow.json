@@ -1,0 +1,52 @@
+{"frames": {
+
+"Pipeline.svg":
+{
+	"frame": {"x":1,"y":790,"w":664,"h":487},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":664,"h":487},
+	"sourceSize": {"w":664,"h":487}
+},
+"toBottom.svg":
+{
+	"frame": {"x":723,"y":1,"w":261,"h":720},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":261,"h":720},
+	"sourceSize": {"w":261,"h":720}
+},
+"toLeftArrow.svg":
+{
+	"frame": {"x":1,"y":1,"w":720,"h":261},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":720,"h":261},
+	"sourceSize": {"w":720,"h":261}
+},
+"toRightArrow.svg":
+{
+	"frame": {"x":1,"y":264,"w":720,"h":261},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":720,"h":261},
+	"sourceSize": {"w":720,"h":261}
+},
+"toTopArrow.svg":
+{
+	"frame": {"x":1,"y":527,"w":261,"h":720},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":261,"h":720},
+	"sourceSize": {"w":261,"h":720}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "PipelineAndFlowArrow.png",
+	"format": "RGBA8888",
+	"size": {"w":985,"h":1278},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:32d8724f4e6f48e3180ad1ef41ff3ab6:bab6021e4bb4ca43067ff530abd2b0e4:93e5d56ecdf8a9fff4eb8106b8c81924$"
+}
+}

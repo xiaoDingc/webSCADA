@@ -1,0 +1,346 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>统计分析界面主页</title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <link href="~/Content/Newcss/Analysis.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+    <script src="~/Content/ListLayui/static/admin/js/common.js"></script>
+</head>
+<body>
+
+    <div class="layui-tab page-content-wrap">
+        <ul class="layui-tab-title">
+            <li class="layui-this">空压系统数据分析图表</li>
+            <li>空压站数据分析图表</li>
+            <li>空压机数据分析图表</li>
+        </ul>
+        <div class="layui-tab-content">
+            <!--工厂实时趋势-->
+            <div class="layui-tab-item layui-show">
+                <div class="layui-form">
+                    @*<div class="layui-inline">
+                        <select name="category" lay-filter="status" id="one" style="color:red">
+                            <option value="/EfficiencyAnalysis/ProduceFlowPage" id="oneoption">总产气量概率分布图</option>
+                            <option value="/EfficiencyAnalysis/AnalysisScatterPage">UPI-放散率散点图</option>
+                            <option value="/EfficiencyAnalysis/ProduceEpowerPage">气量功率散点图点图</option>
+                            <option value="/EfficiencyAnalysis/Loss_RatioPage">放散率概率分布图</option>
+                        </select>
+                    </div>*@
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">类型选择</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="fac" value="/EfficiencyAnalysis/ProduceFlowPage" lay-filter="c_factory" title="产气量概率分布图" checked>
+                            <input type="radio" name="fac" value="/EfficiencyAnalysis/AnalysisScatterPage" lay-filter="c_factory" title="UPI-放散率散点图">
+                            <input type="radio" name="fac" value="/EfficiencyAnalysis/ProduceEpowerPage" lay-filter="c_factory" title="产气量-电功率散点图">
+                            <input type="radio" name="fac" value="/EfficiencyAnalysis/Loss_RatioPage" lay-filter="c_factory" title="放散率概率分布图">
+                        </div>
+                    </div>
+                </div>
+                <iframe id="list" src="/EfficiencyAnalysis/ProduceFlowPage" frameborder="0"></iframe>
+            </div>
+            <!--空压站实时趋势-->
+            <div class="layui-tab-item">
+                <div style="float:left">
+                    <form class="layui-form">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">空压站选择</label>
+                            <div class="layui-input-block" >
+                                <input type="radio" name="sta" value="S001" lay-filter="c_station" title="1#空压站" checked>
+                                <input type="radio" name="sta" value="S002"lay-filter="c_station" title="2#空压站">
+                                <input type="radio" name="sta" value="S003"lay-filter="c_station" title="3#空压站">
+                                <input type="radio" name="sta" value="S004" lay-filter="c_station" title="4#空压站">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">类型选择</label>
+                            <div class="layui-input-block" >
+                                <input type="radio" name="sta1" value="产气量"  lay-filter="c_station"    title="产气量概率分布图" checked>
+                                <input type="radio" name="sta1" value="产气量功率" lay-filter="c_station" title="产气量-电功率散点图">
+                                <input type="radio" name="sta1" value="单耗放散率" lay-filter="c_station"  title="UPI-放散率散点图" >
+                                <input type="radio" name="sta1" value="压力功率"  lay-filter="c_station"  title="压力-电功率散点图" >
+                                <input type="radio" name="sta1" value="放散率概率" lay-filter="c_station" title="放散率概率分布图" >
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <iframe id="list1" src="/EfficiencyAnalysis/StationProduceFlowPage?sid=S001" frameborder="0"></iframe>
+            </div>
+            <!--空压机数据分析图表-->
+            <div class="layui-tab-item">
+                <div style="float:left">
+                    <form class="layui-form">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">空压站选择</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="tcen" value="S001" lay-filter="c_centri1" title="1#空压站" checked>
+                                <input type="radio" name="tcen" value="S002" lay-filter="c_centri1" title="2#空压站">
+                                <input type="radio" name="tcen" value="S003" lay-filter="c_centri1" title="3#空压站">
+                                <input type="radio" name="tcen" value="S004" lay-filter="c_centri1" title="4#空压站">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="six">
+                            <label class="layui-form-label">空压机选择</label>
+                            <div class="layui-input-block" id="blockadd">
+                                <input type="radio" name="tcen1" value="E001" lay-filter="c_centri2" title="1#空压机" checked>
+                                <input type="radio" name="tcen1" value="E002" lay-filter="c_centri2" title="2#空压机">
+                                <input type="radio" name="tcen1" value="E003" lay-filter="c_centri2" title="3#空压机">
+                                <input type="radio" name="tcen1" value="E004" lay-filter="c_centri2" title="4#空压机">
+                                <input type="radio" name="tcen1" value="E005" lay-filter="c_centri2" title="5#空压机">
+                                <input type="radio" name="tcen1"  value="E006" lay-filter="c_centri2" title="6#空压机">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-hide" id="seven">
+                            <label class="layui-form-label">空压机选择</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="tcen2" value="E001" lay-filter="c_centri2" title="1#空压机">
+                                <input type="radio" name="tcen2" value="E002" lay-filter="c_centri2" title="2#空压机">
+                                <input type="radio" name="tcen2" value="E003" lay-filter="c_centri2" title="3#空压机">
+                                <input type="radio" name="tcen2" value="E004" lay-filter="c_centri2" title="4#空压机">
+                                <input type="radio" name="tcen2" value="E005" lay-filter="c_centri2" title="5#空压机">
+                                <input type="radio" name="tcen2" value="E006" lay-filter="c_centri2" title="6#空压机">
+                                <input type="radio" name="tcen2" value="E007" lay-filter="c_centri2" title="7#空压机">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">类型选择</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="cen1" value="/EfficiencyAnalysis/CentriProduceEpowerPage" lay-filter="c_centri2" title="产气量-电功率散点图"checked>
+                                <input type="radio" name="cen1" value="/EfficiencyAnalysis/Centrifuge_Upi_Loss_Outlet_PQPage" lay-filter="c_centri2" title="UPI-放散率散点图">
+                                <input type="radio" name="cen1" value="/EfficiencyAnalysis/CentrifugePePowerPage" lay-filter="c_centri2" title="压力-电功率散点图">
+                                <input type="radio" name="cen1" value="/EfficiencyAnalysis/CentrifugeLossRatioPage" lay-filter="c_centri2" title="BOV开度-放散率散点图">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <iframe id="list2" src="/EfficiencyAnalysis/CentriProduceEpowerPage?sidcid=S001E001" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+    <!-- 统计分析 -->
+   
+</body>
+</html>
+<script>
+   
+		layui.use(['form', 'jquery', 'layer'], function () {
+			var form = layui.form,
+				$ = layui.jquery;
+			layer = layui.layer;
+			
+			//form.render('radio');
+			//var b=$(":input[name='tcen1'][title='7#空压机']").val();
+			
+            //=============================【1】空压系统===================================    
+			form.on('radio(c_factory)', function (data) {
+			    var fac = '';
+			    var allcheck = $(".layui-unselect.layui-form-radio.layui-form-radioed");
+			    $.each(allcheck, function (index, item) {
+			        var ii = $(item).prev().attr("name");
+			        if (ii == "fac") {
+			            fac = $(item).prev().val();
+			        }
+			    })
+			    
+			    var str =fac;
+			    var a = document.getElementById("list");
+			    a.style.display = "none"; //隐藏 
+			    var index = layer.load(1, {
+			        shade: [0.1, '#fff'] //0.1透明度的白色背景
+			    });
+			    $("#list").attr("src", str);
+			    a.onload = function () {
+			        layer.close(index);
+			        a.style.display = "block";
+			    }
+			})
+		    //==============================【2】空压站单选框==============================
+			form.on('radio(c_station)', function (data) {
+			    var sid = '';
+			    var field = '';
+			    var url = '';
+			    var allcheck = $(".layui-unselect.layui-form-radio.layui-form-radioed");
+			    console.log(allcheck.length);
+			    $.each(allcheck, function (index,item) {
+			        var ii = $(item).prev().attr("name");
+			        if (ii == "sta") {
+			            sid = $(item).prev().val();
+			        }
+			        else if(ii=="sta1") {
+			            field = $(item).prev().val();
+			        }
+			    })
+			    if (field === "产气量")
+			        url = "/EfficiencyAnalysis/StationProduceFlowPage?sid=" + sid;
+			    if (field === "单耗放散率")
+			        url = "/EfficiencyAnalysis/Station_UPI_LossRatio_MainP_QPage?sid=" + sid;
+			    if (field === "压力功率")
+			        url = "/EfficiencyAnalysis/StationEpowerMainPPage?sid=" + sid;
+			    if (field === "放散率概率")
+			        url = "/EfficiencyAnalysis/StationLossRatioProbablyPage?sid=" + sid;
+			    if (field === "产气量功率")
+			        url = "/EfficiencyAnalysis/StaProduceEpowerPage?sid=" + sid;
+			    var a = document.getElementById("list1");
+			    a.style.display = "none"; //隐藏 
+			    var index = layer.load(1, {
+			        shade: [0.1, '#fff'] //0.1透明度的白色背景
+			    });
+			    $("#list1").attr("src", url);
+			    a.onload = function () {
+			        layer.close(index);
+			        a.style.display = "block";
+			    }
+			})
+		    //================================【4】空压机空压站单选框重写===============================================
+			form.on('radio(c_centri1)', function (data) {
+			    var sta = '';
+			    var sta123 = '';
+			    var sta4 = '';
+			    var allcheck = $(".layui-unselect.layui-form-radio.layui-form-radioed");
+			    $.each(allcheck, function (index, item) {
+			        var ii = $(item).prev().attr("name");
+			        if (ii == "tcen") {
+			            sta = $(item).prev().val();
+			        }
+			        else if (ii == "tcen1") {
+			            sta123 = $(item).prev().val();
+			        }
+			        else if (ii == "tcen2") {
+			            sta4 = $(item).prev().val();
+			        }
+			    })
+			    if (data.value == "S004") {
+			        $("#seven").attr("class", "layui-form-item layui-show");
+			        $("#six").attr("class", "layui-form-item layui-hide");
+			        var ss=$(":input[name='tcen2'][value='" + sta123 + "']").val();
+			        $(":input[name='tcen2'][value='" + sta123 + "']").prop("checked", true);
+			        $(":input[name='tcen2'][value!='" + sta123 + "']").prop("checked", false);
+			    }
+			    else {
+			        $("#seven").attr("class", "layui-form-item layui-hide");
+			        $("#six").attr("class", "layui-form-item layui-show");
+			        if (sta4 != ""&&sta4!="E007") {
+			            $(":input[name='tcen1'][value='" + sta4 + "']").prop("checked", true);
+			            $(":input[name='tcen1'][value!='" + sta4 + "']").prop("checked", false);
+			        }
+			        else if (sta4 == "E007") {
+			            $(":input[name='tcen1'][value='E001']").prop("checked", true);
+			            $(":input[name='tcen1'][value!='E001']").prop("checked", false);
+			        }
+			        else {
+			            $(":input[name='tcen1'][value='" + sta123 + "']").prop("checked", true);
+			            $(":input[name='tcen1'][value!='" + sta123 + "']").prop("checked", false);
+			        }
+			    }
+			    form.render('radio');
+			    var allcheck1 = $(".layui-unselect.layui-form-radio.layui-form-radioed");
+			    var sta1 = '';
+			    var sta1231 = '';
+			    var sta41 = '';
+			    var flied = '';
+			    var url = '';
+			    $.each(allcheck1, function (index, item) {
+			        var ii = $(item).prev().attr("name");
+			        if (ii == "tcen") {
+			            sta1 = $(item).prev().val();
+			        }
+			        else if (ii == "tcen1") {
+			            sta1231 = $(item).prev().val();
+			        }
+			        else if (ii == "tcen2") {
+			            sta41 = $(item).prev().val();
+			        }
+			        else if (ii = "cen1") {
+			            flied = $(item).prev().val();
+			        }
+			    })
+			    if (data.value == "S004") {
+			        url = flied + "?sidcid=" + sta1 + sta41;
+			    }
+			    else {
+			        url = flied + "?sidcid=" + sta1 + sta1231;
+			    }
+			    var a = document.getElementById("list2");
+			    a.style.display = "none"; //隐藏 
+			    var index = layer.load(1, {
+			        shade: [0.1, '#fff'] //0.1透明度的白色背景
+			    });
+			    $("#list2").attr("src", url);
+			    a.onload = function () {
+			        layer.close(index);
+			        a.style.display = "block";
+			    }
+			})
+            //=================================【5】空压机空压机和属性单选框选择========================================
+			form.on('radio(c_centri2)', function (data) {
+			    var sta = '';
+			    var sta123 = '';
+			    var sta4 = '';
+			    var flied = '';
+			    var url = '';
+			    var allcheck = $(".layui-unselect.layui-form-radio.layui-form-radioed");
+			    $.each(allcheck, function (index, item) {
+			        var ii = $(item).prev().attr("name");
+			        if (ii == "tcen") {
+			            sta = $(item).prev().val();
+			        }
+			        else if (ii == "tcen1") {
+			            sta123 = $(item).prev().val();
+			        }
+			        else if (ii == "tcen2") {
+			            sta4 = $(item).prev().val();
+			        }
+			        else if (ii == "cen1") {
+			            flied = $(item).prev().val();
+			        }
+			    })
+			    if (sta == "S004") {
+			        url = flied + "?sidcid=" + sta + sta4;
+			    }
+			    else {
+			        url = flied + "?sidcid=" + sta + sta123;
+			    }
+			    var a = document.getElementById("list2");
+			    a.style.display = "none"; //隐藏 
+			    var index = layer.load(1, {
+			        shade: [0.1, '#fff'] //0.1透明度的白色背景
+			    });
+			    $("#list2").attr("src", url);
+			    a.onload = function () {
+			        layer.close(index);
+			        a.style.display = "block";
+			    }
+			})
+		function changeFrameHeight() {
+		    var width = $(document).width();
+		    var height = $(document).innerHeight();
+		    console.log(width);
+		    console.log(height);
+			var uh = height - 60;
+			$("#list").innerWidth(width-60);
+			$("#list").innerHeight(uh);
+			$("#list1").innerWidth(width-60);
+			$("#list1").innerHeight(uh);
+			$("#list2").innerWidth(width - 60);
+			$("#list2").innerHeight(uh);
+		};
+            //加载完成
+		window.onload = function () {
+		    changeFrameHeight();
+		};
+            //重置界面。
+		window.onresize = function () {
+			changeFrameHeight();
+		}
+
+	});
+	
+</script>

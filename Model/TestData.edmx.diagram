@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6efed264c61e4f0ea50d9881fca2d73a" Name="Diagram1" ZoomLevel="63">
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_AdsorptionDryer_History" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_AdsorptionDryer_Real" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_AdsorptionDryer_Statistics" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_Centrifuge_History" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_Centrifuge_Real" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_Centrifuge_Statistics" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_Factory_History" Width="1.5" PointX="2.75" PointY="9.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_Factory_Real" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_Factory_Statistics" Width="1.5" PointX="10.75" PointY="6.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_PressDesign_Conclusion" Width="1.5" PointX="4.75" PointY="11.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_PressDesign_Real" Width="1.5" PointX="6.75" PointY="11.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_Station_History" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_Station_Real" Width="1.5" PointX="8.75" PointY="12.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_Station_Statistics" Width="1.5" PointX="10.75" PointY="12.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_WaterPump_History" Width="1.5" PointX="12.75" PointY="12.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_WaterPump_Real" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.AP_WaterPump_Statistics" Width="1.5" PointX="14.75" PointY="7.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.BB_Area" Width="1.5" PointX="14.75" PointY="14.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.BB_ChartAlias" Width="1.5" PointX="2.75" PointY="15.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.BB_Data_Check" Width="1.5" PointX="4.75" PointY="15.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.BB_Data_Error_Area" Width="1.5" PointX="16.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.BB_Data_Error_Equ" Width="1.5" PointX="16.75" PointY="4.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.BB_Data_Error_Sta" Width="1.5" PointX="16.75" PointY="8.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.BB_Data_Exception_Area" Width="1.5" PointX="16.75" PointY="12.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.BB_Data_Exception_Equ" Width="1.5" PointX="16.75" PointY="16.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.BB_Data_Exception_MeasureMeter" Width="1.5" PointX="18.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.BB_Data_Exception_Sta" Width="1.5" PointX="18.75" PointY="5.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.BB_Factory" Width="1.5" PointX="18.75" PointY="9.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.BB_Instrument" Width="1.5" PointX="18.75" PointY="14.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.BB_MeasureMeter" Width="1.5" PointX="12.75" PointY="19.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.BB_Station" Width="1.5" PointX="20.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.BB_Threshold" Width="1.5" PointX="4.75" PointY="20.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.OpcHelperItem" Width="1.5" PointX="20.75" PointY="5.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.OpcHelperItems" Width="1.5" PointX="20.75" PointY="9.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.PG_Area_History" Width="1.5" PointX="20.75" PointY="12.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.PG_Area_Real" Width="1.5" PointX="14.75" PointY="20.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.PG_Area_Statistics" Width="1.5" PointX="20.75" PointY="16.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.PLCBase" Width="1.5" PointX="20.75" PointY="20.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.RE_SysRolePage" Width="1.5" PointX="0.75" PointY="21.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.RE_SysRoleUser" Width="1.5" PointX="16.75" PointY="21.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.Re_UserRole1" Width="1.5" PointX="22.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.RE_UserStation" Width="1.5" PointX="22.75" PointY="3.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.SB_Client" Width="1.5" PointX="22.75" PointY="6.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.SB_Log" Width="1.5" PointX="22.75" PointY="10.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.SB_OperateHistory" Width="1.5" PointX="22.75" PointY="14.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.SB_Page" Width="1.5" PointX="22.75" PointY="19.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.SB_SysRole" Width="1.5" PointX="18.75" PointY="23.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.SB_TableDictionary" Width="1.5" PointX="20.75" PointY="23.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.SB_User" Width="1.5" PointX="22.75" PointY="23.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.SB_WarnLog" Width="1.5" PointX="24.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TestLWSCADAModel.UPIEnergy" Width="1.5" PointX="0.75" PointY="24.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,91 @@
+﻿@model  Model.PageInfo<Model.SB_OperateHistory>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>operatHis</title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <link href="~/Content/Newcss/his_record.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/ListLayui/static/admin/js/common.js"></script>
+    <style>
+          .disabled{
+             pointer-events:none; 
+               }
+    </style>
+</head>
+<body>
+    <div class="demoTable">
+        搜索用户名称：
+        <div class="layui-inline">
+            <input class="layui-input" name="Id" id="demoReload" autocomplete="off" />
+        </div>
+        搜索开始时间：
+        <div class="layui-inline">
+            <input type="text" class="layui-input" id="test1">
+        </div>
+        搜索结束时间：
+        <div class="layui-inline">
+            <input type="text" class="layui-input" id="test2">
+        </div>
+        <button class="layui-btn" data-type="reload" id="layui-btn">搜索</button>
+    </div>
+    <table class="layui-hide" id="test" lay-filter="test"></table>
+</body>
+</html>
+<script>
+    layui.use(['table','laydate'], function () {
+        var table = layui.table;
+        var laydate = layui.laydate;
+        //时间
+        var starttime = laydate.render({
+            elem: "#test1",
+            type: "datetime",
+            done: function (value, date) {
+                if (value != "") {
+                    date.month = date.month - 1;
+                    endtime.config.min = date;
+                }
+            }
+        })
+        var endtime = laydate.render({
+            elem: "#test2",
+            type: "datetime",
+            done: function (value, date) {
+                if (value != "") {
+                    date.month = date.month - 1;
+                    starttime.config.max = date;
+                }
+            }
+        })
+        //方法级渲染
+        table.render({
+            elem: '#test',
+            url: '/Operating/SysRecord',
+            toolbar: '#toolbarDemo',
+            cellMinWidth: 80 ,
+            cols: [[
+                    { field: 'OperateTime', title: '时间', sort: true },
+                    { field: 'UserName', title: '用户名称', sort: true },
+                    { field: 'IPAddress', title: 'IP地址', sort: true },
+                    { field: 'OperateType', title: '操作类型', sort: true },
+                    { field: 'OperateChildType', title: '操作子类型', sort: true },
+                    { field: 'OperateRecord', title: '操作记录', sort: true },
+                    { field: 'PageURL', title: '访问地址', sort: true },
+                    { field: 'PageNameCN', title: '访问地址中文', sort: true },
+                    { field: 'ClientID', title: '客户名称', sort: true },
+                    { field: 'Valid', title: '有效性', sort: true },
+                    { field: 'Remark', title: '备注', sort: true },
+            ]],
+            id: 'testReload',
+            page: true,
+            limits:[10,20,100,500,1000,5000]
+        });
+    })
+</script>

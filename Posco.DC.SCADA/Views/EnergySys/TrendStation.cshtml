@@ -1,0 +1,265 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TrendStation</title>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <style>
+        .col-center-block {
+            float: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <input type="hidden" value="@ViewBag.FacFSP" id="hide" />
+
+    <div id="kwnow" style="max-width:1000px;min-width:800px;height:500px" class="col-center-block"></div>
+
+
+    <script src="~/Scripts/code/highcharts.js"></script>
+    @*<script src="~/Scripts/code/modules/exporting.js"></script>
+    <script src="~/Scripts/code/modules/export.csv.js"></script>*@
+    <script src="~/Scripts/code/highcharts-more.js"></script>
+</body>
+</html>
+<script>
+    var hide = $("#hide").val();
+    var json = JSON.parse(hide);
+    var sid=JSON.stringify(json.stastr);
+    var fid=JSON.stringify(json.stafieldstr);
+    var yarr = [];
+    var seriesarr = [];
+    var strlist = ["产气量", "电功率", "压力", "单耗", "DRE", "BOR", "开机台数", "大气温度", "湿度", "压缩空气露点"];
+    var unitlist = ["N㎥/h", "KW", "bar", "kWh/N㎥", "%", "%", "个", "℃", "RH", "℃"];
+    //var numSid = json.Sid.replace(/[^1-9]/ig, "");
+    var titlename = "";
+    var reslist=[];
+    if (json.stastr.length < 2) {
+        var numSid = json.stastr[0].replace(/[^1-9]/ig, "");
+        titlename += numSid + "#空压站";
+        let upi = [];
+        let Dre = [];
+        let Bor = [];
+        let Run = [];
+        var flow = [];
+        var sumpower = [];
+        var press = [];
+        let airt = [];
+        let airh = [];
+        let dewp = [];
+        var reslist = [];
+        $.each(json.Res, function (index, item) {
+            flow[index] = [item.time, item.flow];
+            sumpower[index] = [item.time, item.epower];
+            press[index] = [item.time, item.press];
+            upi[index] = [item.time, item.upi];
+            Dre[index] = [item.time, item.dre];
+            Bor[index] = [item.time, item.bor];
+            Run[index] = [item.time, item.run];
+            airt[index] = [item.time, item.airt];
+            airh[index] = [item.time, item.airh];
+            dewp[index] = [item.time, item.dewpoint];
+        })
+        reslist[0] = flow; reslist[1] = sumpower; reslist[2] = press; reslist[3] = upi; reslist[4] = Dre; reslist[5] = Bor; reslist[6] = Run; reslist[7] = airt; reslist[8] = airh; reslist[9] = dewp;
+        //循环属性
+        $.each(strlist, function (index, item) {
+            $.each(json.stafieldstr, function (i, j) {
+                if (j == item) {
+                    if (i % 2 == 0) {
+                        yarr.push({
+                            title: {
+                                text: item + "(" + unitlist[index] + ")"
+                            },
+
+                        })
+                    }
+                    else {
+                        yarr.push({
+                            title: {
+                                text: item + "(" + unitlist[index] + ")"
+                            },
+                            opposite: true
+                        })
+                    }
+                    titlename += item + "-";
+                    seriesarr.push({
+                        name: item,
+                        yAxis: i,
+                        data: reslist[index]
+                    })
+                }
+            })
+        })
+        titlename += "时间图"
+    }
+    else {
+        var allarr = [];
+        var numstrlist = [];
+        $.each(json.stastr, function (index, item) {
+            var num = item.replace(/[^1-9]/ig, "");
+            var numstr = num + "#空压站";
+            numstrlist[index] = numstr;
+            titlename+=numstr+"-"
+        })
+        titlename += json.stafieldstr[0] + "-时间图";
+        $.each(json.Res, function (index, item) {
+            let upi = [];
+            let Dre = [];
+            let Bor = [];
+            let Run = [];
+            var flow = [];
+            var sumpower = [];
+            var press = [];
+            let airt = [];
+            let airh = [];
+            let dewp = [];
+            var reslist = [];
+            $.each(item, function (i, j) {
+                flow[i] = [j.time, j.flow];
+                sumpower[i] = [j.time, j.epower];
+                press[i] = [j.time, j.press];
+                upi[i] = [j.time, j.upi];
+                Dre[i] = [j.time, j.dre];
+                Bor[i] = [j.time, j.bor];
+                Run[i] = [j.time, j.run];
+                airt[index] = [item.time, item.airt];
+                airh[index] = [item.time, item.airh];
+                dewp[index] = [item.time, item.dewpoint];
+            })
+            reslist[0] = flow; reslist[1] = sumpower; reslist[2] = press; reslist[3] = upi; reslist[4] = Dre; reslist[5] = Bor; reslist[6] = Run; reslist[7] = airt; reslist[8] = airh; reslist[9] = dewp;
+            $.each(strlist, function (ii, jj) {
+                if (jj == json.stafieldstr[0]) {
+                    seriesarr.push({
+                        name: numstrlist[index],
+                        data:reslist[ii]
+                    })
+                }
+            })
+        })
+        $.each(strlist, function (index, item) {
+            if (item == json.stafieldstr[0]) {
+                yarr.push({
+                    title: {
+                        text:item+"("+ unitlist[index] + ")"
+                    }
+                })
+            }
+        })
+    }
+    Highcharts.setOptions({
+        lang: {
+            printChart: "打印图表",
+            downloadJPEG: "下载JPEG 图片",
+            downloadPDF: "下载PDF文档",
+            downloadPNG: "下载PNG图片",
+            downloadSVG: "下载SVG矢量图",
+            resetZoom: "还原",
+        }
+    });
+    var kwnowCharts = {
+        chart: {
+            type: 'spline',
+            zoomType: 'xy',
+            events: {
+                load: function () {
+                    var series = this.series;
+                    setInterval(function () {
+                        $.ajax({
+                            type: "GET",
+                            url: "/EnergySys/TrendStationAjax",
+                            data: { sfieldstr:fid ,sstastr:sid },
+                            success: function (data) {
+                                if (data.stastr.length < 2) {
+                                    var pointarr = [];
+                                    var point = [data.Res.time, data.Res.flow];
+                                    var point1 = [data.Res.time, data.Res.epower];
+                                    var point2 = [data.Res.time, data.Res.press];
+                                    var point3 = [data.Res.time, data.Res.upi];
+                                    var point4 = [data.Res.time, data.Res.dre];
+                                    var point5 = [data.Res.time, data.Res.bor];
+                                    var point6 = [data.Res.time, data.Res.run];
+                                    var point7= [data.Res.time, data.Res.airt];
+                                    var point8 = [data.Res.time, data.Res.airh];
+                                    var point9 = [data.Res.time, data.Res.dewpoint];
+                                    pointarr[0] = point; pointarr[1] = point1; pointarr[2] = point2; pointarr[3] = point3; pointarr[4] = point4; pointarr[5] = point5; pointarr[6] = point6; pointarr[7] = point7; pointarr[8] = point8; pointarr[9] = point9;
+                                    $.each(strlist, function (index, item) {
+                                        $.each(data.field, function (i, j) {
+                                            if (item == j) {
+                                                series[i].addPoint(pointarr[index], true, true);
+                                            }
+                                        })
+                                    })
+                                }
+                                else {
+                                    $.each(data.Res, function (index, item) {
+                                        var pointarr = [];
+                                        var point = [item.time, item.flow];
+                                        var point1 = [item.time, item.epower];
+                                        var point2 = [item.time, item.press];
+                                        var point3 = [item.time, item.upi];
+                                        var point4 = [item.time, item.dre];
+                                        var point5 = [item.time, item.bor];
+                                        var point6 = [item.time, item.run];
+                                        var point7 = [item.time, item.airt];
+                                        var point8 = [item.time, item.airh];
+                                        var point9 = [item.time, item.dewpoint];
+                                        pointarr[0] = point; pointarr[1] = point1; pointarr[2] = point2; pointarr[3] = point3; pointarr[4] = point4; pointarr[5] = point5; pointarr[6] = point6; pointarr[7] = point7; pointarr[8] = point8; pointarr[9] = point9;
+                                        $.each(strlist, function (i, j) {
+                                            if (j == data.field[0]) {
+                                                series[index].addPoint(pointarr[i], true, true);
+                                            }
+                                        })
+                                    })
+                                }
+                            }
+                        })
+                    }, 6000);
+                }
+            }
+        },
+        title: {
+            text: titlename
+        },
+        subtitle: {
+        },
+        credits: {
+            enabled: false     //不显示LOGO 
+        },
+        xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 150,
+            title: {
+                text: '时间'
+            }
+        },
+        yAxis: yarr,
+        Legend: {
+        },
+        tooltip: {
+            shared: true,
+            crosshairs: true,
+            xDateFormat: '%Y-%m-%d %H:%M:%S',
+        },
+        //plotOptions: {
+        //    spline: {
+        //        marker: {
+        //            radius: 4,
+        //            lineColor: '#666666',
+        //            lineWidth: 1
+        //        }
+        //    }
+        //},
+
+        series: seriesarr
+    };
+    $("#kwnow").highcharts(kwnowCharts);
+</script>

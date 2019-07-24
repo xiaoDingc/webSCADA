@@ -1,0 +1,168 @@
+﻿@model Model.BussionObject.FactoryShow_BO
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>工厂添加</title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="../../Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+</head>
+<body>
+    <form class="layui-form" id="editForm" style="width: 90%;padding-top: 20px; margin:0 auto;">
+            @Html.AntiForgeryToken()
+                <h4>添加工厂信息</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="layui-form-item">
+                    @Html.LabelFor(model => model.bocode, htmlAttributes: new { @class = "layui-form-label" })
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.bocode, new { htmlAttributes = new { @class = "layui-input" } })
+                        @Html.ValidationMessageFor(model => model.bocode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    @Html.LabelFor(model => model.boName, htmlAttributes: new { @class = "layui-form-label" })
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.boName, new { htmlAttributes = new { @class = "layui-input" } })
+                        @Html.ValidationMessageFor(model => model.boName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    @Html.LabelFor(model => model.boIntroduction, htmlAttributes: new { @class = "layui-form-label" })
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.boIntroduction, new { htmlAttributes = new { @class = "layui-input" } })
+                        @Html.ValidationMessageFor(model => model.boIntroduction, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    @Html.LabelFor(model => model.boProduct, htmlAttributes: new { @class = "layui-form-label" })
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.boProduct, new { htmlAttributes = new { @class = "layui-input" } })
+                        @Html.ValidationMessageFor(model => model.boProduct, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    @Html.LabelFor(model => model.boAnnualOutput, htmlAttributes: new { @class = "layui-form-label" })
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.boAnnualOutput, new { htmlAttributes = new { @class = "layui-input" } })
+                        @Html.ValidationMessageFor(model => model.boAnnualOutput, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    @Html.LabelFor(model => model.boLatitude, htmlAttributes: new { @class = "layui-form-label" })
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.boLatitude, new { htmlAttributes = new { @class = "layui-input" } })
+                        @Html.ValidationMessageFor(model => model.boLatitude, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    @Html.LabelFor(model => model.boLongtitude, htmlAttributes: new { @class = "layui-form-label" })
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.boLongtitude, new { htmlAttributes = new { @class = "layui-input" } })
+                        @Html.ValidationMessageFor(model => model.boLongtitude, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    @Html.LabelFor(model => model.boAltitude, htmlAttributes: new { @class = "layui-form-label" })
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.boAltitude, new { htmlAttributes = new { @class = "layui-input" } })
+                        @Html.ValidationMessageFor(model => model.boAltitude, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    @Html.LabelFor(model => model.boSize, htmlAttributes: new { @class = "layui-form-label" })
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.boSize, new { htmlAttributes = new { @class = "layui-input" } })
+                        @Html.ValidationMessageFor(model => model.boSize, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    @Html.LabelFor(model => model.boRemark, htmlAttributes: new { @class = "layui-form-label" })
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.boRemark, new { htmlAttributes = new { @class = "layui-input" } })
+                        @Html.ValidationMessageFor(model => model.boRemark, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    @Html.LabelFor(model => model.boClientID, htmlAttributes: new { @class = "layui-form-label" })
+                    <div class="layui-input-block">
+                        @Html.DropDownListFor(model => model.boClientID, ViewBag.Client as SelectList, "---请选择---", new { @class = "layui-input" })
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    @Html.LabelFor(model => model.boValid, htmlAttributes: new { @class = "layui-form-label" })
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.boValid, new { htmlAttributes = new { @class = "layui-input" } })
+                        @Html.ValidationMessageFor(model => model.boValid, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+</form>
+    <script>
+        //对下拉框进行渲染,不然下拉框出不来
+        layui.use('form', function () {
+            //对下拉框进行渲染,不然下拉框出不来
+            var form = layui.form;
+            //监听提交
+            form.on('submit(formDemo)', function (data) {
+                var index = parent.layer.getFrameIndex(window.name);
+                console.log("window.name:" + window.name + " index:" + index);
+                console.log(data);
+                $.ajax({
+                    url: '/BackManage/FactoryAdd',
+                    type: 'POST',
+                    data: data.field,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data == "OK") {
+                            layer.msg("修改成功", {
+                                time: 2000,
+                                icon: 1
+                            }, function () {
+                                window.parent.location.reload();//刷新父页面
+                                //关闭弹窗
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(index); //关闭当前页
+                            });
+                        }
+                        else if (data == "Error") {
+                            layer.msg("不能有空值", {
+                                icon: 2
+                            })
+                        }                      
+                    }
+                });
+                return false;
+            });
+        });
+	</script>
+</body>
+</html>

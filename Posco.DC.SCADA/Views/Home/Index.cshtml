@@ -1,0 +1,1397 @@
+﻿@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        宝钢湛江钢厂智能能效管理系统
+    </title>
+    <link href="~/Content/KYJ/StyleSheet1.css" rel="stylesheet" />
+    <link href="~/Content/KYJ/canvas.css" rel="stylesheet" />
+    <link href="~/Content/KYJ/css/style.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <!--跑马灯-->
+    <script type="text/javascript" src="~/Scripts/jquery.webticker.min.js"></script>
+    <style>
+        .red{
+            font-size:20px;
+            color:red;
+        }
+        .green{
+            font-size:20px;
+            color:greenyellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js">
+    </div>
+    <!-- 标题 -->
+    <div id="hTitle">
+        <input type="hidden" id="tran" value="@ViewBag.tran" />
+        <div class="masked1" style='letter-spacing: 6px;'>
+            <a href="/Home/MainPage" target="_blank" id="r" name="5">宝钢湛江钢厂智能能效管理系统</a>
+            @*<div>宝钢湛江钢厂智能能效管理系统</div>*@
+        </div>
+        <span id="localtime" style="font-size: 14px; position: absolute; right: 30px; top: 0px;"></span>
+    </div>
+    <!--间隔跑马灯-->
+    <div id="TitleContent">
+        <ul id="webticker-update-example">
+            <li data-update="item1" class="green" id="webticker">1.运行正常</li>
+        </ul>
+    </div>
+    <!-- 内容 -->
+    <div id="content">
+        <!-- 左侧内容 -->
+        <div class="content_left">
+            <!-- 产气、用气比例 -->
+            <div class="gas">
+                <div class="d1"></div>
+                <div class="title">
+                    <img src="~/Content/KYJ/images/icon03.png" class="img" />
+                    压缩空气产气比例
+                </div>
+                <div id="gasuse" style="width:90%; height:85%; margin: 0 auto">
+                </div>
+                <div id="gasva" class="gasfont"></div>
+            </div>
+            <div class="leftdd"></div>
+            <!-- 散点图 -->
+            <div class="form">
+                <div class="d2"></div>
+                <div class="title">
+                    <img src="~/Content/KYJ/images/icon08.png" class="img" />
+                    单耗和放散率散点图
+                </div>
+                <div class="d3"></div>
+                <div id="scatter" style="width: 100%; height: 85%">
+                </div>
+            </div>
+        </div>
+        <!-- 中间内容 -->
+        <div class="content_center">
+            <!-- 瞬时指标 -->
+            <div class="center_instant">
+                <div class="title">
+                    <img src="~/Content/KYJ/images/icon02.png" class="img" />
+                    瞬时指标
+                </div>
+                <div class="center_instant_con">
+                    <div style="margin: 0 auto">
+                        <div class="value">
+                            <div class="value-k">
+                                <div class="valuexz1 xzleft">
+                                </div>
+                                <div class="valuezt1">
+                                    实时功率
+                                </div>
+                                <div class="valuezt2">
+                                    <div id="power" class="energysize"></div>
+                                    <div class="energymargin">kW</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="value">
+                            <div class="value-k">
+                                <div class="valuexz1 xzleft">
+                                </div>
+                                <div class="valuezt1">
+                                    瞬时流量
+                                </div>
+                                <div class="valuezt2">
+                                    <div id="momentflow" class="energysize"></div>
+                                    <div class="energymargin">kNm³/h</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="value">
+                            <div class="value-k">
+                                <div class="valuexz1 xzleft">
+                                </div>
+                                <div class="valuezt1">
+                                    本月累计流量
+                                </div>
+                                <div class="valuezt2">
+                                    <div id="accumulateflow" class="energysize"></div>
+                                    <div class="energymargin">kNm³</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="value">
+                            <div class="value-k">
+                                <div class="valuexz1 xzleft">
+                                </div>
+                                <div class="valuezt1">
+                                    管网压力
+                                </div>
+                                <div class="valuezt2">
+                                    <div id="pressure" class="energysize"></div>
+                                    <div class="energymargin">bar</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="value">
+                            <div class="value-k">
+                                <div class="valuexz1 xzleft">
+                                </div>
+                                <div class="valuezt1">
+                                    单位能耗
+                                </div>
+                                <div class="valuezt2">
+                                    <div class="energysize" id="energy"></div>
+                                    <div class="energymargin">kWh/kNm³</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="dddiv"></div>
+            <!-- 各项指标雷达图 -->
+            <div class="center_top">
+                <div class="d4"></div>
+                <div class="title">
+                    <img src="~/Content/KYJ/images/icon03.png" class="img" />
+                    各项指标雷达图
+                </div>
+                <div class="d7"></div>
+                <div id="spupi" class="upi"></div>
+                <div id="spupi1" class="upi"></div>
+                <div id="spupi2" class="upi"></div>
+                <div id="spupi3" class="upi"></div>
+                <div class="center_top_con">
+                    <div id="spider">
+                    </div>
+                    <div id="spider1">
+                    </div>
+                    <div id="spider2">
+                    </div>
+                    <div id="spider3">
+                    </div>
+                </div>
+            </div>
+            <div class="dddiv"></div>
+            <!-- 放散量频率直方图 -->
+            <div class="center_bot_left">
+                <div class="d5"></div>
+                <div class="title">
+                    <img src="~/Content/KYJ/images/icon04.png" class="img" />
+                    流量和压力功率趋势
+                </div>
+
+                <div id="frequency" style="width:100%; height: 90%">
+
+                </div>
+            </div>
+            <!-- 供应能力需求气量 -->
+            <div class="center_bot_right">
+                <div class="d6"></div>
+                <div class="title">
+                    <img src="~/Content/KYJ/images/icon04.png" class="img" />
+                    开启台数和必要台数
+                </div>
+                <div id="supply" style="width:100% ; height: 90%;">
+                </div>
+            </div>
+        </div>
+        <!-- 右侧内容 -->
+        <div class="content_right">
+            <div class="news_report">
+                <div class="d11"></div>
+                <div class="title">
+                    <img src="~/Content/KYJ/images/icon06.png" class="img" />
+                    开关机能效排行图
+                </div>
+                <div class="d8"></div>
+                <div id="stackswitch" style="width: 100%; height: 90%">
+                </div>
+            </div>
+            <div class="rightdd"></div>
+            <div class="energy">
+                <div class="d9"></div>
+                <div class="title">
+                    <img src="~/Content/KYJ/images/icon06.png" class="img" />
+                    放散率频率分布图
+                </div>
+                <div class="d10"></div>
+                <div id="stack" style="width:100%; height: 90%;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/KYJ/times.js" type="text/javascript"></script>
+    <!-- highchart -->
+    <script src="~/Scripts/KYJ/echarts.min.js" type="text/javascript">
+    </script>
+    <script src="~/Scripts/code/highcharts.js" type="text/javascript"></script>
+    <script src="~/Scripts/code/highcharts-more.js" type="text/javascript"></script>
+    <!--这两个boost扩展渲染速度和点数-->
+    @*<script src="~/Scripts/code/modules/boost.js"></script>
+    <script src="~/Scripts/code/modules/boost-canvas.js"></script>*@
+    <script src="~/Scripts/MySkin.js" type="text/javascript"></script>
+    <script src="~/Scripts/KYJ/particles.min.js" type="text/javascript">
+    </script>
+    <script src="~/Scripts/KYJ/app.js" type="text/javascript">
+    </script>
+</body>
+</html>
+<script>
+    //获取所有数据
+        var value = $("#tran").val();
+        var str = JSON.parse(value);
+        console.log(str);
+        //=========【1.1】瞬时数据===========//
+        $("#power").html(parseInt(str.mom.f1));
+        $("#momentflow").html(parseInt(str.mom.f2));
+        $("#energy").html(str.mom.f3);
+        $("#pressure").html(str.mom.f4);
+        var num = parseFloat(str.mom.f5);
+        var rr = num / 10000;
+        //保留两位小数
+    var res = parseFloat(rr);
+    if (res > 1 && res < 10000) {
+        $("#accumulateflow").html(res.toFixed(2) + "万");
+        }
+    else if (res >= 10000 && res < 100000000) {
+        var a = (res / 10000).toFixed(2);
+            $("#accumulateflow").html(a + "亿")
+        }
+        else if (res >= 100000000) {
+        var b = (res / 100000000).toFixed(2);
+            $("#accumulateflow").html(b + "兆")
+        }
+        else { $("#accumulateflow").html(parseInt(str.mom.f5)); }
+    //============【1.2】产气量总和================================//
+        var gasprova = 0;
+        var gasuseva = 0;
+        $.each(str.gaspro, function (index, item) {
+            gasprova+=item.mainQ
+        })
+    //==================【1.3】用气量总和============================//
+        var gasusevalue = 0;
+    $.each(str.gasuse,
+        function (index, item) {
+            gasusevalue += item.value;
+        });
+    $("#gasva").html( "用气量:" + gasusevalue.toFixed(0) + "kN㎥/h");
+    //用气量处理数组
+        var gasusearr = [];
+    //其他总和
+        var othervalue = 0.00;
+        var count = 0;
+        var nucount = 0;
+    //其他显示数组
+        var otherarr = [];
+        $.each(str.gasuse, function (index, item) {
+            if (item.value / gasusevalue * 100 < 2) {
+                othervalue += item.value;
+                otherarr[nucount] = [item.value, item.name];
+                nucount++;
+            }
+            else {
+                gasusearr[count] = [item.value, item.name];
+                count++
+            }
+        });
+        var otherin = '';
+        $.each(otherarr, function (index,item) {
+            otherin+='<p>'+item[1]+':'+item[0]+'('+(item[0]/gasusevalue*100).toFixed(2)+'%)</p>'
+        })
+        var otherpre = (othervalue / gasusevalue * 100).toFixed(2);
+    //判断是否有其他
+        if (count <29) {
+            gasusearr[gasusearr.length] = [parseFloat(othervalue.toFixed(2)), "其他"];
+        }
+       
+        var useEchartArr = [];
+        $.each(gasusearr, function (index, item) {
+            if (item[1] == "其他") {
+                useEchartArr.push({
+                    value: item[0],
+                    name: item[1],
+                    tooltip: {
+                        formatter: function(params) {
+                            return '<p>其他:' +item[0]+'('+otherpre+'%)'+'</p>'+otherin
+                        },
+                        position:'bottom'
+                    }
+                })
+            }
+            else {
+                useEchartArr.push({
+                    value: item[0],
+                    name: item[1],
+                    tooltip: {
+                      
+                        position: 'right'
+                    }
+
+                })
+            }
+        })
+       //=============================【1.4】蜘蛛图upi数据=============//
+    $("#spupi").html("单耗:" + str.spid[4][0] + "kWh/kNm³");
+    $("#spupi1").html("单耗:" + str.spid[4][1] + "kWh/kNm³");
+    $("#spupi2").html("单耗:" + str.spid[4][2] + "kWh/kNm³");
+    $("#spupi3").html("单耗:" + str.spid[4][3] + "kWh/kNm³");
+       //========================【1.5】upi散点图数据================//
+        var cscaarr = [];
+        $.each(str.scatter, function (index, item) {
+            cscaarr[index] = [item.lossRatio, item.uPI];
+        })
+    //=========================【1.6】必要需求开机数据=========================//
+        var cinarr = [];
+        var coutarr = [];
+        $.each(str.suppstack, function (index, item) {
+            cinarr[index] = [item.time, item.Runnum];
+            coutarr[index] = [item.time, item.Mustnum];
+        })
+    //======================【1.7】压力流量功率================================//
+        var cproducecarr = [];
+        var cepowerarr = [];
+        var cpress = [];
+        $.each(str.suppstack, function (index, item) {
+            cproducecarr[index] = [item.time, item.ProduceStation];
+            cepowerarr[index] = [item.time, item.Power];
+            cpress[index] = [item.time, item.Press];
+        })
+    //===========================【1.8】开关数据=============================//
+        var jsonres = str.swi;
+        var usearr = [];
+        $.each(jsonres, function (index, item) {
+            var tt = [];
+            $.each(item, function (i, j) {
+                if (index < 6) {
+                    if (j.Run > 0) {
+                        tt.push({
+                            name: j.Equid + "空压机",
+                            y: j.UPI,
+                            color: 'rgba(250,0,0,.5)'
+                        })
+                    }
+                    else {
+                        tt.push({
+                            name: j.Equid + "空压机",
+                            y: j.UPI,
+                            color: 'rgba(0,250,0,.5)'
+                        })
+                    }
+                }
+                else {
+
+                    if (j.Equid != 0) {
+                        if (j.Run > 0) {
+                            tt.push({
+                                name: j.Equid + "空压机",
+                                y: j.UPI,
+                                color: 'rgba(250,0,0,.5)'
+                            })
+                        }
+                        else {
+                            tt.push({
+                                name: j.Equid + "空压机",
+                                y: j.UPI,
+                                color: 'rgba(0,250,0,.5)'
+                            })
+                        }
+                    }
+                    else {
+                        tt.push({
+                            name: "",
+                            y: false,
+                        })
+                    }
+                }
+            })
+            usearr.push({
+                name: index + 1 + '',
+                data: tt
+            });
+        })
+    //==================【2】图形===================================//
+
+        Highcharts.setOptions(my_skin);
+    //===================【2.1】产气用气图========================
+        var dom = document.getElementById("gasuse");
+        var myChart = echarts.init(dom);
+        var option = null;
+        option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            title: {
+                text: '',
+                textStyle: {
+                    color: "#00e4ff",
+                }
+            },
+            series: [
+				{
+				    name: '产气比例',
+				    type: 'pie',
+				    selectedMode: 'single',
+				    radius: [0, '50%'],
+				    label: {
+				        normal: {
+				            position: 'inside',
+				        }
+				    },
+				    labelLine: {
+				        normal: {
+				            show: true
+				        }
+				    },
+				    data: [{
+				        value: str.gaspro[0].mainQ,
+				        name:str.gaspro[0].stationId.replace(/[^1-9]/ig, "")+ '#空压站',
+				        selected: true
+				    },
+					{
+					    value: str.gaspro[1].mainQ,
+					    name: str.gaspro[1].stationId.replace(/[^1-9]/ig, "") + '#空压站',
+					},
+					{
+					    value: str.gaspro[2].mainQ,
+					    name: str.gaspro[2].stationId.replace(/[^1-9]/ig, "") + '#空压站',
+					}, {
+					    value: str.gaspro[3].mainQ,
+					    name: str.gaspro[3].stationId.replace(/[^1-9]/ig, "") + '#空压站',
+					}
+				    ]
+				},
+				{
+				    name: '用气比例',
+				    type: 'pie',
+				    // radius: ['37%', '55%'],
+				    radius: ['60%', '90%'],
+				    label: {
+				        normal: {
+				            position: 'inner',
+				            rotate: 45
+				        },
+				    },
+                    data: useEchartArr
+				}]
+        };
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+      
+  //=========================【2.2】upi散点图=======================
+        var scatterCharts = {
+            chart: {
+                type: 'scatter',
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                title: {
+                    enabled: true,
+                    text: '放散率(%)'
+                },
+                startOnTick: false,
+                endOnTick: true,
+                showLastLabel: true,
+                tickInterval: 1
+            },
+            yAxis: {
+                title: {
+                    text: '单耗(kWh/kNm³)'
+                },
+                //startOnTick: false,
+                //endOnTick: true,
+               tickInterval:1
+            },
+            legend: {
+            },
+            plotOptions: {
+                scatter: {
+                    marker: {
+                        radius: 5,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                lineColor: 'rgb(100,100,100)'
+                            }
+                        }
+                    },
+                    states: {
+                        hover: {
+                            marker: {
+                                enabled: false
+                            }
+                        }
+                    },
+                    tooltip: {
+                        //headerFormat: '<b>{series.name}</b><br>',
+                        pointFormat: '单耗:{point.y}<br>' +
+							'放散率:{point.x}'
+                    }
+                }
+            },
+            series: [{
+                name: '放散率-单耗',
+                color: 'rgba(223, 83, 83, .5)',//8-13,0.12-.013
+                data: cscaarr
+            }, ]
+        };
+        $("#scatter").highcharts(scatterCharts);
+    //==========================【2.3】蜘蛛图=====================
+        var spiderCharts = {
+            chart: {
+                polar: true,
+                type: 'line'
+            },
+            title: {
+                text: '',
+                x: -80
+            },
+            pane: {
+                size: '80%'
+            },
+            xAxis: {
+                categories: ['BOR', 'ERE', 'TCE', 'PCE', 'DRE'],
+                tickmarkPlacement: 'on',
+                lineWidth: 0,
+                gridLineColor: '#00f6ff',
+                gridLineWidth:1
+            },
+            yAxis: {
+                gridLineInterpolation: 'polygon',
+                lineWidth: 0,
+                min: 0,
+                max:1
+            },
+            tooltip: {
+                shared: true,
+                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.2f}</b><br/>'
+            },
+            legend: {},
+            series: [{
+                name: '1#空压站',
+                data:str.spid[0],
+                pointPlacement: 'on'
+            }]
+        };
+        var spider1Charts = {
+            chart: {
+                polar: true,
+                type: 'line'
+            },
+            title: {
+                text: '',
+                x: -80
+            },
+            pane: {
+                size: '80%'
+            },
+            xAxis: {
+                categories: ['BOR', 'ERE', 'TCE', 'PCE', 'DRE'],
+                tickmarkPlacement: 'on',
+                lineWidth: 0,
+                gridLineColor: '#00f6ff',
+                gridLineWidth: 1
+            },
+            yAxis: {
+                gridLineInterpolation: 'polygon',
+                lineWidth: 0,
+                min: 0,
+                max: 1
+            },
+            tooltip: {
+                shared: true,
+                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.2f}</b><br/>'
+            },
+            legend: {},
+            series: [{
+                name: '2#空压站',
+                data: str.spid[1],
+                pointPlacement: 'on'
+            }]
+        };
+        var spider2Charts = {
+            chart: {
+                polar: true,
+                type: 'line'
+            },
+            title: {
+                text: '',
+                x: -80
+            },
+            pane: {
+                size: '80%'
+            },
+            xAxis: {
+                categories: ['BOR', 'ERE', 'TCE', 'PCE', 'DRE'],
+                tickmarkPlacement: 'on',
+                lineWidth: 0,
+                gridLineColor: '#00f6ff',
+                gridLineWidth: 1
+            },
+            yAxis: {
+                gridLineInterpolation: 'polygon',
+                lineWidth: 0,
+                min: 0,
+                max: 1
+            },
+            tooltip: {
+                shared: true,
+                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.2f}</b><br/>'
+            },
+            legend: {},
+            series: [{
+                name: '3#空压站',
+                data: str.spid[2],
+                pointPlacement: 'on'
+            }]
+        };
+        var spider3Charts = {
+            chart: {
+                polar: true,
+                type: 'line'
+            },
+            title: {
+                text: '',
+                x: -80
+            },
+            pane: {
+                size: '80%'
+            },
+            xAxis: {
+                categories: ['BOR', 'ERE', 'TCE', 'PCE', 'DRE'],
+                tickmarkPlacement: 'on',
+                lineWidth: 0,
+                gridLineColor: '#00f6ff',
+                gridLineWidth: 1
+            },
+            yAxis: {
+                gridLineInterpolation: 'polygon',
+                lineWidth: 0,
+                min: 0,
+                max: 1
+            },
+            tooltip: {
+                shared: true,
+                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.2f}</b><br/>'
+            },
+            legend: {},
+            series: [{
+                name: '4#空压站',
+                data: str.spid[3],
+                pointPlacement: 'on'
+            }]
+        };
+        $("#spider").highcharts(spiderCharts);
+        $("#spider1").highcharts(spider1Charts);
+        $("#spider2").highcharts(spider2Charts);
+        $("#spider3").highcharts(spider3Charts);
+    //=============================【2.4】放散率分布图==================//
+        var frequencyCharts = {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: str.freq.xxarr,
+                crosshair: true,
+                //tickPixelInterval: 5
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '概率(%)'
+                },
+                //lineWidth: 1,  //Y轴默认不显示Y轴线，添加一个轴线的宽度就可以显示出来
+                tickPixelInterval: 5  //自行调整Y轴刻度的间距
+            },
+            tooltip: {
+                //headerFormat: '<span style="font-size:10px">{point.key}-{eval(point.key+0.5)}</span><table>',
+                //pointFormat: '<tr><td style="color:{series.color};padding:0">概率: </td>' + '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
+                //footerFormat: '</table>',
+                formatter: function () {
+                    var c = (parseFloat(this.x) + parseFloat(str.freq.xdvalue)).toFixed(1);
+                    var s = '<b>'+'放散率区间('+this.x+'-'+c+')</b>'+'</br><b>概率:'+this.y+'</b>';
+                    return s;
+                },
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: '放散率(%)',
+                data: str.freq.xarr,
+                color: '#7cb5ec'
+            }]
+        };
+        $('#stack').highcharts(frequencyCharts);
+    //=============================【2.5】开机必要需求台数图=======================//
+        var supplyCharts = {
+            chart: {
+                type: 'spline',
+                marginRight: 10,
+                events: {
+                    load: function () {
+                        var series = this.series[0];
+                        var series1 = this.series[1];
+                        setInterval(function () {
+                            $.ajax({
+                                type: "GET",
+                                url: "/EnergySys/Supply",
+                                success: function (data) {
+                                    var point1 = [data.time, data.Runnum];
+                                    var point2 = [data.time, data.Mustnum];
+                                    series.addPoint(point1, true, true);
+                                    series1.addPoint(point2, true, true);
+                                }
+                            })
+                        }, 6000);
+                    }
+                }
+
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150,
+                title: {
+                    text: '时间'
+                }
+            },
+            yAxis: {
+                title: {
+                    text:'台数(台)',
+                    
+                },  
+                startOnTick: true,
+                endOnTick: true,
+                tickInterval:3,
+                labels: {
+                    formatter: function () {
+                        return this.value + '';
+                    }
+                }
+            },
+            tooltip: {
+                crosshairs: true,
+                shared: true,
+                xDateFormat: '%Y-%m-%d %H:%M:%S',
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        // 开启数据标签
+                        enabled: false
+                    },
+                    // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+                    enableMouseTracking: true
+                }
+            },
+            series: [{
+                name: '开启台数',
+                color:'#ccff33',
+                marker: {
+                    symbol: 'square'
+                },
+                data: cinarr
+            }, {
+                name: '必要台数',
+                color: '#E3170D',
+                marker: {
+                    symbol: 'diamond'
+                },
+                data: coutarr
+            }]
+        };
+        $("#supply").highcharts(supplyCharts);
+    //=============================【2.6】流量功率压力图============================//
+        var stackCharts = {
+            chart: {
+                type: 'spline',
+                events: {
+                    load: function () {
+                        var series = this.series[0];
+                        var series1 = this.series[1];
+                        var series2 = this.series[2];
+                        setInterval(function () {
+                            $.ajax({
+                                type: "GET",
+                                url: "/EnergySys/StackProEpq",
+                                success: function (data) {
+                                    var point1 = [data.time, data.ProduceStation];
+                                    var point2 = [data.time, data.Power];
+                                    var point3 = [data.time, data.Press];
+                                    series.addPoint(point1, true, true);
+                                    series1.addPoint(point2, true, true);
+                                    series2.addPoint(point3, true, true);
+                                }
+                            })
+                        }, 6000);
+                    }
+                }
+            },
+                title: {
+                    text: ''
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    type: 'datetime',
+                    tickPixelInterval: 150,
+                    title: {
+                        text: '时间'
+                    }
+                },
+                yAxis: [{
+                    title: {
+                        text:''
+                            //'流量，N㎥/h',
+                    },
+                    lineWidth: 0,
+                   
+                    //showFirstLabel: false
+                    //tickInterval: 150000
+
+                }, {
+                    title: {
+                        text:''
+                            //'功率,kW'
+                    },
+                    lineWidth: 0,
+                    //showFirstLabel: false
+                    //tickInterval: 30000
+                },
+                {
+                    title: {
+                        text:''
+                            //'压力,㎏/㎠'
+                    },
+                    lineWidth: 0,
+                    //showFirstLabel: false
+                    //tickInterval:5
+                }],
+                tooltip: {
+                    crosshairs: true,
+                    shared: true,
+                    xDateFormat: '%Y-%m-%d %H:%M:%S',
+                    //pointFormat: '<tr><td>{series.name}: </td>' +
+                    //    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+				},
+                plotOptions: {
+                    spline: {
+                        marker: {
+                            radius: 4,
+                            lineColor: '#666666',
+                            lineWidth: 1
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: '流量(kNm³/h)',
+                        color: '#0099cc',
+                    yAxis: 0,
+                    marker: {
+                        symbol: 'square'
+                    },
+                    data: cproducecarr
+                }, {
+                    name: '电功率(kW)',
+                    color: '#7FFF00',
+                    yAxis: 1,
+                    marker: {
+                        symbol: 'diamond'
+                    },
+                    data: cepowerarr
+                }, {
+                    name: '压力(bar)',
+                    color: '#FF7D40',
+                    yAxis: 2,
+                    marker: {
+                        symbol: 'triangle'
+                    },
+                    data: cpress
+                }]
+            }
+        $("#frequency").highcharts(stackCharts);
+    //==============================【2.7】开关图==================================//
+        var stackswitchchartt = Highcharts.chart('stackswitch', {
+            chart: {
+                type: 'bar',
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: ['1站', '2站', '3站', '4站'],
+                title: {
+                    text: null
+                },
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '单耗 (kWh/Nk㎥)',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                valueSuffix: ' kWh/Nk㎥'
+            },
+            plotOptions: {
+                bar: {
+                    //x轴的长度*pointpadding，表示两个主之间间隔
+                    pointPadding: 0.1,
+                    //表示两个x轴点间的间隔
+                    groupPadding: 0.02,
+                    dataLabels: {
+                        enabled: true,
+                        //inside:true,
+                        allowOverlap: true, // 允许数据标签重叠
+                        formatter: function () {
+                            var keyx = parseInt(this.key);
+                            return keyx+"#:"+ this.y;
+                        },
+                        style: {
+                            fontSize: "11px",
+                           fontWeight: "bold",
+                           textOutline: 'none',
+                            color:'white'
+                }
+                    }
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: usearr
+        });
+    //=====================================【3】ajax获取返回值=====================//
+        $(document).ready(function () {
+    //---------------------------【3.1】五分钟刷新数据----------------------//
+        function getFiveMinute() {
+            $.ajax({
+                url: "/EnergySys/FiveMHomeIndex",
+                type: "GET",
+                success: function (data) {
+                    //upi散点图数据
+                    var scaarr = [];
+                    $.each(data.scatter, function (index, item) {
+                        scaarr[index] = [item.lossRatio, item.uPI];
+                    })
+                    scatterCharts.series[0].data = scaarr;
+                   
+                    //蜘蛛图
+                    spiderCharts.series[0].data = data.spid[0];
+                    spider1Charts.series[0].data = data.spid[1];
+                    spider2Charts.series[0].data = data.spid[2];
+                    spider3Charts.series[0].data = data.spid[3];
+                    $("#spupi").html("单耗:" +data.spid[4][0] + "kWh/kNm³");
+                    $("#spupi1").html("单耗:" + data.spid[4][1] + "kWh/kNm³");
+                    $("#spupi2").html("单耗:" + data.spid[4][2] + "kWh/kNm³");
+                    $("#spupi3").html("单耗:" + data.spid[4][3] + "kWh/kNm³");
+                    //放散率分布图
+                    frequencyCharts.series[0].data = data.freq.xarr;
+                    frequencyCharts.xAxis.categories = data.freq.xxarr;
+                    frequencyCharts.tooltip = {
+                        formatter: function () {
+                            var c = (parseFloat(this.x) + parseFloat(data.freq.xdvalue)).toFixed(1);
+                            var s = '<b>' + '放散率区间(' + this.x + '-' + c + ')</b>' + '</br><b>概率:' + this.y + '</b>';
+                            return s;
+                        },
+                        shared: true,
+                        useHTML: true
+                    }
+                    //开关数据
+                    $("#scatter").highcharts(scatterCharts);
+                    $("#stack").highcharts(frequencyCharts);
+                    $("#spider").highcharts(spiderCharts);
+                    $("#spider1").highcharts(spider1Charts);
+                    $("#spider2").highcharts(spider2Charts);
+                    $("#spider3").highcharts(spider3Charts);
+                }
+            });
+            
+        };
+        setInterval(getFiveMinute, 1000 * 60 * 5);
+    //==============================【3.2】6秒刷新数据==========================//
+        function getSixSecond() {
+            $.ajax({
+                url: "/EnergySys/SixSHomeIndex",
+                type: "GET",
+                success: function (data) {
+                    if (data.warnlog.length > 0) {
+                        var warn = '';
+                        var warncount = 0;
+                        $.each(data.warnlog, function (index, item) {
+                            if (index < 4) {
+                                warn += index + 1 + "." + item.content + ",";
+                            }
+                            else {
+                                warncount += 1;
+                            }
+                        })
+                        var warncontent = warn.substr(0, warn.length-1)+"..."
+                        $("#webticker").html(warncontent);
+                        $("#webticker").attr("class", "red");
+                    }
+                    else {
+                        $("#webticker").html("运行正常");
+                        $("#webticker").attr("class", "green");
+                    }
+                   
+                    //瞬时数据
+                    $("#power").html(parseInt(data.mom.f1));
+                    $("#momentflow").html(parseInt(data.mom.f2));
+                    $("#energy").html(data.mom.f3);
+                    $("#pressure").html(data.mom.f4);
+                    var num = parseFloat(data.mom.f5);
+                    var rr = num / 10000;
+                    //保留两位小数
+                    var res = parseFloat(rr);
+                    if (res > 0 && res < 10000) {
+
+                        $("#accumulateflow").html(res.toFixed(2) + "万");
+                    }
+                    else if (res >= 10000 && res < 100000000) {
+                        var a = (res / 10000).toFixed(2);
+                        $("#accumulateflow").html(a + "亿")
+                    }
+                    else if (res >= 100000000) {
+                        var b = (res / 100000000).toFixed(2);
+                        $("#accumulateflow").html(b + "兆")
+                    }
+                    else { $("#accumulateflow").html(parseInt(data.mom.f5)); }
+                    //产气比例数据处理
+                    var gasusevalue1 = 0;
+                    var gasprova1 = 0;
+                    $.each(data.gasuse, function (index, item) {
+                        gasusevalue1 += item.value;
+                    })
+                    $.each(data.gaspro, function (index, item) {
+                        gasprova1 += item.mainQ;
+                    })
+                    $("#gasva").html("用气量:" + gasusevalue1.toFixed(0) + "kNm³/h") ;
+                    var gasusearr1 = [];
+                    var othervalue1 = 0.00;
+                    var count1 = 0;
+                    var otherarr1 = [];
+                    var nucount1 = 0;
+                    var otherin1 = '';
+                    $.each(data.gasuse, function (index, item) {
+                        if (item.value / gasusevalue1 * 100 < 2) {
+                            othervalue1 += item.value;
+                            otherarr1[nucount1] = [item.value, item.name];
+                            nucount1++;
+                        }
+                        else {
+                            gasusearr1[count1] = [item.value, item.name];
+                            count1++
+                        }
+                    })
+                    $.each(otherarr1, function (index, item) {
+                        otherin1 += '<p>' + item[1] + ':' + item[0] + '(' + (item[0] / gasusevalue1 * 100).toFixed(2) + '%)</p>'
+                    })
+                    if (count1 < 25) {
+                        gasusearr1[gasusearr1.length] = [parseFloat(othervalue1.toFixed(2)), "其他"];
+                    }
+                    var otherpre1 = (othervalue1 / gasusevalue1 * 100).toFixed(2);
+                    var usearr1 = [];
+                    $.each(gasusearr1, function (index, item) {
+                        if (item[1] == "其他") {
+                            usearr1.push({
+                                value: item[0],
+                                name: item[1],
+                                tooltip: {
+                                    formatter: function (params) {
+                                        return '<p>其他:' + item[0] + '(' + otherpre1 + '%)' + '</p>' + otherin1
+                                    },
+                                    position: 'bottom'
+                                }
+                            })
+                        }
+                        else {
+                            usearr1.push({
+                                value: item[0],
+                                name: item[1]
+                            })
+                        }
+                    })
+                    //用气比例
+                    myChart.setOption({
+                        series: [
+				{
+				    name: '产气比例',
+				    type: 'pie',
+				    selectedMode: 'single',
+				    radius: [0, '50%'],
+				    label: {
+				        normal: {
+				            position: 'inside',
+				        }
+				    },
+				    labelLine: {
+				        normal: {
+				            show: true
+				        }
+				    },
+				    data: [{
+				        value: data.gaspro[0].mainQ,
+				        name: data.gaspro[0].stationId.replace(/[^1-9]/ig, "") + '#空压站',
+				        selected: true
+				    },
+					{
+					    value: data.gaspro[1].mainQ,
+					    name: data.gaspro[1].stationId.replace(/[^1-9]/ig, "") + '#空压站',
+					},
+					{
+					    value: data.gaspro[2].mainQ,
+					    name: data.gaspro[2].stationId.replace(/[^1-9]/ig, "") + '#空压站',
+					}, {
+					    value: data.gaspro[3].mainQ,
+					    name: data.gaspro[3].stationId.replace(/[^1-9]/ig, "") + '#空压站',
+					}
+				    ]
+				},
+				{
+				    name: '用气比例',
+				    type: 'pie',
+				    radius: ['60%', '90%'],
+				    label: {
+				        normal: {
+				            position: 'inner',
+				        }
+				    },
+				    data: usearr1
+				}
+                        ]
+                    });
+                    //开关机和能效图
+                    if (data.swi.length > 10) {
+                        var switchstackres = stackswitchchartt.series;
+                        var datares = data.swi;
+                        var listarr = [];
+                        $.each(switchstackres, function (index, item) {
+                            var tt = [];
+                            $.each(item.data, function (i, j) {
+                                var numj = parseInt(j.name.replace(/[^1-9]/ig, "")) + 6 * i - 1;
+                                var indexj = 0;
+                                var jcolor = '';
+                                if (!isNaN(numj)) {
+                                    indexj = numj;
+                                    if (datares[indexj] > 0) {
+                                        //jcolor = 'rgba(0,250,0,.5)';
+                                        jcolor = 'rgba(250,0,0,.5)';
+                                    }
+                                    else {
+                                         //jcolor = 'rgba(250,0,0,.5)';
+                                       jcolor = 'rgba(0,250,0,.5)';
+                                    }
+
+                                }
+                                tt.push({
+                                    name: j.name,
+                                    y: j.y,
+                                    color: jcolor
+                                })
+                            })
+                            listarr.push({
+                                name: index + 1 + '',
+                                data: tt
+                            });
+                        })
+                        stackswitchchartt.update({
+                            series: listarr
+                        })
+                    }
+                    else {
+                        var jsonres1 = data.swi;    
+                        console.log(jsonres1);
+                        var listarr = [];
+                        $.each(jsonres1, function (index, item) {
+                            var tt = [];
+                            $.each(item, function (i, j) {
+                                if (index < 6) {
+                                    if (j.Run > 0) {
+                                        tt.push({
+                                            name: j.Equid + "空压机",
+                                            y: j.UPI,
+                                             //color: 'rgba(0,250,0,.5)'
+                                            color: 'rgba(250,0,0,.5)'
+                                        })
+                                    }
+                                    else {
+                                        tt.push({
+                                            name: j.Equid + "空压机",
+                                            y: j.UPI,
+                                            //color: 'rgba(250,0,0,.5)'
+                                            color: 'rgba(0,250,0,.5)'
+                                        })
+                                    }
+                                }
+                                else {
+                                    if (j.Equid != 0) {
+                                        if (j.Run > 0) {
+                                            tt.push({
+                                                name: j.Equid + "空压机",
+                                                y: j.UPI,
+                                                color: 'rgba(250,0,0,.5)'
+                                            })
+                                        }
+                                        else {
+                                            tt.push({
+                                                name: j.Equid + "空压机",
+                                                y: j.UPI,
+                                                color: 'rgba(0,250,0,.5)'
+                                            })
+                                        }
+                                    }
+                                    else {
+                                        tt.push({
+                                            name: "",
+                                            y: false,
+                                        })
+                                    }
+                                }
+                            })
+                            listarr.push({
+                                name: index + 1 + '',
+                                data: tt
+                            });
+                        })
+                        stackswitchchartt.update({
+                            series: listarr
+                        })
+                    }
+                }
+            })
+        }
+        setInterval(getSixSecond, 1000 * 6);
+        })
+</script>
+<script type="text/javascript">
+    var thisheight = "";
+    function changeSize() {
+        var width = $(window).width();
+        var height = $(window).height();
+        var ratioH = height / 969;
+        var ratioW = width / 1920;
+        console.log("高度:" + ratioH);
+        console.log("宽度:" + ratioW);
+        //=========================【0.1】获取字体方法==========================
+        function fontsize(x) {
+            var cx = x.replace(/[^0-9]/ig, "");
+            return parseInt(cx);
+        }
+        $("#uldiv").css("margin", 5 * ratioH + "px");
+        //====================================【0.0】标题字体大小============
+        $("#hTitle").css("font-size", 36 * ratioH * ratioW + "px");
+        $("#hTitle").css("line-height", 80 * ratioH * ratioW + "px");
+        if (ratioH * ratioW > 1) {
+            $("#localtime").css("font-size", 14 * ratioH * ratioW + "px");
+        }
+        //==============================【0.2】空压站upi字体==================
+        var stafontsize = $(".upi").css("font-size");
+        var stamodisize = 20 * ratioH * ratioW + "px";
+       
+        $(".upi").css("font-size", stamodisize);
+        //===============================【0.3】跑马灯字体改变==================
+        var webtickersize = $("#webticker").css("font-size");
+        var webtickermodisize = 20 * ratioH * ratioW + "px";
+        
+        $("#webticker").css("font-size", webtickermodisize);
+        var webtickerheight = 25 * ratioH * ratioW + "px";
+        thisheight = webtickerheight;
+        console.log("字体:"+webtickermodisize);
+        console.log("div:"+webtickerheight);
+        //=========================【0.4】瞬时数据字体改变============================
+        //value
+        var modiinstantvalueheight = 115 * ratioH + "px";
+        var modiinstantvaluewidth = 200 * ratioW + "px";
+        $(".value").css("height", modiinstantvalueheight);
+        $(".value").css("width", modiinstantvaluewidth);
+        //value-k 的长宽为value的高
+        $(".value-k").css("height", modiinstantvalueheight);
+        $(".value-k").css("width", modiinstantvalueheight);
+        //valuexz1的长款和back-size为value的高
+        $(".valuexz1").css("height", modiinstantvalueheight);
+        $(".valuexz1").css("width", modiinstantvalueheight);
+        var backgroundsize = modiinstantvalueheight + " " + modiinstantvalueheight;
+        $(".valuexz1").css("background-size", backgroundsize);
+        //valuezt1
+        var valuezt1paddingtop = 20 * ratioH + "px";
+        var valueztlmargin = 35 * ratioH + "px";
+        var usemargin = valueztlmargin + " " + "auto 0 auto";
+        var valueztlfontsize = 16 * ratioH * ratioW + "px";
+        $(".valuezt1").css("padding-top", valuezt1paddingtop);
+        $(".valuezt1").css("width", modiinstantvalueheight);
+        $(".valuezt1").css("margin", usemargin);
+        $(".valuezt1").css("font-size", valueztlfontsize);
+        //valuezt2
+        $(".valuezt2").css("width", modiinstantvalueheight);
+        $(".valuezt2").css("height", 50 * ratioH + "px");
+        $(".energysize").css("font-size", 26 * ratioH * ratioW + "px");
+        $(".energysize").css("margin-top", -(13 * ratioH) + "px");
+        $(".energymargin").css("font-size", 15 * ratioH * ratioW + "px");
+        //===================================【222】title img=========================//
+        $(".title").css("line-hight", 20 * ratioH * ratioW + "px");
+        $(".title").css("text-indent", 20 * ratioW + "px");
+        $(".img").css("height", 25 * ratioH*ratioW + "px");
+        $(".img").css("width", 25 * ratioW*ratioH + "px");
+    }
+   
+    //加载完成
+    window.onload = function () {
+        changeSize();
+    };
+    //重置界面。
+    window.onresize = function () {
+        changeSize();
+        myChart.resize();
+    }
+    $("#webticker-update-example").webTicker({ height: thisheight, speed: 100 }
+   );
+    var scrollFunc = function (e) {
+        e = e || window.event;
+        if (e.wheelDelta && event.ctrlKey) {//IE/Opera/Chrome
+            event.returnValue = false;
+        } else if (e.detail) {//Firefox
+            event.returnValue = false;
+        }
+    }
+    /*注册事件*/
+    if (document.addEventListener) {
+        document.addEventListener('DOMMouseScroll', scrollFunc, false);
+    }//W3C
+    window.onmousewheel = document.onmousewheel = scrollFunc;//IE/Opera/Chrome/Safari
+</script>

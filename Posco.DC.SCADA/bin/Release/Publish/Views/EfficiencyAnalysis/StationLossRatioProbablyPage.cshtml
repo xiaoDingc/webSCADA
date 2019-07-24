@@ -1,0 +1,203 @@
+﻿@model Model.ModelViews.DateTime_View
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title> 空压站放散率概率分布图</title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+</head>
+<body>
+
+    <input type="hidden" id="hide" value="@ViewBag.stationloss" />
+    <input type="hidden" id="sId" value="@ViewBag.Sid" />
+    <div class="demoTable" style="float:right;margin:0 20px 20px 0">
+        搜索开始时间：
+        <div class="layui-inline">
+            <input type="text" class="layui-input" value="@Model.Time1" id="starttime">
+        </div>
+        搜索结束时间：
+        <div class="layui-inline">
+            <input type="text" class="layui-input" value="@Model.Time2" id="endtime">
+        </div>
+        <button class="layui-btn" id="layui-btn">搜索</button>
+    </div>
+    <div class="layui-row">
+        <div id="stationlossratiochance" style="height: 600px; max-width: 900px; margin: 0 auto">
+        </div>
+    </div>
+
+    <script src="~/Scripts/code/highcharts.js"></script>
+    <script src="~/Scripts/code/modules/exporting.js"></script>
+    <script src="~/Scripts/code/modules/export.csv.js"></script>
+    <script src="~/Scripts/code/highcharts-more.src.js"></script>
+</body>
+</html>
+<script>
+
+    $(document).ready(function () {
+       var startDate = $("#starttime").val();
+       var endDate = $("#endtime").val();
+       var str =JSON.parse($("#hide").val());
+       var arr = [];
+       var idValue = $("#sId").val().charAt(3, 1);
+       var titlename =  idValue + '#空压站放散率概率分布图';
+           arr.push({
+               name: idValue + "#空压站",
+               data:str.a 
+           })
+           Highcharts.setOptions({
+               lang: {
+                   printChart: "打印图表",
+                   downloadJPEG: "下载JPEG 图片",
+                   downloadPDF: "下载PDF文档",
+                   downloadPNG: "下载PNG图片",
+                   downloadSVG: "下载SVG矢量图",
+                   resetZoom: "还原"
+               }
+           });
+       var stationlossratiochanceCharts = {
+            chart: {
+                type: 'column',
+                zoomType:'xy'
+            },
+            title: {
+                text: titlename
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: str.x,
+                crosshair: true,
+                title: {
+                    text:'放散率区间(%)'
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '概率（%）'
+                }
+            },
+            tooltip: {
+                formatter: function () {
+                    var c = (parseFloat(this.x) +parseFloat(str.ca)).toFixed(parseInt(str.l));
+                    var s = '<b>' + '放散率区间(' + this.x + '-' + c + ')</b>' + '</br><b>概率:' + this.y + '</b>';
+                    return s;
+                },
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: arr
+       };
+       $('#stationlossratiochance').highcharts(stationlossratiochanceCharts);
+        function stationlossFrequency() {
+            var xarr = stationlossratiochanceCharts.xAxis.categories;
+            var xarrJson = JSON.stringify(xarr);
+            $.ajax({
+                url: "/EfficiencyAnalysis/StationLossRatioProbably",
+                type: "GET",
+                data: { strJson: xarrJson, begintime: startDate, endtime: endDate, sid: $("#sId").val() },
+                success: function (data) {
+                    stationlossratiochanceCharts.series[0].data = data.a;
+                    stationlossratiochanceCharts.xAxis.categories = data.x;
+                    stationlossratiochanceCharts.tooltip = {
+                        formatter: function () {
+                            var c = (parseFloat(this.x) + parseFloat(data.ca)).toFixed(parseInt(data.l));
+                            var s = '<b>' + '放散率区间(' + this.x + '-' + c + ')</b>' + '</br><b>概率:' + this.y + '</b>';
+                            return s;
+                        },
+                        shared: true,
+                        useHTML: true
+                    }
+                    $('#stationlossratiochance').highcharts(stationlossratiochanceCharts);
+                }
+            });
+        }
+    //日历
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            var starttime = laydate.render({
+                elem: "#starttime",
+                type: "datetime",
+                max: getNowFormatDate(),
+                done: function (value, date) {
+                    if (value != "") {
+                        date.month = date.month - 1;
+                        endtime.config.min = date;
+                    }
+                }
+            })
+            var endtime = laydate.render({
+                elem: "#endtime",
+                type: "datetime",
+                max: getNowFormatDate(),
+                done: function (value, date) {
+                    if (value != "") {
+                        date.month = date.month - 1;
+                        starttime.config.max = date;
+                    }
+                }
+            })
+        })
+        function getNowFormatDate() {
+            var date = new Date();
+            console.log("shi:" + date);
+            var seperator1 = "-";
+            var seperator2 = ":";
+            var month = date.getMonth() + 1;
+            console.log("yue:" + month)
+            var strDate = date.getDate();
+            console.log("tian:" + strDate);
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                + " " + date.getHours() + seperator2 + date.getMinutes()
+                + seperator2 + date.getSeconds();
+            console.log(currentdate);
+            return currentdate;
+        }
+        //搜索按钮点击事件
+        $("#layui-btn").click(function () {
+        startDate = $("#starttime").val();
+        endDate = $("#endtime").val();
+        var begin = new Date("" + startDate + "");
+        var end = new Date("" + endDate + "");
+        var time1 = begin.getTime();
+        var time2 = end.getTime();
+        var subtract = (time2 - time1) / 1000;
+        var day = parseInt(subtract / (24 * 60 * 60));
+        if (startDate == "" || endDate == "") {
+            alert("请按要求选择开始和结束时间")
+        }
+        else if (day > 360) {
+            alert("开始和结束时间间隔太大，请重新选择，不要大于360天");
+        }
+        else if (subtract <= 0) {
+            alert("开始时间大于等于结束时间，不可查询，请重新选择")
+        }
+        else {
+            stationlossFrequency();
+
+        }
+    })
+    });
+
+</script>

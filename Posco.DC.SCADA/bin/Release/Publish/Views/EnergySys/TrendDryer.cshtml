@@ -1,0 +1,217 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TrendCentri</title>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <style>
+        .col-center-block {
+            float: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <input type="hidden" value="@ViewBag.DryFSP" id="hide" />
+
+    <div id="kwnow" style="max-width:1000px;min-width:800px;height:500px" class="col-center-block"></div>
+
+
+    <script src="~/Scripts/code/highcharts.js"></script>
+    <script src="~/Scripts/code/modules/exporting.js"></script>
+    <script src="~/Scripts/code/modules/export.csv.js"></script>
+    <script src="~/Scripts/code/highcharts-more.js"></script>
+</body>
+</html>
+<script>
+    var hide = $("#hide").val();
+    var json = JSON.parse(hide);
+    var fid = JSON.stringify(json.dryfieldlist);//属性列表转string
+    var did = JSON.stringify(json.drystrlist);//干燥机列表转string
+    var seriesarr = [];//数据列集合
+    var strlist = ["进气压力", "出气压力", "进出口压差", "露点温度" ];//属性名集合
+    var unitlist = ["bar", "bar", "bar", "℃"];//单位集合
+    var titlename = "";//标题
+    var yarr = [];//y轴集合
+    if (json.drystrlist.length < 2) {//干燥机只有一个
+        var strdry = json.drystrlist[0];//获取干燥机名称
+        var stasub = strdry.substr(3, 1) + "#空压站";//截取空压站号
+        var drysub = strdry.substring(7) + "#干燥机";//截取干燥机号
+        titlename += stasub + "-" + drysub;
+        let inpre = [];
+        let outpre = [];
+        let inout = [];
+        let dewp = [];
+        let reslist = [];//总集合
+        $.each(json.Res, function (index, item) {
+            inpre[index] = [item.time, item.inpre];
+            outpre[index] = [item.time, item.outpre];
+            inout[index] = [item.time, item.inout];
+            dewp[index] = [item.time, item.dewp];
+        })
+        reslist[0] = inpre; reslist[1] = outpre; reslist[2] = inout; reslist[3] = dewp;//填充总集合
+        $.each(strlist, function (index, item) {//循环属性名列表
+            $.each(json.dryfieldlist, function (i, j) {//循环传入属性名集合
+                if (item == j) {
+                    if (i % 2 == 0) {
+                        yarr.push({
+                            title: {
+                                text: item + "(" + unitlist[index] + ")"
+                            }
+                        })
+                    }
+                    else {
+                        yarr.push({
+                            opposite: true,
+                            title: {
+                                text: item + "(" + unitlist[index] + ")"
+                            }
+                        })
+                    }
+                    titlename += item + "-";
+                    seriesarr.push({
+                        name: item,
+                        yAxis: i,
+                        data: reslist[index]
+                    })
+                }
+
+            })
+        })
+        titlename += "时间图";
+    }
+    else {
+        titlename = "干燥机" + json.dryfieldlist[0] + "-时间图";
+        $.each(strlist, function (i, j) {//循环属性名
+            if (j == json.dryfieldlist[0]) {
+                yarr.push({
+                    title: {
+                        text: j + "(" + unitlist[i] + ")"
+                    }
+                })
+            }
+        })
+        $.each(json.Res, function (index, item) {
+            var strdry = json.drystrlist[index];//获取干燥机名称
+            var stasub = "空压站" + strdry.substr(3, 1);//截取空压站号
+            var drysub = "干燥机" + strdry.substring(7);//截取干燥机号
+            let inpre = [];
+            let outpre = [];
+            let inout = [];
+            let dewp = [];
+            let reslist = [];//总集合
+            $.each(json.Res, function (index, item) {
+                inpre[index] = [item.time, item.inpre];
+                outpre[index] = [item.time, item.outpre];
+                inout[index] = [item.time, item.inout];
+                dewp[index] = [item.time, item.dewp];
+            })
+            reslist[0] = inpre; reslist[1] = outpre; reslist[2] = inout; reslist[3] = dewp;//填充总集合
+            $.each(strlist, function (i, j) {
+                if (j == json.dryfieldlist[0]) {
+                    seriesarr.push({
+                        name: stasub + drysub + j,
+                        data: reslist[i]
+                    })
+                }
+
+            })
+        })
+    }
+    var kwnowCharts = {
+        chart: {
+            type: 'spline',
+            zoomType: 'xy',
+            events: {
+                load: function () {
+                    var series = this.series;
+                    setInterval(function () {
+                        $.ajax({
+                            type: "GET",
+                            url: "/EnergySys/TrendDryerAjax",
+                            data: { dfieldstr: fid, drystr: did },
+                            success: function (data) {
+                                if (data.drystrlist.length < 2) {
+                                    var pointarr = [];
+                                    point = [data.Res.time, data.Res.inpre];
+                                    point1 = [data.Res.time, data.Res.outpre];
+                                    point2 = [data.Res.time, data.Res.inout];
+                                    point3 = [data.Res.time, data.Res.dewp];
+                                    pointarr[0] = point; pointarr[1] = point1; pointarr[2] = point2; pointarr[3] = point3; 
+                                    $.each(strlist, function (index, item) {
+                                        $.each(data.dryfieldlist, function (i, j) {
+                                            if (item == j) {
+                                                series[i].addPoint(pointarr[index], true, true);
+                                            }
+
+                                        })
+                                    })
+                                }
+                                else {
+                                    $.each(data.Res, function (index, item) {
+                                        var pointarr = [];
+                                        point = [item.time, item.inpre];
+                                        point1 = [item.time, item.outpre];
+                                        point2 = [item.time, item.inout];
+                                        point3 = [item.time, item.dewp];
+                                        pointarr[0] = point; pointarr[1] = point1; pointarr[2] = point2; pointarr[3] = point3; 
+                                        $.each(strlist, function (i, j) {
+                                            if (j == data.dryfieldlist[0]) {
+                                                series[index].addPoint(pointarr[i], true, true);
+                                            }
+
+                                        })
+                                    })
+                                }
+
+                            }
+                        })
+                    }, 6000);
+                }
+            }
+        },
+        title: {
+            text: titlename
+        },
+        subtitle: {
+        },
+        credits: {
+            enabled: false     //不显示LOGO
+        },
+        xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 150,
+            title: {
+                text: '时间'
+            }
+        },
+        yAxis: yarr,
+        Legend: {
+        },
+        tooltip: {
+            shared: true,
+            crosshairs: true,
+            xDateFormat: '%Y-%m-%d %H:%M:%S',
+        },
+        //plotOptions: {
+        //    spline: {
+        //        marker: {
+        //            radius: 4,
+        //            lineColor: '#666666',
+        //            lineWidth: 1
+        //        }
+        //    }
+        //},
+
+        series: seriesarr
+    };
+    $("#kwnow").highcharts(kwnowCharts);
+</script>

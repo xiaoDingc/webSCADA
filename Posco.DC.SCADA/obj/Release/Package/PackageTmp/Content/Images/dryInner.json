@@ -1,0 +1,20 @@
+{"frames": {
+
+"dryInner.png":
+{
+	"frame": {"x":0,"y":0,"w":2048,"h":1554},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":2048,"h":1554},
+	"sourceSize": {"w":2048,"h":1554}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "dryInner.png",
+	"format": "RGBA8888",
+	"size": {"w":2048,"h":1554},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:980660abf447b10a2da80010327f689a:9d1e1425ff4ffbe26973aa0f4aff39ec:bc9cbf40251dae0c0849ae2e3a13083f$"
+}
+}

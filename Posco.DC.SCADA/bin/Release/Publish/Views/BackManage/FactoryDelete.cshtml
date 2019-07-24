@@ -1,0 +1,137 @@
+﻿@model Model.BussionObject.FactoryShow_BO
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>FactoryDelete</title>
+</head>
+<body>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>FactoryShow_BO</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.boID)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boID)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.bocode)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.bocode)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boIntroduction)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boIntroduction)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boProduct)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boProduct)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boAnnualOutput)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boAnnualOutput)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boLatitude)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boLatitude)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boLongtitude)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boLongtitude)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boAltitude)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boAltitude)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boSize)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boSize)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boRemark)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boRemark)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boClientID)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boClientID)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boValid)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boValid)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm("FactoryDelete","BackManage",FormMethod.Post)) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                @Html.HiddenFor(model=>model.boID )
+                <input type="submit" value="删除" class="btn btn-default" /> |
+                @Html.ActionLink("返回列表", "FactoryList", "BackManage")
+            </div>
+        }
+    </div>
+</body>
+</html>

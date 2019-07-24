@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+<script src="~/Scripts/pixi/jquery-3.3.1.min.js"></script>
+
+@*<script src="~/Content/ListLayui/static/admin/lib/ueditor/third-party/highcharts/highstock.js"></script>*@
+<script src="~/Scripts/code/highcharts.js" type="text/javascript"></script>
+
+<input id="hdData" type="hidden" value="@ViewData["infoObject"]" />
+<div id="container" style="min-width:400px;height:400px"></div>
+<script>
+    var cinarr = [];
+    var coutarr = [];
+    var chart = {
+        chart: {
+            type: 'spline',
+            zoomType: "xy",
+        },
+        title: {
+            text: ''
+        },
+
+        subtitle: {
+            text: ''
+        },
+        credits: {
+            enabled: false     //不显示LOGO
+        },
+        xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 150,
+            title: {
+                text: '时间'
+            },
+        },
+        yAxis: [{
+            title: {
+                text: ''
+                //'流量，N㎥/h',
+            },
+            lineWidth: 0,
+        }, {
+            title: {
+                text: ''
+                //'功率,kW'
+            },
+            lineWidth: 0,
+        }],
+        tooltip: {
+            crosshairs: true,
+            shared: true,
+            xDateFormat: '%Y-%m-%d %H:%M:%S',
+        },
+        plotOptions: {
+            spline: {
+                marker: {
+                    radius: 4,
+                    // lineColor: '#666666',
+                    lineWidth: 1
+                }
+            }
+        },
+        series: [{
+            name: '用气量(kNm³/h)',
+            yAxis: 0,
+            marker: {
+                symbol: 'square'
+            },
+            data: cinarr
+        }, {
+            name: '供气压力(bar)',
+            color: '#7FFF00',
+            yAxis: 1,
+            marker: {
+                symbol: 'diamond'
+            },
+                data: coutarr
+        }]
+    };
+
+    var jsonString = $("#hdData").val();
+    //var jsonRes = eval('(' + jsonString + ')');
+    var jsonRes = JSON.parse(jsonString);
+
+    //y轴名称获取
+    yUnit = jsonRes.chartYUnit.split(",");
+    chart.yAxis[0].title.text = yUnit[0];
+    chart.yAxis[1].title.text = yUnit[1];
+
+    //x轴图例名称获取
+    var xLegend = jsonRes.chartXLegend.split(",");
+    chart.series[0].name = xLegend[0] + "(kNm³/h)";
+    chart.series[1].name = xLegend[1] + "(bar)";
+    //修改标题 删除掉jsonRes.factoryId
+    //chart.title.text = jsonRes.factoryId + " " + jsonRes.areaId + " " + jsonRes.name;
+    chart.title.text = jsonRes.areaId + " " + jsonRes.name;
+
+    $.each(jsonRes.data, function (index, item) {
+        cinarr[index] = [item.DateTime, item.value];
+        coutarr[index] = [item.DateTime, item.value2];
+    });
+
+    $('#container').highcharts(chart);
+</script>
+
+
+
+
+

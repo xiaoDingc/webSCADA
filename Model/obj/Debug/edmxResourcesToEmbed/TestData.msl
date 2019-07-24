@@ -1,0 +1,1196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TestLWSCADAModelStoreContainer" CdmEntityContainer="TestLWSCADAEntities">
+    <EntitySetMapping Name="AP_AdsorptionDryer_History">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_AdsorptionDryer_History">
+        <MappingFragment StoreEntitySet="AP_AdsorptionDryer_History">
+          <ScalarProperty Name="ValveG" ColumnName="ValveG" />
+          <ScalarProperty Name="ValveK" ColumnName="ValveK" />
+          <ScalarProperty Name="Dry_Trap" ColumnName="Dry_Trap" />
+          <ScalarProperty Name="RunTime_Rate" ColumnName="RunTime_Rate" />
+          <ScalarProperty Name="RUN_Time" ColumnName="RUN_Time" />
+          <ScalarProperty Name="Load_Rate" ColumnName="Load_Rate" />
+          <ScalarProperty Name="UPI" ColumnName="UPI" />
+          <ScalarProperty Name="Power" ColumnName="Power" />
+          <ScalarProperty Name="Outlet_Q" ColumnName="Outlet_Q" />
+          <ScalarProperty Name="Inlet_Q" ColumnName="Inlet_Q" />
+          <ScalarProperty Name="Purge_DP" ColumnName="Purge_DP" />
+          <ScalarProperty Name="Purge_P" ColumnName="Purge_P" />
+          <ScalarProperty Name="Purge_T" ColumnName="Purge_T" />
+          <ScalarProperty Name="Blower_Power" ColumnName="Blower_Power" />
+          <ScalarProperty Name="Heater_Power" ColumnName="Heater_Power" />
+          <ScalarProperty Name="Loss_Q" ColumnName="Loss_Q" />
+          <ScalarProperty Name="CDyer_DewPoint" ColumnName="CDyer_DewPoint" />
+          <ScalarProperty Name="CDyer_HeatTowerOutT" ColumnName="CDyer_HeatTowerOutT" />
+          <ScalarProperty Name="CDyer_HeatTowerMidT" ColumnName="CDyer_HeatTowerMidT" />
+          <ScalarProperty Name="CDyer_BTowerT" ColumnName="CDyer_BTowerT" />
+          <ScalarProperty Name="CDyer_ATowerT" ColumnName="CDyer_ATowerT" />
+          <ScalarProperty Name="CDyer_LeakT" ColumnName="CDyer_LeakT" />
+          <ScalarProperty Name="CDyer_OutT" ColumnName="CDyer_OutT" />
+          <ScalarProperty Name="CDyer_INT" ColumnName="CDyer_INT" />
+          <ScalarProperty Name="CDyer_JRQ_A" ColumnName="CDyer_JRQ_A" />
+          <ScalarProperty Name="CDyer_YSJ_A" ColumnName="CDyer_YSJ_A" />
+          <ScalarProperty Name="CDyer_InOutValue" ColumnName="CDyer_InOutValue" />
+          <ScalarProperty Name="CDryer_OutPre" ColumnName="CDryer_OutPre" />
+          <ScalarProperty Name="CDryer_InletPre" ColumnName="CDryer_InletPre" />
+          <ScalarProperty Name="CDryer_EvapPre" ColumnName="CDryer_EvapPre" />
+          <ScalarProperty Name="CDryer_CondPre" ColumnName="CDryer_CondPre" />
+          <ScalarProperty Name="Run" ColumnName="Run" />
+          <ScalarProperty Name="EquipID" ColumnName="EquipID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_AdsorptionDryer_Real">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_AdsorptionDryer_Real">
+        <MappingFragment StoreEntitySet="AP_AdsorptionDryer_Real">
+          <ScalarProperty Name="ValveG" ColumnName="ValveG" />
+          <ScalarProperty Name="ValveK" ColumnName="ValveK" />
+          <ScalarProperty Name="Dry_Trap" ColumnName="Dry_Trap" />
+          <ScalarProperty Name="RunTime_Rate" ColumnName="RunTime_Rate" />
+          <ScalarProperty Name="RUN_Time" ColumnName="RUN_Time" />
+          <ScalarProperty Name="Load_Rate" ColumnName="Load_Rate" />
+          <ScalarProperty Name="UPI" ColumnName="UPI" />
+          <ScalarProperty Name="Power" ColumnName="Power" />
+          <ScalarProperty Name="Outlet_Q" ColumnName="Outlet_Q" />
+          <ScalarProperty Name="Inlet_Q" ColumnName="Inlet_Q" />
+          <ScalarProperty Name="Purge_DP" ColumnName="Purge_DP" />
+          <ScalarProperty Name="Purge_P" ColumnName="Purge_P" />
+          <ScalarProperty Name="Purge_T" ColumnName="Purge_T" />
+          <ScalarProperty Name="Blower_Power" ColumnName="Blower_Power" />
+          <ScalarProperty Name="Heater_Power" ColumnName="Heater_Power" />
+          <ScalarProperty Name="Loss_Q" ColumnName="Loss_Q" />
+          <ScalarProperty Name="CDyer_DewPoint" ColumnName="CDyer_DewPoint" />
+          <ScalarProperty Name="CDyer_HeatTowerOutT" ColumnName="CDyer_HeatTowerOutT" />
+          <ScalarProperty Name="CDyer_HeatTowerMidT" ColumnName="CDyer_HeatTowerMidT" />
+          <ScalarProperty Name="CDyer_BTowerT" ColumnName="CDyer_BTowerT" />
+          <ScalarProperty Name="CDyer_ATowerT" ColumnName="CDyer_ATowerT" />
+          <ScalarProperty Name="CDyer_LeakT" ColumnName="CDyer_LeakT" />
+          <ScalarProperty Name="CDyer_OutT" ColumnName="CDyer_OutT" />
+          <ScalarProperty Name="CDyer_INT" ColumnName="CDyer_INT" />
+          <ScalarProperty Name="CDyer_JRQ_A" ColumnName="CDyer_JRQ_A" />
+          <ScalarProperty Name="CDyer_YSJ_A" ColumnName="CDyer_YSJ_A" />
+          <ScalarProperty Name="CDyer_InOutValue" ColumnName="CDyer_InOutValue" />
+          <ScalarProperty Name="CDryer_OutPre" ColumnName="CDryer_OutPre" />
+          <ScalarProperty Name="CDryer_InletPre" ColumnName="CDryer_InletPre" />
+          <ScalarProperty Name="CDryer_EvapPre" ColumnName="CDryer_EvapPre" />
+          <ScalarProperty Name="CDryer_CondPre" ColumnName="CDryer_CondPre" />
+          <ScalarProperty Name="Run" ColumnName="Run" />
+          <ScalarProperty Name="EquipID" ColumnName="EquipID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_AdsorptionDryer_Statistics">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_AdsorptionDryer_Statistics">
+        <MappingFragment StoreEntitySet="AP_AdsorptionDryer_Statistics">
+          <ScalarProperty Name="ValveG" ColumnName="ValveG" />
+          <ScalarProperty Name="ValveK" ColumnName="ValveK" />
+          <ScalarProperty Name="Dry_Trap" ColumnName="Dry_Trap" />
+          <ScalarProperty Name="RunTime_Rate" ColumnName="RunTime_Rate" />
+          <ScalarProperty Name="RUN_Time" ColumnName="RUN_Time" />
+          <ScalarProperty Name="Load_Rate" ColumnName="Load_Rate" />
+          <ScalarProperty Name="UPI" ColumnName="UPI" />
+          <ScalarProperty Name="Power" ColumnName="Power" />
+          <ScalarProperty Name="Outlet_Q" ColumnName="Outlet_Q" />
+          <ScalarProperty Name="Inlet_Q" ColumnName="Inlet_Q" />
+          <ScalarProperty Name="Purge_DP" ColumnName="Purge_DP" />
+          <ScalarProperty Name="Purge_P" ColumnName="Purge_P" />
+          <ScalarProperty Name="Purge_T" ColumnName="Purge_T" />
+          <ScalarProperty Name="Blower_Power" ColumnName="Blower_Power" />
+          <ScalarProperty Name="Heater_Power" ColumnName="Heater_Power" />
+          <ScalarProperty Name="Loss_Q" ColumnName="Loss_Q" />
+          <ScalarProperty Name="CDyer_DewPoint" ColumnName="CDyer_DewPoint" />
+          <ScalarProperty Name="CDyer_HeatTowerOutT" ColumnName="CDyer_HeatTowerOutT" />
+          <ScalarProperty Name="CDyer_HeatTowerMidT" ColumnName="CDyer_HeatTowerMidT" />
+          <ScalarProperty Name="CDyer_BTowerT" ColumnName="CDyer_BTowerT" />
+          <ScalarProperty Name="CDyer_ATowerT" ColumnName="CDyer_ATowerT" />
+          <ScalarProperty Name="CDyer_LeakT" ColumnName="CDyer_LeakT" />
+          <ScalarProperty Name="CDyer_OutT" ColumnName="CDyer_OutT" />
+          <ScalarProperty Name="CDyer_INT" ColumnName="CDyer_INT" />
+          <ScalarProperty Name="CDyer_JRQ_A" ColumnName="CDyer_JRQ_A" />
+          <ScalarProperty Name="CDyer_YSJ_A" ColumnName="CDyer_YSJ_A" />
+          <ScalarProperty Name="CDyer_InOutValue" ColumnName="CDyer_InOutValue" />
+          <ScalarProperty Name="CDryer_OutPre" ColumnName="CDryer_OutPre" />
+          <ScalarProperty Name="CDryer_InletPre" ColumnName="CDryer_InletPre" />
+          <ScalarProperty Name="CDryer_EvapPre" ColumnName="CDryer_EvapPre" />
+          <ScalarProperty Name="CDryer_CondPre" ColumnName="CDryer_CondPre" />
+          <ScalarProperty Name="Run" ColumnName="Run" />
+          <ScalarProperty Name="YMDH" ColumnName="YMDH" />
+          <ScalarProperty Name="EquipID" ColumnName="EquipID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_Centrifuge_History">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_Centrifuge_History">
+        <MappingFragment StoreEntitySet="AP_Centrifuge_History">
+          <ScalarProperty Name="Ret_Trap3" ColumnName="Ret_Trap3" />
+          <ScalarProperty Name="Ret_Trap2" ColumnName="Ret_Trap2" />
+          <ScalarProperty Name="Ret_Trap1" ColumnName="Ret_Trap1" />
+          <ScalarProperty Name="LossRatio" ColumnName="LossRatio" />
+          <ScalarProperty Name="standard_P" ColumnName="standard_P" />
+          <ScalarProperty Name="Power" ColumnName="Power" />
+          <ScalarProperty Name="Part_Load_Rat" ColumnName="Part_Load_Rat" />
+          <ScalarProperty Name="RunTime_Rate" ColumnName="RunTime_Rate" />
+          <ScalarProperty Name="Load" ColumnName="Load" />
+          <ScalarProperty Name="Run" ColumnName="Run" />
+          <ScalarProperty Name="Monthly_Rank" ColumnName="Monthly_Rank" />
+          <ScalarProperty Name="Rank" ColumnName="Rank" />
+          <ScalarProperty Name="UPI" ColumnName="UPI" />
+          <ScalarProperty Name="ERE" ColumnName="ERE" />
+          <ScalarProperty Name="DRE" ColumnName="DRE" />
+          <ScalarProperty Name="PCE" ColumnName="PCE" />
+          <ScalarProperty Name="Run_Time" ColumnName="Run_Time" />
+          <ScalarProperty Name="eQ" ColumnName="eQ" />
+          <ScalarProperty Name="ePower" ColumnName="ePower" />
+          <ScalarProperty Name="Rphase_TemAir" ColumnName="Rphase_TemAir" />
+          <ScalarProperty Name="Unload_TemAir" ColumnName="Unload_TemAir" />
+          <ScalarProperty Name="Load_TemAir" ColumnName="Load_TemAir" />
+          <ScalarProperty Name="Oil_TemAir" ColumnName="Oil_TemAir" />
+          <ScalarProperty Name="ThreeStageAir" ColumnName="ThreeStageAir" />
+          <ScalarProperty Name="TwoStageAir" ColumnName="TwoStageAir" />
+          <ScalarProperty Name="PrimaryAir" ColumnName="PrimaryAir" />
+          <ScalarProperty Name="HydraulicAir" ColumnName="HydraulicAir" />
+          <ScalarProperty Name="T3Pressure" ColumnName="T3Pressure" />
+          <ScalarProperty Name="T3Air" ColumnName="T3Air" />
+          <ScalarProperty Name="DiscgargeOpen" ColumnName="DiscgargeOpen" />
+          <ScalarProperty Name="InletIOpen" ColumnName="InletIOpen" />
+          <ScalarProperty Name="C" ColumnName="C" />
+          <ScalarProperty Name="Inlet_dp" ColumnName="Inlet_dp" />
+          <ScalarProperty Name="Accumulated_Q" ColumnName="Accumulated_Q" />
+          <ScalarProperty Name="Q" ColumnName="Q" />
+          <ScalarProperty Name="RET_T3" ColumnName="RET_T3" />
+          <ScalarProperty Name="RET_T2" ColumnName="RET_T2" />
+          <ScalarProperty Name="RET_T1" ColumnName="RET_T1" />
+          <ScalarProperty Name="Outlet_P" ColumnName="Outlet_P" />
+          <ScalarProperty Name="Outlet_T" ColumnName="Outlet_T" />
+          <ScalarProperty Name="EquipID" ColumnName="EquipID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_Centrifuge_Real">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_Centrifuge_Real">
+        <MappingFragment StoreEntitySet="AP_Centrifuge_Real">
+          <ScalarProperty Name="Ret_Trap3" ColumnName="Ret_Trap3" />
+          <ScalarProperty Name="Ret_Trap2" ColumnName="Ret_Trap2" />
+          <ScalarProperty Name="Ret_Trap1" ColumnName="Ret_Trap1" />
+          <ScalarProperty Name="LossRatio" ColumnName="LossRatio" />
+          <ScalarProperty Name="standard_P" ColumnName="standard_P" />
+          <ScalarProperty Name="Power" ColumnName="Power" />
+          <ScalarProperty Name="Part_Load_Rat" ColumnName="Part_Load_Rat" />
+          <ScalarProperty Name="RunTime_Rate" ColumnName="RunTime_Rate" />
+          <ScalarProperty Name="Load" ColumnName="Load" />
+          <ScalarProperty Name="Run" ColumnName="Run" />
+          <ScalarProperty Name="Monthly_Rank" ColumnName="Monthly_Rank" />
+          <ScalarProperty Name="Rank" ColumnName="Rank" />
+          <ScalarProperty Name="UPI" ColumnName="UPI" />
+          <ScalarProperty Name="ERE" ColumnName="ERE" />
+          <ScalarProperty Name="DRE" ColumnName="DRE" />
+          <ScalarProperty Name="PCE" ColumnName="PCE" />
+          <ScalarProperty Name="Run_Time" ColumnName="Run_Time" />
+          <ScalarProperty Name="eQ" ColumnName="eQ" />
+          <ScalarProperty Name="ePower" ColumnName="ePower" />
+          <ScalarProperty Name="Rphase_TemAir" ColumnName="Rphase_TemAir" />
+          <ScalarProperty Name="Unload_TemAir" ColumnName="Unload_TemAir" />
+          <ScalarProperty Name="Load_TemAir" ColumnName="Load_TemAir" />
+          <ScalarProperty Name="Oil_TemAir" ColumnName="Oil_TemAir" />
+          <ScalarProperty Name="ThreeStageAir" ColumnName="ThreeStageAir" />
+          <ScalarProperty Name="TwoStageAir" ColumnName="TwoStageAir" />
+          <ScalarProperty Name="PrimaryAir" ColumnName="PrimaryAir" />
+          <ScalarProperty Name="HydraulicAir" ColumnName="HydraulicAir" />
+          <ScalarProperty Name="T3Pressure" ColumnName="T3Pressure" />
+          <ScalarProperty Name="T3Air" ColumnName="T3Air" />
+          <ScalarProperty Name="DiscgargeOpen" ColumnName="DiscgargeOpen" />
+          <ScalarProperty Name="InletIOpen" ColumnName="InletIOpen" />
+          <ScalarProperty Name="C" ColumnName="C" />
+          <ScalarProperty Name="Inlet_dp" ColumnName="Inlet_dp" />
+          <ScalarProperty Name="Accumulated_Q" ColumnName="Accumulated_Q" />
+          <ScalarProperty Name="Q" ColumnName="Q" />
+          <ScalarProperty Name="RET_T3" ColumnName="RET_T3" />
+          <ScalarProperty Name="RET_T2" ColumnName="RET_T2" />
+          <ScalarProperty Name="RET_T1" ColumnName="RET_T1" />
+          <ScalarProperty Name="Outlet_P" ColumnName="Outlet_P" />
+          <ScalarProperty Name="Outlet_T" ColumnName="Outlet_T" />
+          <ScalarProperty Name="EquipID" ColumnName="EquipID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_Centrifuge_Statistics">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_Centrifuge_Statistics">
+        <MappingFragment StoreEntitySet="AP_Centrifuge_Statistics">
+          <ScalarProperty Name="Ret_Trap3" ColumnName="Ret_Trap3" />
+          <ScalarProperty Name="Ret_Trap2" ColumnName="Ret_Trap2" />
+          <ScalarProperty Name="Ret_Trap1" ColumnName="Ret_Trap1" />
+          <ScalarProperty Name="LossRatio" ColumnName="LossRatio" />
+          <ScalarProperty Name="standard_P" ColumnName="standard_P" />
+          <ScalarProperty Name="Power" ColumnName="Power" />
+          <ScalarProperty Name="Part_Load_Rat" ColumnName="Part_Load_Rat" />
+          <ScalarProperty Name="RunTime_Rate" ColumnName="RunTime_Rate" />
+          <ScalarProperty Name="Load" ColumnName="Load" />
+          <ScalarProperty Name="Run" ColumnName="Run" />
+          <ScalarProperty Name="Monthly_Rank" ColumnName="Monthly_Rank" />
+          <ScalarProperty Name="Rank" ColumnName="Rank" />
+          <ScalarProperty Name="UPI" ColumnName="UPI" />
+          <ScalarProperty Name="ERE" ColumnName="ERE" />
+          <ScalarProperty Name="DRE" ColumnName="DRE" />
+          <ScalarProperty Name="PCE" ColumnName="PCE" />
+          <ScalarProperty Name="Run_Time" ColumnName="Run_Time" />
+          <ScalarProperty Name="eQ" ColumnName="eQ" />
+          <ScalarProperty Name="ePower" ColumnName="ePower" />
+          <ScalarProperty Name="Rphase_TemAir" ColumnName="Rphase_TemAir" />
+          <ScalarProperty Name="Unload_TemAir" ColumnName="Unload_TemAir" />
+          <ScalarProperty Name="Load_TemAir" ColumnName="Load_TemAir" />
+          <ScalarProperty Name="Oil_TemAir" ColumnName="Oil_TemAir" />
+          <ScalarProperty Name="ThreeStageAir" ColumnName="ThreeStageAir" />
+          <ScalarProperty Name="TwoStageAir" ColumnName="TwoStageAir" />
+          <ScalarProperty Name="PrimaryAir" ColumnName="PrimaryAir" />
+          <ScalarProperty Name="HydraulicAir" ColumnName="HydraulicAir" />
+          <ScalarProperty Name="T3Pressure" ColumnName="T3Pressure" />
+          <ScalarProperty Name="T3Air" ColumnName="T3Air" />
+          <ScalarProperty Name="DiscgargeOpen" ColumnName="DiscgargeOpen" />
+          <ScalarProperty Name="InletIOpen" ColumnName="InletIOpen" />
+          <ScalarProperty Name="C" ColumnName="C" />
+          <ScalarProperty Name="Inlet_dp" ColumnName="Inlet_dp" />
+          <ScalarProperty Name="Accumulated_Q" ColumnName="Accumulated_Q" />
+          <ScalarProperty Name="Q" ColumnName="Q" />
+          <ScalarProperty Name="RET_T3" ColumnName="RET_T3" />
+          <ScalarProperty Name="RET_T2" ColumnName="RET_T2" />
+          <ScalarProperty Name="RET_T1" ColumnName="RET_T1" />
+          <ScalarProperty Name="Outlet_P" ColumnName="Outlet_P" />
+          <ScalarProperty Name="Outlet_T" ColumnName="Outlet_T" />
+          <ScalarProperty Name="YMDH" ColumnName="YMDH" />
+          <ScalarProperty Name="EquipID" ColumnName="EquipID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_Factory_History">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_Factory_History">
+        <MappingFragment StoreEntitySet="AP_Factory_History">
+          <ScalarProperty Name="RUN_NUM" ColumnName="RUN_NUM" />
+          <ScalarProperty Name="TCE" ColumnName="TCE" />
+          <ScalarProperty Name="DRE" ColumnName="DRE" />
+          <ScalarProperty Name="Main_Rated_power" ColumnName="Main_Rated_power" />
+          <ScalarProperty Name="Main_Rated_Q" ColumnName="Main_Rated_Q" />
+          <ScalarProperty Name="LossRatio" ColumnName="LossRatio" />
+          <ScalarProperty Name="UPI" ColumnName="UPI" />
+          <ScalarProperty Name="FlowLoss" ColumnName="FlowLoss" />
+          <ScalarProperty Name="PipelinePressure" ColumnName="PipelinePressure" />
+          <ScalarProperty Name="UseFlow" ColumnName="UseFlow" />
+          <ScalarProperty Name="ProduceFlowCentrifuge" ColumnName="ProduceFlowCentrifuge" />
+          <ScalarProperty Name="ProduceFlowStation" ColumnName="ProduceFlowStation" />
+          <ScalarProperty Name="SumPower" ColumnName="SumPower" />
+          <ScalarProperty Name="Dewpoint" ColumnName="Dewpoint" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_Factory_Real">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_Factory_Real">
+        <MappingFragment StoreEntitySet="AP_Factory_Real">
+          <ScalarProperty Name="RUN_NUM" ColumnName="RUN_NUM" />
+          <ScalarProperty Name="TCE" ColumnName="TCE" />
+          <ScalarProperty Name="DRE" ColumnName="DRE" />
+          <ScalarProperty Name="Main_Rated_power" ColumnName="Main_Rated_power" />
+          <ScalarProperty Name="Main_Rated_Q" ColumnName="Main_Rated_Q" />
+          <ScalarProperty Name="LossRatio" ColumnName="LossRatio" />
+          <ScalarProperty Name="UPI" ColumnName="UPI" />
+          <ScalarProperty Name="FlowLoss" ColumnName="FlowLoss" />
+          <ScalarProperty Name="PipelinePressure" ColumnName="PipelinePressure" />
+          <ScalarProperty Name="UseFlow" ColumnName="UseFlow" />
+          <ScalarProperty Name="ProduceFlowCentrifuge" ColumnName="ProduceFlowCentrifuge" />
+          <ScalarProperty Name="ProduceFlowStation" ColumnName="ProduceFlowStation" />
+          <ScalarProperty Name="SumPower" ColumnName="SumPower" />
+          <ScalarProperty Name="Dewpoint" ColumnName="Dewpoint" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_Factory_Statistics">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_Factory_Statistics">
+        <MappingFragment StoreEntitySet="AP_Factory_Statistics">
+          <ScalarProperty Name="RUN_NUM" ColumnName="RUN_NUM" />
+          <ScalarProperty Name="TCE" ColumnName="TCE" />
+          <ScalarProperty Name="DRE" ColumnName="DRE" />
+          <ScalarProperty Name="Main_Rated_power" ColumnName="Main_Rated_power" />
+          <ScalarProperty Name="Main_Rated_Q" ColumnName="Main_Rated_Q" />
+          <ScalarProperty Name="LossRatio" ColumnName="LossRatio" />
+          <ScalarProperty Name="UPI" ColumnName="UPI" />
+          <ScalarProperty Name="FlowLoss" ColumnName="FlowLoss" />
+          <ScalarProperty Name="PipelinePressure" ColumnName="PipelinePressure" />
+          <ScalarProperty Name="UseFlow" ColumnName="UseFlow" />
+          <ScalarProperty Name="ProduceFlowCentrifuge" ColumnName="ProduceFlowCentrifuge" />
+          <ScalarProperty Name="ProduceFlowStation" ColumnName="ProduceFlowStation" />
+          <ScalarProperty Name="SumPower" ColumnName="SumPower" />
+          <ScalarProperty Name="Dewpoint" ColumnName="Dewpoint" />
+          <ScalarProperty Name="YMDH" ColumnName="YMDH" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_PressDesign_Conclusion">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_PressDesign_Conclusion">
+        <MappingFragment StoreEntitySet="AP_PressDesign_Conclusion">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Conclusion" ColumnName="Conclusion" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_PressDesign_Real">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_PressDesign_Real">
+        <MappingFragment StoreEntitySet="AP_PressDesign_Real">
+          <ScalarProperty Name="OldPressDesign" ColumnName="OldPressDesign" />
+          <ScalarProperty Name="PressDesign" ColumnName="PressDesign" />
+          <ScalarProperty Name="EquipID" ColumnName="EquipID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_Station_History">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_Station_History">
+        <MappingFragment StoreEntitySet="AP_Station_History">
+          <ScalarProperty Name="TCE" ColumnName="TCE" />
+          <ScalarProperty Name="CentrifugeSumQ" ColumnName="CentrifugeSumQ" />
+          <ScalarProperty Name="eQ_MainSum" ColumnName="eQ_MainSum" />
+          <ScalarProperty Name="ReleaseRate" ColumnName="ReleaseRate" />
+          <ScalarProperty Name="Main_Rated_power" ColumnName="Main_Rated_power" />
+          <ScalarProperty Name="Sum_Power" ColumnName="Sum_Power" />
+          <ScalarProperty Name="Dryer_Power" ColumnName="Dryer_Power" />
+          <ScalarProperty Name="Loss_Q" ColumnName="Loss_Q" />
+          <ScalarProperty Name="CompressorPower" ColumnName="CompressorPower" />
+          <ScalarProperty Name="Power_Save_Cost" ColumnName="Power_Save_Cost" />
+          <ScalarProperty Name="Energy_Save_Cost" ColumnName="Energy_Save_Cost" />
+          <ScalarProperty Name="Power_Save_Rate" ColumnName="Power_Save_Rate" />
+          <ScalarProperty Name="Energy_Save_Rate" ColumnName="Energy_Save_Rate" />
+          <ScalarProperty Name="Power_Save" ColumnName="Power_Save" />
+          <ScalarProperty Name="Energy_Save" ColumnName="Energy_Save" />
+          <ScalarProperty Name="RunTime" ColumnName="RunTime" />
+          <ScalarProperty Name="Part_Load_Ratio" ColumnName="Part_Load_Ratio" />
+          <ScalarProperty Name="Line_Q" ColumnName="Line_Q" />
+          <ScalarProperty Name="UPI_Save" ColumnName="UPI_Save" />
+          <ScalarProperty Name="Main_Rated_Q" ColumnName="Main_Rated_Q" />
+          <ScalarProperty Name="Dewpoint" ColumnName="Dewpoint" />
+          <ScalarProperty Name="PressureLoss" ColumnName="PressureLoss" />
+          <ScalarProperty Name="FLP" ColumnName="FLP" />
+          <ScalarProperty Name="RunTime_Rate" ColumnName="RunTime_Rate" />
+          <ScalarProperty Name="ERE" ColumnName="ERE" />
+          <ScalarProperty Name="DRE" ColumnName="DRE" />
+          <ScalarProperty Name="PCE" ColumnName="PCE" />
+          <ScalarProperty Name="UPI" ColumnName="UPI" />
+          <ScalarProperty Name="ePower" ColumnName="ePower" />
+          <ScalarProperty Name="REQ_NUM" ColumnName="REQ_NUM" />
+          <ScalarProperty Name="RUN_NUM" ColumnName="RUN_NUM" />
+          <ScalarProperty Name="Line2_Power" ColumnName="Line2_Power" />
+          <ScalarProperty Name="Line2_PF" ColumnName="Line2_PF" />
+          <ScalarProperty Name="Line2_A" ColumnName="Line2_A" />
+          <ScalarProperty Name="Line2_V" ColumnName="Line2_V" />
+          <ScalarProperty Name="Line1_Power" ColumnName="Line1_Power" />
+          <ScalarProperty Name="Line1_PF" ColumnName="Line1_PF" />
+          <ScalarProperty Name="Line1_A" ColumnName="Line1_A" />
+          <ScalarProperty Name="Line1_V" ColumnName="Line1_V" />
+          <ScalarProperty Name="Main_P" ColumnName="Main_P" />
+          <ScalarProperty Name="Main_Q" ColumnName="Main_Q" />
+          <ScalarProperty Name="Water_F" ColumnName="Water_F" />
+          <ScalarProperty Name="Water_T" ColumnName="Water_T" />
+          <ScalarProperty Name="Water_P" ColumnName="Water_P" />
+          <ScalarProperty Name="Air_H" ColumnName="Air_H" />
+          <ScalarProperty Name="Air_T" ColumnName="Air_T" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_Station_Real">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_Station_Real">
+        <MappingFragment StoreEntitySet="AP_Station_Real">
+          <ScalarProperty Name="TCE" ColumnName="TCE" />
+          <ScalarProperty Name="CentrifugeSumQ" ColumnName="CentrifugeSumQ" />
+          <ScalarProperty Name="eQ_MainSum" ColumnName="eQ_MainSum" />
+          <ScalarProperty Name="ReleaseRate" ColumnName="ReleaseRate" />
+          <ScalarProperty Name="Main_Rated_power" ColumnName="Main_Rated_power" />
+          <ScalarProperty Name="Sum_Power" ColumnName="Sum_Power" />
+          <ScalarProperty Name="Dryer_Power" ColumnName="Dryer_Power" />
+          <ScalarProperty Name="Loss_Q" ColumnName="Loss_Q" />
+          <ScalarProperty Name="CompressorPower" ColumnName="CompressorPower" />
+          <ScalarProperty Name="Power_Save_Cost" ColumnName="Power_Save_Cost" />
+          <ScalarProperty Name="Energy_Save_Cost" ColumnName="Energy_Save_Cost" />
+          <ScalarProperty Name="Power_Save_Rate" ColumnName="Power_Save_Rate" />
+          <ScalarProperty Name="Energy_Save_Rate" ColumnName="Energy_Save_Rate" />
+          <ScalarProperty Name="Power_Save" ColumnName="Power_Save" />
+          <ScalarProperty Name="Energy_Save" ColumnName="Energy_Save" />
+          <ScalarProperty Name="RunTime" ColumnName="RunTime" />
+          <ScalarProperty Name="Part_Load_Ratio" ColumnName="Part_Load_Ratio" />
+          <ScalarProperty Name="Line_Q" ColumnName="Line_Q" />
+          <ScalarProperty Name="UPI_Save" ColumnName="UPI_Save" />
+          <ScalarProperty Name="Main_Rated_Q" ColumnName="Main_Rated_Q" />
+          <ScalarProperty Name="Dewpoint" ColumnName="Dewpoint" />
+          <ScalarProperty Name="PressureLoss" ColumnName="PressureLoss" />
+          <ScalarProperty Name="FLP" ColumnName="FLP" />
+          <ScalarProperty Name="RunTime_Rate" ColumnName="RunTime_Rate" />
+          <ScalarProperty Name="ERE" ColumnName="ERE" />
+          <ScalarProperty Name="DRE" ColumnName="DRE" />
+          <ScalarProperty Name="PCE" ColumnName="PCE" />
+          <ScalarProperty Name="UPI" ColumnName="UPI" />
+          <ScalarProperty Name="ePower" ColumnName="ePower" />
+          <ScalarProperty Name="REQ_NUM" ColumnName="REQ_NUM" />
+          <ScalarProperty Name="RUN_NUM" ColumnName="RUN_NUM" />
+          <ScalarProperty Name="Line2_Power" ColumnName="Line2_Power" />
+          <ScalarProperty Name="Line2_PF" ColumnName="Line2_PF" />
+          <ScalarProperty Name="Line2_A" ColumnName="Line2_A" />
+          <ScalarProperty Name="Line2_V" ColumnName="Line2_V" />
+          <ScalarProperty Name="Line1_Power" ColumnName="Line1_Power" />
+          <ScalarProperty Name="Line1_PF" ColumnName="Line1_PF" />
+          <ScalarProperty Name="Line1_A" ColumnName="Line1_A" />
+          <ScalarProperty Name="Line1_V" ColumnName="Line1_V" />
+          <ScalarProperty Name="Main_P" ColumnName="Main_P" />
+          <ScalarProperty Name="Main_Q" ColumnName="Main_Q" />
+          <ScalarProperty Name="Water_F" ColumnName="Water_F" />
+          <ScalarProperty Name="Water_T" ColumnName="Water_T" />
+          <ScalarProperty Name="Water_P" ColumnName="Water_P" />
+          <ScalarProperty Name="Air_H" ColumnName="Air_H" />
+          <ScalarProperty Name="Air_T" ColumnName="Air_T" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_Station_Statistics">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_Station_Statistics">
+        <MappingFragment StoreEntitySet="AP_Station_Statistics">
+          <ScalarProperty Name="TCE" ColumnName="TCE" />
+          <ScalarProperty Name="CentrifugeSumQ" ColumnName="CentrifugeSumQ" />
+          <ScalarProperty Name="eQ_MainSum" ColumnName="eQ_MainSum" />
+          <ScalarProperty Name="ReleaseRate" ColumnName="ReleaseRate" />
+          <ScalarProperty Name="Main_Rated_power" ColumnName="Main_Rated_power" />
+          <ScalarProperty Name="Sum_Power" ColumnName="Sum_Power" />
+          <ScalarProperty Name="Dryer_Power" ColumnName="Dryer_Power" />
+          <ScalarProperty Name="Loss_Q" ColumnName="Loss_Q" />
+          <ScalarProperty Name="CompressorPower" ColumnName="CompressorPower" />
+          <ScalarProperty Name="Power_Save_Cost" ColumnName="Power_Save_Cost" />
+          <ScalarProperty Name="Energy_Save_Cost" ColumnName="Energy_Save_Cost" />
+          <ScalarProperty Name="Power_Save_Rate" ColumnName="Power_Save_Rate" />
+          <ScalarProperty Name="Energy_Save_Rate" ColumnName="Energy_Save_Rate" />
+          <ScalarProperty Name="Power_Save" ColumnName="Power_Save" />
+          <ScalarProperty Name="Energy_Save" ColumnName="Energy_Save" />
+          <ScalarProperty Name="RunTime" ColumnName="RunTime" />
+          <ScalarProperty Name="Part_Load_Ratio" ColumnName="Part_Load_Ratio" />
+          <ScalarProperty Name="Line_Q" ColumnName="Line_Q" />
+          <ScalarProperty Name="UPI_Save" ColumnName="UPI_Save" />
+          <ScalarProperty Name="Main_Rated_Q" ColumnName="Main_Rated_Q" />
+          <ScalarProperty Name="Dewpoint" ColumnName="Dewpoint" />
+          <ScalarProperty Name="PressureLoss" ColumnName="PressureLoss" />
+          <ScalarProperty Name="FLP" ColumnName="FLP" />
+          <ScalarProperty Name="RunTime_Rate" ColumnName="RunTime_Rate" />
+          <ScalarProperty Name="ERE" ColumnName="ERE" />
+          <ScalarProperty Name="DRE" ColumnName="DRE" />
+          <ScalarProperty Name="PCE" ColumnName="PCE" />
+          <ScalarProperty Name="UPI" ColumnName="UPI" />
+          <ScalarProperty Name="ePower" ColumnName="ePower" />
+          <ScalarProperty Name="REQ_NUM" ColumnName="REQ_NUM" />
+          <ScalarProperty Name="RUN_NUM" ColumnName="RUN_NUM" />
+          <ScalarProperty Name="Line2_Power" ColumnName="Line2_Power" />
+          <ScalarProperty Name="Line2_PF" ColumnName="Line2_PF" />
+          <ScalarProperty Name="Line2_A" ColumnName="Line2_A" />
+          <ScalarProperty Name="Line2_V" ColumnName="Line2_V" />
+          <ScalarProperty Name="Line1_Power" ColumnName="Line1_Power" />
+          <ScalarProperty Name="Line1_PF" ColumnName="Line1_PF" />
+          <ScalarProperty Name="Line1_A" ColumnName="Line1_A" />
+          <ScalarProperty Name="Line1_V" ColumnName="Line1_V" />
+          <ScalarProperty Name="Main_P" ColumnName="Main_P" />
+          <ScalarProperty Name="Main_Q" ColumnName="Main_Q" />
+          <ScalarProperty Name="Water_F" ColumnName="Water_F" />
+          <ScalarProperty Name="Water_T" ColumnName="Water_T" />
+          <ScalarProperty Name="Water_P" ColumnName="Water_P" />
+          <ScalarProperty Name="Air_H" ColumnName="Air_H" />
+          <ScalarProperty Name="Air_T" ColumnName="Air_T" />
+          <ScalarProperty Name="YMDH" ColumnName="YMDH" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_WaterPump_History">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_WaterPump_History">
+        <MappingFragment StoreEntitySet="AP_WaterPump_History">
+          <ScalarProperty Name="Cooling_Tower2_A" ColumnName="Cooling_Tower2_A" />
+          <ScalarProperty Name="Cooling_Tower1_A" ColumnName="Cooling_Tower1_A" />
+          <ScalarProperty Name="Pump4_A" ColumnName="Pump4_A" />
+          <ScalarProperty Name="Pump3_A" ColumnName="Pump3_A" />
+          <ScalarProperty Name="Pump2_A" ColumnName="Pump2_A" />
+          <ScalarProperty Name="Pump1_A" ColumnName="Pump1_A" />
+          <ScalarProperty Name="Cooling_Tower2_Fault" ColumnName="Cooling_Tower2_Fault" />
+          <ScalarProperty Name="Cooling_Tower2_Run" ColumnName="Cooling_Tower2_Run" />
+          <ScalarProperty Name="Cooling_Tower1_Fault" ColumnName="Cooling_Tower1_Fault" />
+          <ScalarProperty Name="Cooling_Tower1_Run" ColumnName="Cooling_Tower1_Run" />
+          <ScalarProperty Name="Pump4_Fault" ColumnName="Pump4_Fault" />
+          <ScalarProperty Name="Pump4_Run" ColumnName="Pump4_Run" />
+          <ScalarProperty Name="Pump3_Fault" ColumnName="Pump3_Fault" />
+          <ScalarProperty Name="Pump3_Run" ColumnName="Pump3_Run" />
+          <ScalarProperty Name="Pump2_Fault" ColumnName="Pump2_Fault" />
+          <ScalarProperty Name="Pump2_Run" ColumnName="Pump2_Run" />
+          <ScalarProperty Name="Pump1_Fault" ColumnName="Pump1_Fault" />
+          <ScalarProperty Name="Pump1_Run" ColumnName="Pump1_Run" />
+          <ScalarProperty Name="EquipID" ColumnName="EquipID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_WaterPump_Real">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_WaterPump_Real">
+        <MappingFragment StoreEntitySet="AP_WaterPump_Real">
+          <ScalarProperty Name="Cooling_Tower2_A" ColumnName="Cooling_Tower2_A" />
+          <ScalarProperty Name="Cooling_Tower1_A" ColumnName="Cooling_Tower1_A" />
+          <ScalarProperty Name="Pump4_A" ColumnName="Pump4_A" />
+          <ScalarProperty Name="Pump3_A" ColumnName="Pump3_A" />
+          <ScalarProperty Name="Pump2_A" ColumnName="Pump2_A" />
+          <ScalarProperty Name="Pump1_A" ColumnName="Pump1_A" />
+          <ScalarProperty Name="Cooling_Tower2_Fault" ColumnName="Cooling_Tower2_Fault" />
+          <ScalarProperty Name="Cooling_Tower2_Run" ColumnName="Cooling_Tower2_Run" />
+          <ScalarProperty Name="Cooling_Tower1_Fault" ColumnName="Cooling_Tower1_Fault" />
+          <ScalarProperty Name="Cooling_Tower1_Run" ColumnName="Cooling_Tower1_Run" />
+          <ScalarProperty Name="Pump4_Fault" ColumnName="Pump4_Fault" />
+          <ScalarProperty Name="Pump4_Run" ColumnName="Pump4_Run" />
+          <ScalarProperty Name="Pump3_Fault" ColumnName="Pump3_Fault" />
+          <ScalarProperty Name="Pump3_Run" ColumnName="Pump3_Run" />
+          <ScalarProperty Name="Pump2_Fault" ColumnName="Pump2_Fault" />
+          <ScalarProperty Name="Pump2_Run" ColumnName="Pump2_Run" />
+          <ScalarProperty Name="Pump1_Fault" ColumnName="Pump1_Fault" />
+          <ScalarProperty Name="Pump1_Run" ColumnName="Pump1_Run" />
+          <ScalarProperty Name="EquipID" ColumnName="EquipID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_WaterPump_Statistics">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.AP_WaterPump_Statistics">
+        <MappingFragment StoreEntitySet="AP_WaterPump_Statistics">
+          <ScalarProperty Name="Cooling_Tower2_A" ColumnName="Cooling_Tower2_A" />
+          <ScalarProperty Name="Cooling_Tower1_A" ColumnName="Cooling_Tower1_A" />
+          <ScalarProperty Name="Pump4_A" ColumnName="Pump4_A" />
+          <ScalarProperty Name="Pump3_A" ColumnName="Pump3_A" />
+          <ScalarProperty Name="Pump2_A" ColumnName="Pump2_A" />
+          <ScalarProperty Name="Pump1_A" ColumnName="Pump1_A" />
+          <ScalarProperty Name="Cooling_Tower2_Fault" ColumnName="Cooling_Tower2_Fault" />
+          <ScalarProperty Name="Cooling_Tower2_Run" ColumnName="Cooling_Tower2_Run" />
+          <ScalarProperty Name="Cooling_Tower1_Fault" ColumnName="Cooling_Tower1_Fault" />
+          <ScalarProperty Name="Cooling_Tower1_Run" ColumnName="Cooling_Tower1_Run" />
+          <ScalarProperty Name="Pump4_Fault" ColumnName="Pump4_Fault" />
+          <ScalarProperty Name="Pump4_Run" ColumnName="Pump4_Run" />
+          <ScalarProperty Name="Pump3_Fault" ColumnName="Pump3_Fault" />
+          <ScalarProperty Name="Pump3_Run" ColumnName="Pump3_Run" />
+          <ScalarProperty Name="Pump2_Fault" ColumnName="Pump2_Fault" />
+          <ScalarProperty Name="Pump2_Run" ColumnName="Pump2_Run" />
+          <ScalarProperty Name="Pump1_Fault" ColumnName="Pump1_Fault" />
+          <ScalarProperty Name="Pump1_Run" ColumnName="Pump1_Run" />
+          <ScalarProperty Name="YMDH" ColumnName="YMDH" />
+          <ScalarProperty Name="EquipID" ColumnName="EquipID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BB_Area">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.BB_Area">
+        <MappingFragment StoreEntitySet="BB_Area">
+          <ScalarProperty Name="InputSize" ColumnName="InputSize" />
+          <ScalarProperty Name="Valid" ColumnName="Valid" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Longtitude" ColumnName="Longtitude" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Introduction" ColumnName="Introduction" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BB_ChartAlias">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.BB_ChartAlias">
+        <MappingFragment StoreEntitySet="BB_ChartAlias">
+          <ScalarProperty Name="chartXLegend" ColumnName="chartXLegend" />
+          <ScalarProperty Name="chartYUnit" ColumnName="chartYUnit" />
+          <ScalarProperty Name="layuiOffset" ColumnName="layuiOffset" />
+          <ScalarProperty Name="layuiArea" ColumnName="layuiArea" />
+          <ScalarProperty Name="layuiTitle" ColumnName="layuiTitle" />
+          <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+          <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+          <ScalarProperty Name="EquipName" ColumnName="EquipName" />
+          <ScalarProperty Name="stationName" ColumnName="stationName" />
+          <ScalarProperty Name="factoryName" ColumnName="factoryName" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+          <ScalarProperty Name="EquipID" ColumnName="EquipID" />
+          <ScalarProperty Name="stationID" ColumnName="stationID" />
+          <ScalarProperty Name="factoryId" ColumnName="factoryId" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BB_Data_Check">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.BB_Data_Check">
+        <MappingFragment StoreEntitySet="BB_Data_Check">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Valid" ColumnName="Valid" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="DataSource" ColumnName="DataSource" />
+          <ScalarProperty Name="BaseValue" ColumnName="BaseValue" />
+          <ScalarProperty Name="LowerLimit" ColumnName="LowerLimit" />
+          <ScalarProperty Name="UpperLimit" ColumnName="UpperLimit" />
+          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+          <ScalarProperty Name="ResMin" ColumnName="ResMin" />
+          <ScalarProperty Name="ResMax" ColumnName="ResMax" />
+          <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+          <ScalarProperty Name="EquipID" ColumnName="EquipID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BB_Data_Error_Area">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.BB_Data_Error_Area">
+        <MappingFragment StoreEntitySet="BB_Data_Error_Area">
+          <ScalarProperty Name="OccurTime" ColumnName="OccurTime" />
+          <ScalarProperty Name="DataSource" ColumnName="DataSource" />
+          <ScalarProperty Name="AbnormalValue" ColumnName="AbnormalValue" />
+          <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BB_Data_Error_Equ">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.BB_Data_Error_Equ">
+        <MappingFragment StoreEntitySet="BB_Data_Error_Equ">
+          <ScalarProperty Name="OccurTime" ColumnName="OccurTime" />
+          <ScalarProperty Name="DataSource" ColumnName="DataSource" />
+          <ScalarProperty Name="AbnormalValue" ColumnName="AbnormalValue" />
+          <ScalarProperty Name="EquipID" ColumnName="EquipID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BB_Data_Error_Sta">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.BB_Data_Error_Sta">
+        <MappingFragment StoreEntitySet="BB_Data_Error_Sta">
+          <ScalarProperty Name="OccurTime" ColumnName="OccurTime" />
+          <ScalarProperty Name="DataSource" ColumnName="DataSource" />
+          <ScalarProperty Name="AbnormalValue" ColumnName="AbnormalValue" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BB_Data_Exception_Area">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.BB_Data_Exception_Area">
+        <MappingFragment StoreEntitySet="BB_Data_Exception_Area">
+          <ScalarProperty Name="OccurTime" ColumnName="OccurTime" />
+          <ScalarProperty Name="DataSource" ColumnName="DataSource" />
+          <ScalarProperty Name="AbnormalValue" ColumnName="AbnormalValue" />
+          <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BB_Data_Exception_Equ">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.BB_Data_Exception_Equ">
+        <MappingFragment StoreEntitySet="BB_Data_Exception_Equ">
+          <ScalarProperty Name="OccurTime" ColumnName="OccurTime" />
+          <ScalarProperty Name="DataSource" ColumnName="DataSource" />
+          <ScalarProperty Name="AbnormalValue" ColumnName="AbnormalValue" />
+          <ScalarProperty Name="EquipID" ColumnName="EquipID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BB_Data_Exception_MeasureMeter">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.BB_Data_Exception_MeasureMeter">
+        <MappingFragment StoreEntitySet="BB_Data_Exception_MeasureMeter">
+          <ScalarProperty Name="OccurTime" ColumnName="OccurTime" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="value2" ColumnName="value2" />
+          <ScalarProperty Name="AreaID2" ColumnName="AreaID2" />
+          <ScalarProperty Name="EquipID2" ColumnName="EquipID2" />
+          <ScalarProperty Name="StationID2" ColumnName="StationID2" />
+          <ScalarProperty Name="FactoryID2" ColumnName="FactoryID2" />
+          <ScalarProperty Name="FieldName2" ColumnName="FieldName2" />
+          <ScalarProperty Name="TableName2" ColumnName="TableName2" />
+          <ScalarProperty Name="value1" ColumnName="value1" />
+          <ScalarProperty Name="AreaID1" ColumnName="AreaID1" />
+          <ScalarProperty Name="EquipID1" ColumnName="EquipID1" />
+          <ScalarProperty Name="StationID1" ColumnName="StationID1" />
+          <ScalarProperty Name="FactoryID1" ColumnName="FactoryID1" />
+          <ScalarProperty Name="FieldName1" ColumnName="FieldName1" />
+          <ScalarProperty Name="TableName1" ColumnName="TableName1" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BB_Data_Exception_Sta">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.BB_Data_Exception_Sta">
+        <MappingFragment StoreEntitySet="BB_Data_Exception_Sta">
+          <ScalarProperty Name="OccurTime" ColumnName="OccurTime" />
+          <ScalarProperty Name="DataSource" ColumnName="DataSource" />
+          <ScalarProperty Name="AbnormalValue" ColumnName="AbnormalValue" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BB_Factory">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.BB_Factory">
+        <MappingFragment StoreEntitySet="BB_Factory">
+          <ScalarProperty Name="Valid" ColumnName="Valid" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Altitude" ColumnName="Altitude" />
+          <ScalarProperty Name="Longtitude" ColumnName="Longtitude" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="AnnualOutput" ColumnName="AnnualOutput" />
+          <ScalarProperty Name="Product" ColumnName="Product" />
+          <ScalarProperty Name="Introduction" ColumnName="Introduction" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BB_Instrument">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.BB_Instrument">
+        <MappingFragment StoreEntitySet="BB_Instrument">
+          <ScalarProperty Name="ThirdintercoolerPower" ColumnName="ThirdintercoolerPower" />
+          <ScalarProperty Name="SecondaryIntercoolerPower" ColumnName="SecondaryIntercoolerPower" />
+          <ScalarProperty Name="PrimaryIntercoolerPower" ColumnName="PrimaryIntercoolerPower" />
+          <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+          <ScalarProperty Name="GasConsumptionRate" ColumnName="GasConsumptionRate" />
+          <ScalarProperty Name="FilterNum" ColumnName="FilterNum" />
+          <ScalarProperty Name="AdsorbentType" ColumnName="AdsorbentType" />
+          <ScalarProperty Name="Refrigerantype" ColumnName="Refrigerantype" />
+          <ScalarProperty Name="ShapeSize" ColumnName="ShapeSize" />
+          <ScalarProperty Name="ExFlangeSize" ColumnName="ExFlangeSize" />
+          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+          <ScalarProperty Name="DateOfProductionTime" ColumnName="DateOfProductionTime" />
+          <ScalarProperty Name="Valid" ColumnName="Valid" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="RunYear" ColumnName="RunYear" />
+          <ScalarProperty Name="Manufacture" ColumnName="Manufacture" />
+          <ScalarProperty Name="Dewpoint" ColumnName="Dewpoint" />
+          <ScalarProperty Name="Rated_Power" ColumnName="Rated_Power" />
+          <ScalarProperty Name="Rated_A" ColumnName="Rated_A" />
+          <ScalarProperty Name="Rated_V" ColumnName="Rated_V" />
+          <ScalarProperty Name="DesignPressure" ColumnName="DesignPressure" />
+          <ScalarProperty Name="Rated_Q" ColumnName="Rated_Q" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BB_MeasureMeter">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.BB_MeasureMeter">
+        <MappingFragment StoreEntitySet="BB_MeasureMeter">
+          <ScalarProperty Name="Valid" ColumnName="Valid" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+          <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Manufacture" ColumnName="Manufacture" />
+          <ScalarProperty Name="CalibrationTime" ColumnName="CalibrationTime" />
+          <ScalarProperty Name="RunYear" ColumnName="RunYear" />
+          <ScalarProperty Name="MeasurementRange" ColumnName="MeasurementRange" />
+          <ScalarProperty Name="Variety" ColumnName="Variety" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BB_Station">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.BB_Station">
+        <MappingFragment StoreEntitySet="BB_Station">
+          <ScalarProperty Name="StationControlSystem" ColumnName="StationControlSystem" />
+          <ScalarProperty Name="NearGasArea" ColumnName="NearGasArea" />
+          <ScalarProperty Name="StationArea" ColumnName="StationArea" />
+          <ScalarProperty Name="DeviceBindMode" ColumnName="DeviceBindMode" />
+          <ScalarProperty Name="GasMainSize" ColumnName="GasMainSize" />
+          <ScalarProperty Name="Valid" ColumnName="Valid" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Longtitude" ColumnName="Longtitude" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Introduction" ColumnName="Introduction" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BB_Threshold">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.BB_Threshold">
+        <MappingFragment StoreEntitySet="BB_Threshold">
+          <ScalarProperty Name="RealDescription" ColumnName="RealDescription" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="classify" ColumnName="classify" />
+          <ScalarProperty Name="CurrentValue" ColumnName="CurrentValue" />
+          <ScalarProperty Name="SetValue" ColumnName="SetValue" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OpcHelperItem">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.OpcHelperItem">
+        <MappingFragment StoreEntitySet="OpcHelperItem">
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="MinValue" ColumnName="MinValue" />
+          <ScalarProperty Name="MaxValue" ColumnName="MaxValue" />
+          <ScalarProperty Name="Tag" ColumnName="Tag" />
+          <ScalarProperty Name="EnumTag" ColumnName="EnumTag" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OpcHelperItems">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.OpcHelperItems">
+        <MappingFragment StoreEntitySet="OpcHelperItems">
+          <ScalarProperty Name="Quality" ColumnName="Quality" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Tag" ColumnName="Tag" />
+          <ScalarProperty Name="EnumTag" ColumnName="EnumTag" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PG_Area_History">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.PG_Area_History">
+        <MappingFragment StoreEntitySet="PG_Area_History">
+          <ScalarProperty Name="Inlet_AP" ColumnName="Inlet_AP" />
+          <ScalarProperty Name="Inlet_SQ" ColumnName="Inlet_SQ" />
+          <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PG_Area_Real">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.PG_Area_Real">
+        <MappingFragment StoreEntitySet="PG_Area_Real">
+          <ScalarProperty Name="Inlet_AP" ColumnName="Inlet_AP" />
+          <ScalarProperty Name="Inlet_SQ" ColumnName="Inlet_SQ" />
+          <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PG_Area_Statistics">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.PG_Area_Statistics">
+        <MappingFragment StoreEntitySet="PG_Area_Statistics">
+          <ScalarProperty Name="Inlet_AP" ColumnName="Inlet_AP" />
+          <ScalarProperty Name="Inlet_SQ" ColumnName="Inlet_SQ" />
+          <ScalarProperty Name="YMDH" ColumnName="YMDH" />
+          <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="DayID" ColumnName="DayID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PLCBase">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.PLCBase">
+        <MappingFragment StoreEntitySet="PLCBase">
+          <ScalarProperty Name="SingAlias" ColumnName="SingAlias" />
+          <ScalarProperty Name="PLCSignValue" ColumnName="PLCSignValue" />
+          <ScalarProperty Name="SignType" ColumnName="SignType" />
+          <ScalarProperty Name="SignName" ColumnName="SignName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RE_SysRolePage">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.RE_SysRolePage">
+        <MappingFragment StoreEntitySet="RE_SysRolePage">
+          <ScalarProperty Name="PageID" ColumnName="PageID" />
+          <ScalarProperty Name="SysRoleID" ColumnName="SysRoleID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RE_SysRoleUser">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.RE_SysRoleUser">
+        <MappingFragment StoreEntitySet="RE_SysRoleUser">
+          <ScalarProperty Name="SysRoleID" ColumnName="SysRoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Re_UserRole1">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.Re_UserRole1">
+        <MappingFragment StoreEntitySet="Re_UserRole1">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RE_UserStation">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.RE_UserStation">
+        <MappingFragment StoreEntitySet="RE_UserStation">
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SB_Client">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.SB_Client">
+        <MappingFragment StoreEntitySet="SB_Client">
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="ContactsMail" ColumnName="ContactsMail" />
+          <ScalarProperty Name="ContactsCellone" ColumnName="ContactsCellone" />
+          <ScalarProperty Name="Contacts" ColumnName="Contacts" />
+          <ScalarProperty Name="CompanyMail" ColumnName="CompanyMail" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SB_Log">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.SB_Log">
+        <MappingFragment StoreEntitySet="SB_Log">
+          <ScalarProperty Name="Valid" ColumnName="Valid" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="OperateTime" ColumnName="OperateTime" />
+          <ScalarProperty Name="OperateRecord" ColumnName="OperateRecord" />
+          <ScalarProperty Name="OperateType" ColumnName="OperateType" />
+          <ScalarProperty Name="PageNameCN" ColumnName="PageNameCN" />
+          <ScalarProperty Name="PageURL" ColumnName="PageURL" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SB_OperateHistory">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.SB_OperateHistory">
+        <MappingFragment StoreEntitySet="SB_OperateHistory">
+          <ScalarProperty Name="Valid" ColumnName="Valid" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+          <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="OperateTime" ColumnName="OperateTime" />
+          <ScalarProperty Name="OperateRecord" ColumnName="OperateRecord" />
+          <ScalarProperty Name="PageNameCN" ColumnName="PageNameCN" />
+          <ScalarProperty Name="PageURL" ColumnName="PageURL" />
+          <ScalarProperty Name="OperateChildType" ColumnName="OperateChildType" />
+          <ScalarProperty Name="OperateType" ColumnName="OperateType" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SB_Page">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.SB_Page">
+        <MappingFragment StoreEntitySet="SB_Page">
+          <ScalarProperty Name="IconClass" ColumnName="IconClass" />
+          <ScalarProperty Name="Valid" ColumnName="Valid" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="SortN" ColumnName="SortN" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="PageNameEN" ColumnName="PageNameEN" />
+          <ScalarProperty Name="PageNameCN" ColumnName="PageNameCN" />
+          <ScalarProperty Name="ShowName" ColumnName="ShowName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SB_SysRole">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.SB_SysRole">
+        <MappingFragment StoreEntitySet="SB_SysRole">
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Valid" ColumnName="Valid" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SB_TableDictionary">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.SB_TableDictionary">
+        <MappingFragment StoreEntitySet="SB_TableDictionary">
+          <ScalarProperty Name="Valid" ColumnName="Valid" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="SortNo" ColumnName="SortNo" />
+          <ScalarProperty Name="IsMaintenance" ColumnName="IsMaintenance" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="DicCodeCN" ColumnName="DicCodeCN" />
+          <ScalarProperty Name="DicCode" ColumnName="DicCode" />
+          <ScalarProperty Name="ColumnNameCN" ColumnName="ColumnNameCN" />
+          <ScalarProperty Name="ColumnNameEN" ColumnName="ColumnNameEN" />
+          <ScalarProperty Name="TableNameCN" ColumnName="TableNameCN" />
+          <ScalarProperty Name="TableNameEN" ColumnName="TableNameEN" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SB_User">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.SB_User">
+        <MappingFragment StoreEntitySet="SB_User">
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Cellphone" ColumnName="Cellphone" />
+          <ScalarProperty Name="IDNo" ColumnName="IDNo" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SB_WarnLog">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.SB_WarnLog">
+        <MappingFragment StoreEntitySet="SB_WarnLog">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+          <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
+          <ScalarProperty Name="WarnTime" ColumnName="WarnTime" />
+          <ScalarProperty Name="WarnContent" ColumnName="WarnContent" />
+          <ScalarProperty Name="WarnType" ColumnName="WarnType" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UPIEnergy">
+      <EntityTypeMapping TypeName="TestLWSCADAModel.UPIEnergy">
+        <MappingFragment StoreEntitySet="UPIEnergy">
+          <ScalarProperty Name="Run" ColumnName="Run" />
+          <ScalarProperty Name="UPI" ColumnName="UPI" />
+          <ScalarProperty Name="EquipID" ColumnName="EquipID" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

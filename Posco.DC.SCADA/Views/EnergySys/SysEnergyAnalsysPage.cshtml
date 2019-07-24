@@ -1,0 +1,906 @@
+﻿@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>能效分析</title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />   
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+    <script src="~/Content/ListLayui/static/admin/js/common.js"></script>
+   
+    <style>
+        .numTitle{
+             width: 90px;
+             height: 15px;
+             text-align: center;
+             border:1px solid white;
+             background-color:#2f3545;
+             color:white;
+        }
+         .numTitle3{
+             width: 90px;
+             height: 15px;
+             text-align: center;
+             border:1px solid white;
+             background-color:#eaeaec;
+        }
+           .numTitle1{
+             width: 90px;
+             height: 15px;
+             text-align: center;
+             border:1px solid white;
+             background-color:whitesmoke;
+        }
+          .numTitle2{
+             width: 90px;
+             height: 15px;
+             text-align: center;
+             border:1px solid white;
+             background-color:#f25c66;
+        }
+        .pressTitle{
+            width:90px;
+            height:30px;
+            text-align: center;
+             border:1px solid white;
+             background-color:#2f3545;
+             color:white;
+        }
+        .pressTitle1{
+            width:90px;
+            height:30px;
+            text-align: center;
+             border:1px solid white;
+             background-color:white;
+             /*color:#00b5f9;*/
+             color:#f25c66;
+        }
+        .setTitle{
+             width:90px;
+            height:30px;
+            text-align: center;
+             border:1px solid white;
+             background-color:#eaeaec;
+        }
+        .tipstop {
+            text-align: center;
+            background-color: #2f2f2f;
+            width: 316px;
+            height: 58px;
+            font-size:20px;
+            color:white;
+            vertical-align:middle;
+             border-radius:5px 5px 0 0;
+             line-height:58px;
+        }
+        .tipsdd{
+            width:316px;
+            height: 63px;
+            background-color: whitesmoke;
+        }
+        .tipscenter {
+            width:316px;
+            height: 50px;
+            background-color: whitesmoke;
+        }
+         .tipscenter1 {
+            width:316px;
+            height: 44px;
+            background-color: whitesmoke;
+        }
+          .tipscenter2 {
+            width:316px;
+            height: 20px;
+            background-color: whitesmoke;
+              filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);
+            -moz-box-shadow: 0 2px 0 #909090;
+            -webkit-box-shadow: 0 2px 0 #909090;
+            box-shadow: 0 2px 0 #909090;
+            border-radius: 0 0 5px 5px;
+        }
+           .tipswr {
+            width:316px;
+            background-color: whitesmoke;
+            font-size:10px;
+            text-align:center;
+            
+        }
+           .tipswr .tipswrc{
+               padding-left:15px;
+               padding-right:15px;
+           }
+        .tipstime {
+            text-align: center;
+            width: 316px;
+            background-color: whitesmoke;
+            font-size: 10px;
+        }
+        .mar{
+            margin-top:20px;
+        }
+        .th1css{
+            text-align:center;
+            width:125px;
+            height:25px;
+             border:1px solid black;
+             background-color: #58a7dc;
+        }
+        .th2css{
+             text-align:center;
+            width:70px;
+            height:25px;
+             border:1px solid black;
+             background-color: #58a7dc;
+        }
+         .th3css{
+             text-align:center;
+            width:185px;
+            height:25px;
+             border:1px solid black;
+             background-color: #58a7dc;
+        }
+          .th4css{
+             text-align:center;
+            width:50px;
+            height:25px;
+             border:1px solid black;
+             background-color: #58a7dc;
+        }
+           .td1css{
+            text-align:center;
+            width:125px;
+            height:28px;
+             border:1px solid black;
+             background-color: #58a7dc;
+        }
+        .td2css{
+             text-align:center;
+            width:70px;
+            height:28px;
+             border:1px solid black;
+        }
+         .td3css{
+             text-align:center;
+            width:185px;
+            height:28px;
+             border:1px solid black;
+        }
+          .td4css{
+             text-align:center;
+            width:50px;
+            height:28px;
+             border:1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="hidden"value="@ViewBag.onoff" id="hide"/>
+    <input type="hidden" value="@ViewBag.datapress" id="valuehide" />
+    <div class="layui-tab page-content-wrap">
+        <ul class="layui-tab-title">
+            <li class="layui-this">开关机设定</li>
+            <li>压力设定</li>
+        </ul>
+        <div class="layui-tab-content">
+            <!--开关机设定-->
+            <div class="layui-tab-item layui-show" style="height:100%">
+                <div id="stackswitch" style="width:40%; float:left">
+                </div>
+                <div id="tips" class="layui-hide" style="width:35%;float:left;text-align:center">
+                    <div style="margin-top:30%;margin-left:30%">
+
+
+                        <div class="tipstop">可关闭空压机提醒</div>
+                        <div class="tipsdd"> </div>
+                        <div class="tipscenter">
+                            <img src="~/Content/KYJ/images/gantan.png" id="img" style="width:50px;height:50px" />
+                        </div>
+                        <div class="tipscenter1"></div>
+                        <div class="tipswr"><div class="tipswrc"><p></p></div></div>
+                        <div class="tipscenter1"></div>
+                        <div class="tipstime"></div>
+                        <div class="tipscenter2"></div>
+                    </div>
+                </div>
+                <div style="width:33%;float:right">
+                 <table>
+                    <thead>
+                        <tr>
+                         <th class="th1css"></th>
+                        <th class="th2css">当前状态</th>
+                        <th class="th3css">可选操作</th>
+                            <th class="th4css"></th>
+                        </tr>
+                    </thead>
+                     <tbody>
+                         @for (var i = 0; i < 4; i++)
+                         {
+
+                             if (i < 3)
+                             {
+                                 for (var j = 0; j < 6; j++)
+                                 {
+                                    <tr>
+                                        <td class="td1css">@Html.Raw((i + 1) + "#空压站" + (j + 1) + "#空压机")</td>
+                                        <td class="td2css">开机</td>
+                                        <td class="td3css">
+                                            <input type="radio"  class="racla"style="color:aquamarine" name="@i@j*you" value="@Html.Raw(i*6+j)" checked disabled cla="开机" censtate="Start">开机
+                                            <input type="radio"  class="racla"style="background-color:aquamarine" name="@i@j*you" value="@Html.Raw(i*6+j)" disabled cla="关机"censtate="Stop">关机
+                                            <input type="radio"  class="racla"style="color:aquamarine" name="@i@j*you" value="@Html.Raw(i*6+j)"disabled cla="加载"censtate="Load">加载
+                                            <input type="radio" class="racla"style="color:aquamarine" name="@i@j*you" value="@Html.Raw(i*6+j)"disabled cla="卸载"censtate="UnLoad">卸载
+                                        </td>
+                                        <td class="td4css"><button class="btn-block submit"name="@i@j*you" ddd="ddd">解锁</button></td>
+                                    </tr>
+                                 }
+
+                             }
+                             else
+                             {
+                                 for (var j = 0; j < 7; j++)
+                                 {
+                                    <tr>
+                                        <td class="td1css">@Html.Raw((i + 1) + "#空压站" + (j + 1) + "#空压机")</td>
+                                        <td class="td2css">开机</td>
+                                        <td class="td3css">
+                                            <input type="radio" class="racla"style="color:aquamarine" name="@i@j*you" value="@Html.Raw(i*6+j)"checked disabled cla="开机"censtate="Start">开机
+                                            <input type="radio" class="racla"style="background-color:aquamarine" name="@i@j*you" value="@Html.Raw(i*6+j)"disabled cla="关机"censtate="Stop">关机
+                                            <input type="radio" class="racla"style="color:aquamarine" name="@i@j*you" value="@Html.Raw(i*6+j)"disabled cla="加载"censtate="Load">加载
+                                            <input type="radio" class="racla"style="color:aquamarine" name="@i@j*you" value="@Html.Raw(i*6+j)"disabled cla="卸载"censtate="UnLoad">卸载
+                                        </td>
+                                        <td class="td4css"><button class="btn-block submit" name="@i@j*you" ddd="ddd">解锁</button></td>
+                                    </tr>
+                                 }
+                             }
+                         }
+                         
+                     </tbody>
+                 </table>
+                </div>
+            </div>
+            <!--压力设定调整-->
+            <div class="layui-tab-item">
+                <div style="float:left">
+                    <!--空压站1-->
+                    <div class="mar">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="pressTitle1">空压站一</th>
+                                    <th class="pressTitle">基础负载</th>
+                                    <th class="pressTitle">二级负载</th>
+                                    <th class="pressTitle">三级负载</th>
+                                    <th class="pressTitle">四级负载</th>
+                                </tr>
+                            </thead>
+                            <tbody id="t1"></tbody>
+                        </table>
+                    </div>
+                    <!--空压站2-->
+                    <div class="mar">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="pressTitle1">空压站二</th>
+                                    <th class="pressTitle">基础负载</th>
+                                    <th class="pressTitle">二级负载</th>
+                                    <th class="pressTitle">三级负载</th>
+                                    <th class="pressTitle">四级负载</th>
+                                </tr>
+                            </thead>
+                            <tbody id="t2"></tbody>
+                        </table>
+                    </div>
+                    <!--空压站3-->
+                    <div class="mar">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="pressTitle1">空压站三</th>
+                                    <th class="pressTitle">基础负载</th>
+                                    <th class="pressTitle">二级负载</th>
+                                    <th class="pressTitle">三级负载</th>
+                                    <th class="pressTitle">四级负载</th>
+                                </tr>
+                            </thead>
+                            <tbody id="t3"></tbody>
+                        </table>
+                    </div>
+                    <!--空压站4-->
+                    <div class="mar">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="pressTitle1">空压站四</th>
+                                    <th class="pressTitle">基础负载</th>
+                                    <th class="pressTitle">二级负载</th>
+                                    <th class="pressTitle">三级负载</th>
+                                    <th class="pressTitle">四级负载</th>
+                                </tr>
+                            </thead>
+                            <tbody id="t4"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--定点巡检-->
+                <div class="layui-tab-item">
+                    <div style="font-size:90px;color:red">
+                        敬请期待
+                    </div>
+                </div>
+                <!--空压机IGV和BOV检查-->
+            </div>
+        </div>    
+        </div>
+    <script src="~/Scripts/code/highcharts.js"></script>
+    <script src="~/Scripts/code/highcharts-more.js"></script>
+</body>
+
+</html>
+<script>
+
+    $(document).ready(function () {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            var tip = "";
+            //$("#tips").hide();
+            function changesize() {
+                var height = $(window).height();
+                var width = $(window).width();
+                var ratioH = height / 867;
+                var ratioW = width / 1700;
+                $("#stackswitch").css("height", height * ratioH * 0.8 + "px");
+                $("#tips").css("height", height * ratioH * 0.8 + "px");
+                $("#img").css("height", 50 * ratioH+ "px");
+                $("#img").css("width", 50 * ratioW + "px");
+                $(".tipstop").css("height", 58 * ratioH + "px");
+                $(".tipstop").css("width", 316 * ratioW + "px");
+                $(".tipstop").css("line-height", 58 * ratioH + "px");
+                $(".tipstop").css("font-size", 20 * ratioH * ratioW + "px");
+                $(".tipsdd").css("width", 316 * ratioW + "px");
+                $(".tipsdd").css("height", 63 * ratioH + "px");
+                $(".tipscenter").css("width", 316 * ratioW + "px");
+                $(".tipscenter").css("height", 50 * ratioH + "px");
+                $(".tipscenter1").css("width", 316 * ratioW + "px");
+                $(".tipscenter1").css("height", 44 * ratioH + "px");
+                $(".tipscenter2").css("width", 316 * ratioW + "px");
+                $(".tipscenter2").css("height", 20 * ratioH + "px");
+                $(".tipswr").css("width", 316 * ratioW + "px");
+                $(".tipswr").css("font-size", 10 * ratioW * ratioH + "px");
+                $(".tipstime").css("width", 316 * ratioW + "px");
+                $(".tipstime").css("font-size", 10 * ratioW * ratioH + "px");
+            }
+            changesize();
+            window.onresize = function () {
+                changesize();
+            }
+            var str = JSON.parse($("#hide").val());
+            var usearr = [];
+            $.each(str, function (index, item) {
+                var tt = [];
+                $.each(item, function (i, j) {
+                    if (index < 6) {
+                        if (j.Run > 0) {
+                            tt.push({
+                                name: j.Equid + "#空压机",
+                                y: j.UPI,
+                                color: '#58a7dc'
+                            })
+                        }
+                        else {
+                            tt.push({
+                                name: j.Equid + "#空压机",
+                                y: j.UPI,
+                                color: '#f25c66'
+                            })
+                        }
+                    }
+                    else {
+                        if (j.Equid != 0) {
+                            if (j.Run > 0) {
+                                tt.push({
+                                    name: j.Equid + "#空压机",
+                                    y: j.UPI,
+                                    color: '#58a7dc'
+                                })
+                            }
+                            else {
+                                tt.push({
+                                    name: j.Equid + "#空压机",
+                                    y: j.UPI,
+                                    color: '#f25c66'
+                                })
+                            }
+                        }
+                        else {
+                            tt.push({
+                                name: "",
+                                y: false,
+                            })
+                        }
+                    }
+                })
+                usearr.push({
+                    name: index + 1 + '',
+                    data: tt
+                })
+            })
+            Highcharts.setOptions({
+                lang: {
+                    printChart: "打印图表",
+                    downloadJPEG: "下载JPEG 图片",
+                    downloadPDF: "下载PDF文档",
+                    downloadPNG: "下载PNG图片",
+                    downloadSVG: "下载SVG矢量图",
+                    resetZoom: "还原",
+                }
+            });
+            var stackswitchchartt = Highcharts.chart('stackswitch', {
+                chart: {
+                    type: 'bar',
+                },
+                title: {
+                    text: ''
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: ['1#空压站', '2#空压站', '3#空压站', '4#空压站'],
+                    title: {
+                        text: null
+                    },
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '单耗 (kWh/N㎥)',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ' kWh/N㎥'
+                },
+                plotOptions: {
+                    bar: {
+                        //x轴的长度*pointpadding，表示两个主之间间隔
+                        pointPadding: 0.1,
+                        //表示两个x轴点间的间隔
+                        groupPadding: 0.02,
+                        dataLabels: {
+                            enabled: true,
+                            //inside:true,
+                            allowOverlap: true, // 允许数据标签重叠
+                            formatter: function () {
+                                var keyx = parseInt(this.key);
+                                return keyx + "#:" + this.y;
+                            },
+                            style: {
+                                fontSize: "11px",
+                                fontWeight: "bold",
+                                textOutline: 'none',
+                                color: 'black'
+                            }
+                        }
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                series: usearr
+            });
+            //获取时间当前
+            function getNowFormatDate() {
+                var date = new Date();
+                console.log("shi:" + date);
+                var seperator1 = "-";
+                var seperator2 = ":";
+                var month = date.getMonth() + 1;
+                console.log("yue:" + month)
+                var strDate = date.getDate();
+                console.log("tian:" + strDate);
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                    + " " + date.getHours() + seperator2 + date.getMinutes()
+                    + seperator2 + date.getSeconds();
+                console.log(currentdate);
+                return currentdate;
+            }
+        function switchInfo() {
+            $.ajax({
+                url: "/EnergySys/SysAnalsysSwitchAjax",
+                type: "GET",
+                success: function (data) {
+                    //开关机和能效图
+                    if (data.swi.length > 10) {
+                        var switchstackres = stackswitchchartt.series;
+                        var datares = data.swi;
+                        var listarr = [];
+                        $.each(switchstackres, function (index, item) {
+                            var tt = [];
+                            $.each(item.data, function (i, j) {
+                                var numj = parseInt(j.name.replace(/[^1-9]/ig, "")) + 6 * i - 1;
+                                var indexj = 0;
+                                var jcolor = '';
+                                if (!isNaN(numj)) {
+                                    indexj = numj;
+                                    if (datares[indexj] > 0) {
+                                        jcolor = '#58a7dc';
+                                    }
+                                    else {
+                                        jcolor = '#f25c66';
+                                    }
+
+                                }
+                                tt.push({
+                                    name: j.name,
+                                    y: j.y,
+                                    color: jcolor
+                                })
+                            })
+                            listarr.push({
+                                name: index + 1 + '',
+                                data: tt
+                            });
+                        })
+                        stackswitchchartt.update({
+                            series: listarr
+                        })
+                    }
+                    else {
+                        var jsonres = data.swi;
+                        var usearr = [];
+                        $.each(jsonres1, function (index, item) {
+                            var tt = [];
+                            $.each(item, function (i, j) {
+                                if (index < 6) {
+                                    if (j.Run > 0) {
+                                        tt.push({
+                                            name: j.Equid + "#空压机",
+                                            y: j.UPI,
+                                            color: '#58a7dc'
+                                        })
+                                    }
+                                    else {
+                                        tt.push({
+                                            name: j.Equid + "#空压机",
+                                            y: j.UPI,
+                                            color: '#f25c66'
+                                        })
+                                    }
+                                }
+                                else {
+                                    if (j.Equid != 0) {
+                                        if (j.Run > 0) {
+                                            tt.push({
+                                                name: j.Equid + "#空压机",
+                                                y: j.UPI,
+                                                color: '#58a7dc'
+                                            })
+                                        }
+                                        else {
+                                            tt.push({
+                                                name: j.Equid + "#空压机",
+                                                y: j.UPI,
+                                                color: '#f25c66'
+                                            })
+                                        }
+                                    }
+                                    else {
+                                        tt.push({
+                                            name: "",
+                                            y: false,
+                                        })
+                                    }
+                                }
+                            })
+                            usearr.push({
+                                name: index + 1 + '',
+                                data: tt
+                            });
+                        })
+                        stackswitchchartt.update({
+                            series: listarr
+                        })
+                    }
+                    var usewr = '';
+                      
+                    $.each(data.OnoffList, function (index, item) {
+                        if (item.cen == 0) {
+                            usewr += '<p style="color:blue">' + (item.sta + 1) + "#空压站" + "可关闭空压机:" + item.cen + "台;" + "</p><br>";
+                        }
+                        else {
+                            usewr += '<p style="color:red">' + (item.sta + 1) + "#空压站" + "可关闭空压机:" + item.cen + "台;" + "</p><br>";
+                        }
+                           
+                        })
+                    $(".tipswrc").html(usewr);
+                    $(".tipstime").html(data.time);
+                }
+            })
+        }
+        switchInfo();
+        setInterval(switchInfo, 6000);
+        })
+        var valuestr = JSON.parse($("#valuehide").val());
+        function presspage(x) {
+            var setvalue = x.disarr;
+            var numvalue = x.arr;
+            var tablehtml = '<tr><td class="pressTitle">启动压力设定</td>';
+            var tablehtml1 = '<tr><td class="pressTitle">启动压力设定</td>';
+            var tablehtml2 = '<tr><td class="pressTitle">启动压力设定</td>';
+            var tablehtml3 = '<tr><td class="pressTitle">启动压力设定</td>';
+            var allarr = [];
+            $.each(numvalue, function (index, item) {
+                var list = [];
+                var arr = [];
+                var arr1 = [];
+                var arr2 = [];
+                var arr3 = [];
+                var arr4 = [];
+                var arr5 = [];
+                var arr6 = [];
+                if (index < 3) {
+                    $.each(item, function (i, j) {
+                        if (i < 4) {
+                            arr[i] = j
+                        }
+                        else if (i >= 4 && i < 8) {
+                            arr1[i - 4] = j
+                        }
+                        else if (i >= 8 && i < 12) {
+                            arr2[i - 8] = j
+                        }
+                        else if (i >= 12 && i < 16) {
+                            arr3[i - 12] = j
+                        }
+                        else if (i >= 16 && i < 20) {
+                            arr4[i - 16] = j
+                        }
+                        else if (i >= 20 && i < 24) {
+                            arr5[i - 20] = j
+                        }
+                    })
+                    list[0] = arr; list[1] = arr1; list[2] = arr2; list[3] = arr3; list[4] = arr4; list[5] = arr5;
+                    allarr[index] = list;
+                }
+                else {
+                    $.each(item, function (i, j) {
+                        if (i < 4) {
+                            arr[i] = j
+                        }
+                        else if (i >= 4 && i < 8) {
+                            arr1[i - 4] = j
+                        }
+                        else if (i >= 8 && i < 12) {
+                            arr2[i - 8] = j
+                        }
+                        else if (i >= 12 && i < 16) {
+                            arr3[i - 12] = j
+                        }
+                        else if (i >= 16 && i < 20) {
+                            arr4[i - 16] = j
+                        }
+                        else if (i >= 20 && i < 24) {
+                            arr5[i - 20] = j
+                        }
+                        else {
+                            arr6[i - 24] = j;
+                        }
+                    })
+                    list[0] = arr; list[1] = arr1; list[2] = arr2; list[3] = arr3; list[4] = arr4; list[5] = arr5; list[6] = arr6;
+                    allarr[index] = list;
+                }
+            })
+            $.each(setvalue, function (index, item) {
+                if (index == 0) {
+                    $.each(item, function (i, j) {
+                        if (j > 0) {
+                            tablehtml += '<td class="setTitle">' + j + '</td>';
+                        }
+                        else {
+                            tablehtml += '<td class="setTitle"></td>';
+                        }
+                    })
+                    tablehtml += '</tr>';
+                    $.each(allarr[index], function (i, j) {
+                        tablehtml += '<tr><td class="numTitle">' + (i + 1) + '</td>';
+                        $.each(j, function (ii, jj) {
+                            if (item[ii] == jj && jj != 0) {
+                                tablehtml += '<td class="numTitle2"></td>';
+                            }
+                            else {
+                                if (i % 2 == 0) {
+                                    tablehtml += '<td class="numTitle1"></td>';
+                                }
+                                else {
+                                    tablehtml += '<td class="numTitle3"></td>';
+                                }
+                            }
+
+                        })
+                        tablehtml += '</tr>';
+                    })
+
+                }
+                else if (index == 1) {
+                    $.each(item, function (i, j) {
+                        if (j > 0) {
+                            tablehtml1 += '<td class="setTitle">' + j + '</td>';
+                        }
+                        else {
+                            tablehtml1 += '<td class="setTitle"></td>';
+                        }
+                    })
+                    tablehtml1 += '</tr>';
+                    $.each(allarr[index], function (i, j) {
+                        tablehtml1 += '<tr><td class="numTitle">' + (i + 1) + '</td>';
+                        $.each(j, function (ii, jj) {
+                            if (item[ii] == jj && jj != 0) {
+                                tablehtml1 += '<td class="numTitle2"></td>';
+                            }
+                            else {
+                                if (i % 2 == 0) {
+                                    tablehtml1 += '<td class="numTitle1"></td>';
+                                }
+                                else {
+                                    tablehtml1 += '<td class="numTitle3"></td>';
+                                }
+                            }
+
+                        })
+                        tablehtml1 += '</tr>';
+                    })
+                }
+                else if (index == 2) {
+                    $.each(item, function (i, j) {
+                        if (j > 0) {
+                            tablehtml2 += '<td class="setTitle">' + j + '</td>';
+                        }
+                        else {
+                            tablehtml2 += '<td class="setTitle"></td>';
+                        }
+                    })
+                    tablehtml2 += '</tr>';
+                    $.each(allarr[index], function (i, j) {
+                        tablehtml2 += '<tr><td class="numTitle">' + (i + 1) + '</td>';
+                        $.each(j, function (ii, jj) {
+                            if (item[ii] == jj && jj != 0) {
+                                tablehtml2 += '<td class="numTitle2"></td>';
+                            }
+                            else {
+                                if (i % 2 == 0) {
+                                    tablehtml2 += '<td class="numTitle1"></td>';
+                                }
+                                else {
+                                    tablehtml2 += '<td class="numTitle3"></td>';
+                                }
+                            }
+
+                        })
+                        tablehtml2 += '</tr>';
+                    })
+                }
+                else {
+                    $.each(item, function (i, j) {
+                        if (j > 0) {
+                            tablehtml3 += '<td class="setTitle">' + j + '</td>';
+                        }
+                        else {
+                            tablehtml3 += '<td class="setTitle"></td>';
+                        }
+                    })
+                    tablehtml1 += '</tr>';
+                    $.each(allarr[index], function (i, j) {
+                        tablehtml3 += '<tr><td class="numTitle">' + (i + 1) + '</td>';
+                        $.each(j, function (ii, jj) {
+                            if (item[ii] == jj && jj != 0) {
+                                tablehtml3 += '<td class="numTitle2"></td>';
+                            }
+                            else {
+                                if (i % 2 == 0) {
+                                    tablehtml3 += '<td class="numTitle1"></td>';
+                                }
+                                else {
+                                    tablehtml3 += '<td class="numTitle3"></td>';
+                                };
+                            }
+
+                        })
+                        tablehtml3 += '</tr>';
+                    })
+                }
+            })
+            $("#t1").append(tablehtml);
+            $("#t2").append(tablehtml1);
+            $("#t3").append(tablehtml2);
+            $("#t4").append(tablehtml3);
+        }
+        presspage(valuestr);
+        //加锁解锁事件点击
+        $(".submit").click(function () {
+            var sub = $(this).attr("name");
+            if ($(this).html() == "解锁") {
+                $(this).html("加锁");
+                $(":input[name='" + sub + "']").prop("disabled", false);
+            }
+            else {
+                $(this).html("解锁");
+                $(":input[name='" + sub + "'][type='radio']").prop("disabled", true);
+            }
+        })
+        //单选框点击事件
+        $(".racla").click(function () {
+            var name = $(this).attr("name")//获取当前name名
+            console.log(name);
+            var before = $("input:radio[name='" + $(this).attr("name") + "'][checked]").attr("cla");//按钮下操作名
+            console.log("点击前" + before);
+        //prop 可以控制页面是否选中 //修改成点击后的选中
+            //$("input:radio[name='" + $(this).attr("name") + "'][cla='" + $(this).attr("cla") + "']").prop("checked", true);
+            //$("input:radio[name='" + $(this).attr("name") + "'][cla!='" + $(this).attr("cla") + "']").prop("checked", false);
+            $("input:radio[name='" + $(this).attr("name") + "'][cla='" + $(this).attr("cla") + "']").attr("checked", true);
+            $("input:radio[name='" + $(this).attr("name") + "'][cla!='" + $(this).attr("cla") + "']").attr("checked", false);
+            var elem = $("input:radio[name='" + $(this).attr("name") + "'][checked]").attr("cla");//按钮下操作名
+            console.log("点击后"+elem);
+            var value = $(this).val();//获取值，计算空压站空压机名
+            var intval = parseInt(value);
+            var cen = intval % 6 + 1;
+            var sta = (intval - intval % 6) / 6 + 1;
+            var strid = "SimTest_F00" + sta + "_SendOrder_S00" + sta + "_E00" + cen + "_" + $(this).attr("censtate");
+            layer.open({
+                title: "操作提醒",
+                type: 1,
+                area: ["250px", "150px"],
+                skin: 'layui-layer-lan',
+                closeBtn: 0,
+                btn: ["确认", "取消"],
+                content: '确认要对' + '<span style="color:red">' + sta + '</span>#空压站' + '<span style="color:red">' + cen + '</span>#空压机' + '进行<span style="color:red">' + elem + '</span>操作',
+                yes: function (index, layero) {
+                    layer.close(index);
+                    var c = layer.load(1, {
+                        shade: [0.2, '#000'] //0.1透明度的白色背景
+                    })
+                    $.ajax({
+                        url: "/IntgerControl/CentriStateSender",
+                        type: "GET",
+                        data: { tag:strid,tagvalue:"1" },
+                        success: function (data) {
+                            if (data == "OK") {
+                                layer.close(c);
+                                layer.msg("指令下发成功"+strid);
+                                $("input:radio[name='" + name + "'][cla='" + elem + "']").parent().prev().html(elem.toString());
+                            }
+                            else {
+                                layer.close(c);
+                                layer.msg("指令下发失败");
+                            }
+                        }
+                    })
+                },
+                btn2: function (index, layero) {
+                    $("input[name='" + name + "'][cla='" + before + "']").prop("checked", true);
+                    $("input[name='" + name + "'][cla!='" + before + "']").prop("checked", false);
+                    $("input[name='" + name + "'][cla='" + before + "']").attr("checked", true);
+                    $("input[name='" + name + "'][cla!='" + before + "']").attr("checked", false);
+                    layer.close(index);
+                }
+            })
+        })
+    })
+</script>

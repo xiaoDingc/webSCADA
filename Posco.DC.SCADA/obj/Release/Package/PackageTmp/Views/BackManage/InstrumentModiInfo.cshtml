@@ -1,0 +1,256 @@
+﻿@model Model.BussionObject.CentrifugeShow_BO
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>空压设备编辑</title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="../../Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+</head>
+<body>
+    <form class="layui-form" id="editForm" style="width: 90%;padding-top: 20px; margin:0 auto;">
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <h4>空压设备编辑</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="layui-form-item">
+                @Html.HiddenFor(model => model.ID, htmlAttributes: new { @id = "hide" })
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Rated_Q, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.Rated_Q, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.Rated_Q, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.DesignPressure, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.DesignPressure, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.DesignPressure, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Rated_V, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.Rated_V, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.Rated_V, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Rated_A, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.Rated_A, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.Rated_A, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.ClientID, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.DropDownListFor(model => model.ClientID, ViewBag.Client as SelectList, "---请选择---", new { @class = "layui-input" })
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.FactoryID, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.DropDownListFor(model => model.FactoryID, ViewBag.Factory as SelectList, "---请选择---", new { @class = "layui-input" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.StationID, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.DropDownListFor(model => model.StationID, ViewBag.Station as SelectList, "---请选择---", new { @class = "layui-input" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Rated_Power, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.Rated_Power, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.Rated_Power, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Dewpoint, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.Dewpoint, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.Dewpoint, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Manufacture, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.Manufacture, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.Manufacture, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.RunYear, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.RunYear, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.RunYear, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.DateOfProductionTime, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.DateOfProductionTime, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.DateOfProductionTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.SerialNumber, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.SerialNumber, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.SerialNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.ExFlangeSize, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.ExFlangeSize, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.ExFlangeSize, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.ShapeSize, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.ShapeSize, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.ShapeSize, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Refrigerantype, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.Refrigerantype, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.Refrigerantype, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.AdsorbentType, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.AdsorbentType, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.AdsorbentType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.PrimaryIntercoolerPower, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.PrimaryIntercoolerPower, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.PrimaryIntercoolerPower, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.SecondaryIntercoolerPower, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.SecondaryIntercoolerPower, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.SecondaryIntercoolerPower, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.ThirdintercoolerPower, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.ThirdintercoolerPower, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.ThirdintercoolerPower, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                @Html.LabelFor(model => model.Valid, htmlAttributes: new { @class = "layui-form-label" })
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.Valid, new { htmlAttributes = new { @class = "layui-input" } })
+                    @Html.ValidationMessageFor(model => model.Valid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+         layui.use('form', function () {
+        var form = layui.form;
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            var index = parent.layer.getFrameIndex(window.name);
+            console.log("window.name:" + window.name + " index:" + index);
+            console.log(data);
+            $.ajax({
+                url: '/BackManage/InstrumentModiInfo',
+                type: 'post',
+                data: data.field,
+                dataType: 'json',
+                success: function (data) {
+                    if (data == "OK") {
+                        layer.msg("修改成功", {
+                            time: 2000,
+                            icon: 1,
+                        }, function () {
+                            window.parent.location.reload();//刷新父页面
+                            //关闭弹窗
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index); //关闭当前页
+                        });
+                    }
+                    else {
+                        layer.msg("不能为空", {
+                            icon:1
+                        });
+                    }
+                }
+            });
+            return false;
+        });
+    });
+    </script>
+</body>
+</html>

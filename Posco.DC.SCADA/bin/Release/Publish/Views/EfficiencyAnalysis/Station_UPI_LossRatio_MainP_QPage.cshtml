@@ -1,0 +1,292 @@
+﻿@model Model.ModelViews.DateTime_View
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title> 空压站UPI-放散率散点图</title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+</head>
+<body>
+    
+        <input type="hidden"value="@ViewBag.stationpq"id="hide"/>
+        <input type="hidden" id="sId" value="@ViewBag.Sid" />
+        <div class="demoTable" style="float:right;margin:0 20px 20px 0">
+        搜索开始时间：
+        <div class="layui-inline">
+            <input type="text" class="layui-input" value="@Model.Time1" id="starttime">
+        </div>
+        搜索结束时间：
+        <div class="layui-inline">
+            <input type="text" class="layui-input" value="@Model.Time2" id="endtime">
+        </div>
+        <button class="layui-btn" id="layui-btn">搜索</button>
+    </div>
+    <div class="layui-row">
+        <div id="upilossmainpq" style="height: 600px; width: 900px; margin: 0 auto">
+        </div>
+    </div>
+    <script src="~/Scripts/code/highcharts.js"></script>
+    <script src="~/Scripts/code/modules/exporting.js"></script>
+    <script src="~/Scripts/code/modules/export.csv.js"></script>
+    <script src="~/Scripts/code/highcharts-more.js"></script>
+</body>
+</html>
+<script>
+        $(document).ready(function () {
+            var bb = [];
+            var startDate = $("#starttime").val();
+            var endDate = $("#endtime").val();
+            let strvalue = $("#hide").val();         
+            var idValue = $("#sId").val().charAt(3, 1);
+            var titlename = '空压站' + idValue + '#UPI - 放散率散点图';
+            let json = JSON.parse(strvalue);
+            console.log(json);
+            var ccc = [];
+            var ee = [];
+                
+                $.each(json, function (i, j) {
+                    ee[i] = [j.loss, j.upi];
+                });               
+                //bb.push({
+                //    name: idValue+"#空压站单耗放散率",
+                //    data: ee,
+                //    tooltip: {
+                //        headerFormat: '<b>{series.name}</b><br>',
+                //        pointFormat: '{point.x}%,{point.y}kWh/N㎥'
+                //    },
+                //})
+              
+            console.log(ee);
+           
+            Highcharts.setOptions({
+                lang: {
+                    printChart: "打印图表",
+                    downloadJPEG: "下载JPEG 图片",
+                    downloadPDF: "下载PDF文档",
+                    downloadPNG: "下载PNG图片",
+                    downloadSVG: "下载SVG矢量图",
+                    openInCloud: ''
+                }
+            });
+            var upilossmainpqCharts = {
+                chart: {
+                    type: 'scatter',
+                    zoomType: 'xy',
+                },
+                title: {
+                    text: titlename
+                },
+                subtitle: {
+                    text: ''
+                },
+                boost: {
+                    useGPUTranslations: true,
+                    usePreAllocated: true
+                },
+                xAxis: {
+                    title: {
+                        enabled: true,
+                        text: '放散率(%)'
+                    },
+                    startOnTick: true,
+                    endOnTick: true,
+                    showLastLabel: true
+                },
+                yAxis: {
+                    title: {
+                        text: 'UPI(kWh/N㎥)'
+                    },
+                    //labels: {
+                    //    format: '{value}%',
+                    //    style: {
+                    //        color: Highcharts.getOptions().colors[0]
+                    //    }
+                    //}
+
+                    //},
+                    //{
+                    //    title: {
+                    //        text: "压力(MainP)"
+                    //    },
+                    //    labels: {
+                    //        format: '{value}㎏/㎠',
+                    //        style: {
+                    //            color: Highcharts.getOptions().colors[1]
+                    //        }
+                    //    },
+                    //    opposite: true
+                    //},
+                    //{
+                    //    title: {
+                    //        text: "流量(MainQ)"
+                    //    },
+                    //    labels: {
+                    //        format: '{value}N㎥/h',
+                    //        style: {
+                    //            color: Highcharts.getOptions().colors[2]
+                    //        }
+                    //    },
+                    //    opposite: true
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'top',
+                    y: 80,
+                    navigation: {
+                        activeColor: 'red',
+                        animation: true,
+                        arrowSize: 15,
+                        inactiveColor: '#CCC',
+                        style: {
+                            fontWeight: 'bold',
+                            color: '#333',
+                            fontSize: '12px'
+                        }
+                    }
+                },               
+                plotOptions: {
+                    scatter: {
+                        marker: {
+                            radius: 5,
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    lineColor: 'rgb(100,100,100)'
+                                }
+                            }
+                        },
+                        states: {
+                            hover: {
+                                marker: {
+                                    enabled: false
+                                }
+                            }
+                        },
+                        tooltip: {
+
+                            shared: true
+                        }
+                    }
+                },
+                //series: bb
+                series: [{
+                    name: idValue+'#UPI',
+                    color: 'rgba(223, 83, 83, .5)',//8-13,0.12-.013
+                    data: ee,
+                    tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x}%,{point.y}kWh/N㎥'
+            },
+                }]
+            };
+            $("#upilossmainpq").highcharts(upilossmainpqCharts);
+            console.log(upilossmainpqCharts.series);
+            function getUpilossmainpq() {
+                var startDate1 = $("#starttime").val();
+                var endDate1 = $("#endtime").val();
+                $.ajax({
+                    url: "/EfficiencyAnalysis/S_UPI_Loss_MainP_Q",
+                    type: "GET",
+                    data: { begintime: startDate1, endtime: endDate1, sid: $("#sId").val() },
+                    success: function (data) {
+                        var arr0 = [];
+                        var arrjson = [];
+                            var arr = [];
+                            $.each(data, function (i, j) {
+                                arr[i] = [j.loss,j.upi];
+                            });
+                            arrjson.push({
+                                name: idValue + "#空压站单耗放散率",
+                                data: arr,
+                                tooltip: {
+                                    headerFormat: '<b>{series.name}</b><br>',
+                                    pointFormat: '{point.x}%,{point.y}kWh/N㎥'
+                                }
+                            });
+                       
+                        upilossmainpqCharts.series = arrjson;
+                        $("#upilossmainpq").highcharts(upilossmainpqCharts);
+                    }
+                })
+            }
+            //日历
+            layui.use('laydate', function () {
+                var laydate = layui.laydate;
+                var starttime = laydate.render({
+                    elem: "#starttime",
+                    type: "datetime",
+                    max: getNowFormatDate(),
+                    done: function (value, date) {
+                        if (value != "") {
+                            date.month = date.month - 1;
+                            endtime.config.min = date;
+                        }
+                    }
+                })
+                var endtime = laydate.render({
+                    elem: "#endtime",
+                    type: "datetime",
+                    max: getNowFormatDate(),
+                    done: function (value, date) {
+                        if (value != "") {
+                            date.month = date.month - 1;
+                            starttime.config.max = date;
+                        }
+                    }
+                })
+            })
+            function getNowFormatDate() {
+                var date = new Date();
+                console.log("shi:" + date);
+                var seperator1 = "-";
+                var seperator2 = ":";
+                var month = date.getMonth() + 1;
+                console.log("yue:" + month)
+                var strDate = date.getDate();
+                console.log("tian:" + strDate);
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                    + " " + date.getHours() + seperator2 + date.getMinutes()
+                    + seperator2 + date.getSeconds();
+                console.log(currentdate);
+                return currentdate;
+            }
+            //搜索按钮点击事件
+            $("#layui-btn").click(function () {
+                startDate = $("#starttime").val();
+                endDate = $("#endtime").val();
+                var begin = new Date("" + startDate + "");
+                var end = new Date("" + endDate + "");            
+                var time1 = begin.getTime();
+                var time2 = end.getTime();
+                var subtract = (time2 - time1) / 1000;
+                var day = parseInt(subtract / (24 * 60 * 60));
+                if (startDate == "" || endDate == "") {
+                    alert("请按要求选择开始和结束时间")
+                }
+                else if (day > 360) {
+                    alert("开始和结束时间间隔太大，请重新选择，不要大于360天");
+                }
+                else if (subtract <= 0) {
+                    alert("开始时间大于等于结束时间，不可查询，请重新选择")
+                }
+                else {
+                    getUpilossmainpq();
+                }
+            })
+        });
+   
+</script>

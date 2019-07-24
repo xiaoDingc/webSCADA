@@ -1,0 +1,636 @@
+﻿@{
+    Layout = null;
+}
+
+<script src="~/Scripts/pixi/pixi.min.js"></script>
+<script src="~/Scripts/pixi/dust.js"></script>
+<script src="~/Scripts/pixi/spriteUtilities.js"></script>
+<script src="~/Scripts/pixi/bump.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+@*引用layui作为弹出层*@
+
+<link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+<link href="~/Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+<script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+<script src="~/Content/ListLayui/static/admin/js/common.js"></script>
+
+<input type="hidden" id="inputHidden" name="inputHidden" value="@ViewData["infoObject"]" />
+<form class="layui-form" style="float:left">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <div style="margin:10px 0px 0px 31px ">
+                    <input id="k1" type="radio" name="sta" value="1" lay-filter="status" title="1#空压站" checked>
+                    <input id="k2" type="radio" name="sta" value="2" lay-filter="status" title="2#空压站">
+                    <input id="k3" type="radio" name="sta" value="3" lay-filter="status" title="3#空压站">
+                    <input id="k4" type="radio" name="sta" value="4" lay-filter="status" title="4#空压站">
+                </div>
+                <div style="margin-left:31px">
+                    <input type="radio" id="c1" name="sta1" value="1" lay-filter="cert" title="1#干燥机" checked>
+                    <input type="radio" id="c2" name="sta1" value="2" lay-filter="cert" title="2#干燥机">
+                    <input type="radio" id="c3" name="sta1" value="3" lay-filter="cert" title="3#干燥机">
+                    <input type="radio" id="c4" name="sta1" value="4" lay-filter="cert" title="4#干燥机">
+                    <input type="radio" id="c5" name="sta1" value="5" lay-filter="cert" title="5#干燥机">
+                    <input type="radio" id="c6" name="sta1" value="6" lay-filter="cert" title="6#干燥机">
+                    <input type="radio" id="c7" name="sta1" value="7" lay-filter="cert" title="7#干燥机">
+                </div>
+            </div>
+        </div>
+    </form>
+
+<script type="text/javascript">
+
+    let stationId;
+    let equipId;
+    let jsonRes;
+    let json;
+    let jsonString;
+    $("#c7").attr("disabled", true);
+    function renderForm() {
+        layui.use('form', function () {
+            var form = layui.form;//高版本建议把括号去掉，有的低版本，需要加()
+            form.on('radio(status)', function (data) {
+                stationId = "S00" + data.value;
+                console.log(stationId);
+                if (data.value != 4) {
+                    $("#c7").attr("disabled", true);
+                } else {
+                    $("#c7").attr("disabled", false);
+                }
+                form.render('radio');
+            });
+            form.on('radio(cert)', function (data) {
+                equipId = "E10" + data.value;
+                console.log("equipId:" + equipId);
+                if (data.value == 7) {
+                    $("#k1").attr("disabled", true);
+                    $("#k2").attr("disabled", true);
+                    $("#k3").attr("disabled", true);
+                } else {
+                    $("#k1").attr("disabled", false);
+                    $("#k2").attr("disabled", false);
+                    $("#k3").attr("disabled", false);
+                }
+                form.render('radio');
+            });
+        });
+    };
+    renderForm();
+
+    let type = "WebGL";
+    if (!PIXI.utils.isWebGLSupported()) {
+        type = "canvas";
+    }
+    let Application = PIXI.Application,
+        Container = PIXI.Container,
+        loader = PIXI.loader,
+        resources = PIXI.loader.resources,
+        TextureCache = PIXI.utils.TextureCache,
+        Sprite = PIXI.Sprite,
+        Rectangle = PIXI.Rectangle,
+        Graphics = PIXI.Graphics
+
+    let u = new SpriteUtilities(PIXI);
+    let d = new Dust(PIXI);
+    //碰撞检测初始化
+    let b = new Bump(PIXI);
+    //初始背景绘制
+    let backImage;
+    let energyIcon;
+
+    let tempTextPure;
+    //进气压力
+    let CDryer_InletPrePure;
+    //出气压力
+    let CDryer_OutPrePure;
+    //漏点温度
+    let CDyer_LeakTPure;
+    //疏水阀报警纹理
+    let TrapAlarmPure;
+
+    //用户名称
+    let userNameTextTure;
+    //设备编号
+    let deviceCodeTextTure;
+
+    //压差
+    let pressTextPure;
+    //露点温度  同CDyer_LeakTPure
+    let LeakTTextPure;
+    //耗电量
+    let powerPure;
+
+    //显示的图表文字
+    let titleHead = new Array(3);
+    let titleHeadList = new Array("名称", "数据", "单位");
+
+    //显示左侧名称
+    let showLeftName = new Array(16);
+    let showLeftNameList = new Array("进气压力", "出气压力", "压差", "露点温度", "干燥机压缩机电流", "干燥机鼓风机电流值", "干燥机冷凝压力值", "干燥机蒸发压力值", "干燥机入口温度", "干燥机出口温度", "干燥机A塔温度值", "干燥机B塔温度值");
+    //显示中间数据
+    let showCenterName = new Array(16);
+    let showCenterNameList = new Array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12");
+
+    //显示右侧名称
+    let showRightName = new Array(16);
+    let showRightNameList = new Array("bar", "bar", "bar", "℃", "A", "A", "bar", "bar", "℃", "℃", "℃", "℃");
+   
+	//图表绘制
+    let dataShowIcon;
+    //箭头图标
+    let arrowIcon;
+
+    //当前iframe窗口大小和宽度
+    var canvasWidth = window.innerWidth;
+    var canvasHeight = window.innerHeight;
+
+	//当前电脑的高与宽
+    var initWidth = 1700;
+    var initHeight = 835;
+
+    var wrate = canvasWidth / initWidth;
+    var hrate = canvasHeight / initHeight;
+
+    //模拟变量
+    let modifyCount;
+    //create a Pixi App
+    let app = new Application({
+        width: 1600 * wrate,
+        height: 650 * hrate,
+        antialiasing: true,
+        transparent: false,
+        resolution: 1
+    });
+
+    let hexColor = u.color("white");
+    app.renderer.backgroundColor = hexColor; //蓝色 16进制码
+    document.body.appendChild(app.view);
+
+    //loader an image and run the 'setup' function when it's done
+    //添加json文件,并加载'setup'函数
+    loader
+        .add([
+            "../Content/Images/dryInner.json",
+            "../Content/Images/dryEnergy.json",
+			"../Content/Images/olddataShow.json",
+        ])
+        .on("progress", loadProgressHandler)
+        .load(setup);
+    function PositionSetRate(sprite, x, y) {
+        sprite.position.set(x * wrate, y * hrate);
+    }
+    
+
+    //This setup function that will run when the image has loaded
+    function setup() {
+        //管道加载
+        backImage = TextureCache['dryInner.png'];
+        arrowIcon = TextureCache['arrow.png'];
+		energyIcon = TextureCache['dryEnergy.png'];
+        dataShowIcon = TextureCache['oldDataShow.png'];
+
+        //初始化为0,便于调节
+        let relativeleft = 0;
+        //初始化为0,便于调节
+        let relativewidth = 0;
+        //第一层级
+        backImage = imageFill(backImage, 380 * wrate, -42.6 * hrate, 0.45, false);
+
+        energyIcon = imageFill(energyIcon, -10, 0, 0.58, false);
+        //1(255,146) 2 (255,209) 3(255,269)
+        arrowIcon = imageFill(arrowIcon, 255, 146, 0.58, false);
+        dataShowIcon = imageFill(dataShowIcon, 1094, -26.8, 0.4, false);
+        tempTextPure = arrowIcon;
+        //排气压力纹理
+        CDryer_InletPrePure = textFillAndinteractive(CDryer_InletPrePure, (900 + relativeleft) * wrate, (196 + relativewidth) * hrate, false);
+        //排气温度纹理
+        CDryer_OutPrePure = textFillAndinteractive(CDryer_OutPrePure, (677 + relativeleft) * wrate, (relativewidth + 24) * hrate, "", false);
+        //流量纹理
+        CDyer_LeakTPure = textFillAndinteractive(CDyer_LeakTPure, (759 + relativeleft) * wrate, (relativewidth + 24) * hrate, "", false);
+        //暂时没有疏水阀报警此字段,先预留
+        //TrapAlarmPure = textFillAndinteractive(TrapAlarmPure, 773 + relativeleft, 92 + 16 * 3 - 3 + relativewidth, "", false);    
+        //1
+        ChartLoadEvent(CDryer_InletPrePure, 1, "CDryer_InletPre");
+        ChartLoadEvent(CDryer_OutPrePure, 2, "CDryer_OutPre");
+        ChartLoadEvent(CDyer_LeakTPure, 3, "CDyer_LeakT");
+        CDryer_InletPrePure.visible=false;
+        CDryer_OutPrePure.visible = false;
+        CDyer_LeakTPure.visible = false;
+
+        //暂时没有疏水阀报警此字段,先预留
+        //ChartLoadEvent(TrapAlarmPure, 4, "TrapAlarm");
+        let tempX=48;
+        let tempY=-75;
+        //新增字段
+        //标题名称
+        for (let i = 0; i < titleHead.length; i++) {
+            titleHead[i] = textFillAndinteractive(titleHead[i], 1163 + tempX + i * 118, 98 + tempY, titleHeadList[i], false);
+            titleHead[i].buttonMode = false;
+        }
+       
+        //图表左侧位置修改
+        for (let i = 0; i < showLeftName.length; i++) {
+            showLeftName[i] = textFillAndinteractive(showLeftName[i], 1126 + tempX, 131 + tempY + i * 30, showLeftNameList[i], false);
+            showLeftName[i].buttonMode = false;
+        }
+        
+        //图表中间位置修改
+        for (let i = 0; i < showCenterName.length; i++) {
+            showCenterName[i] = textFillAndinteractive(showCenterName[i], 1293 + tempX, 133 + tempY + i * 30, showCenterNameList[i], false);
+        }
+        //图表右侧位置修改
+        for (let i = 0; i < showRightName.length; i++) {
+            showRightName[i] = textFillAndinteractive(showRightName[i], 1395 + tempX, 133 + tempY + i * 30, showRightNameList[i], false);
+            showRightName[i].buttonMode = false;
+        }
+
+
+
+        //用户名称纹理
+        userNameTextTure = textFillAndinteractive(userNameTextTure, 152, 90, "湛江设备", false);;
+        //设备编码纹理
+        deviceCodeTextTure = textFillAndinteractive(deviceCodeTextTure, 152, 108, "1#空压站1#干燥机", false);
+
+        userNameTextTure.style = {
+            fill: "white",
+            font: "15px"
+        };
+        deviceCodeTextTure.style = {
+            fill: "white",
+            font: "15px"
+        };
+        powerPure = textFillAndinteractive(powerPure, 244, 338, "45.12", false);
+        powerPure.style = {
+            fill: "black",
+            font: "16px"
+        };
+        pressTextPure = textFillAndinteractive(pressTextPure, 244, 368, "50.15", false);
+        pressTextPure.style = {
+            fill: "black",
+            font: "16px"
+        };
+        LeakTTextPure = textFillAndinteractive(LeakTTextPure, 244, 399, "60.12", false);
+        LeakTTextPure.style = {
+            fill: "black",
+            font: "16px"
+        };
+        ChartLoadEvent(powerPure, 20, "powerPure");
+        ChartLoadEvent(pressTextPure, 20, "pressTextPure");
+        //同漏点温度
+        ChartLoadEvent(LeakTTextPure, 20, "CDyer_LeakT");
+
+        ChartLoadEvent(showCenterName[0], 20, "CDryer_InletPre");//进气压力
+        ChartLoadEvent(showCenterName[1], 20, "CDryer_OutPre");//出气压力
+        ChartLoadEvent(showCenterName[2], 20, "CDyer_InOutValue");//压差
+        ChartLoadEvent(showCenterName[3], 20, "CDyer_LeakT");//露点温度值
+        
+        //以下为新加入的
+        ChartLoadEvent(showCenterName[4], 20, "CDyer_YSJ_A");//组合式干燥机压缩机电流值
+        ChartLoadEvent(showCenterName[5], 20, "CDyer_JRQ_A");//空压机电流 
+        ChartLoadEvent(showCenterName[6], 20, "CDryer_CondPre");//空压机入气压差信号(空气过滤器压差)
+        ChartLoadEvent(showCenterName[7], 20, "CDryer_EvapPre");//空压机进气阀开度(进气导叶开度)
+        ChartLoadEvent(showCenterName[8], 20, "CDyer_INT");//add 空压机卸放阀开度(放散阀关度)
+        ChartLoadEvent(showCenterName[9], 20, "CDyer_OutT");//一级冷却回水温度
+        ChartLoadEvent(showCenterName[10], 20, "CDyer_ATowerT");//二级冷却回水温度
+        ChartLoadEvent(showCenterName[11], 20, "CDyer_BTowerT");//三级冷却回水温度
+
+
+        //上下左右箭头加载
+        let left = keyboard(37),
+            up = keyboard(38),
+            right = keyboard(39),
+            down = keyboard(40);
+
+        //Left arrow key `release` method  左箭头释放
+        left.release = () => {
+
+        }
+        //Right arrow key 'press' method
+        let change = 1;
+
+        //Left arrow key `press` method
+        left.press = () => {
+            //左键调节
+            tempTextPure.x -= change;
+            console.log(tempTextPure.x + ": " + tempTextPure.y);
+        };
+        right.press = () => {
+            //右键调节
+            tempTextPure.x += change;
+            console.log(tempTextPure.x + ": " + tempTextPure.y);
+        }
+        //Up arrow key 'press' method
+        up.press = () => {
+            //上键调节
+            tempTextPure.y -= change;
+            console.log(tempTextPure.x + ": " + tempTextPure.y);
+        }
+        //Down arrow key 'press' method
+        down.press = (event) => {
+            //下键调节
+            tempTextPure.y += change;
+            console.log(tempTextPure.x + ": " + tempTextPure.y);
+        }
+
+
+        //添加鼠标点击事件到元素中
+        function clickEventAdd(sprite) {
+            sprite.interactive = true;
+            sprite.buttonMode = true;
+        }
+
+        app.ticker.add(delta => gameLoop(delta));
+    }
+
+    jsonString = $("#inputHidden").val();
+    jsonRes = eval('(' + jsonString + ')');
+    console.log("json :" + jsonRes);
+    //json值放在帧运行函数中
+    json = jsonRes.data[0];
+    stationId = "S00" + jsonRes.stationId;
+    equipId = "E10" + jsonRes.equipId;
+    $("#k" + jsonRes.stationId).attr("selected", true);
+    $("#c" + jsonRes.equipId).attr("selected", true);
+    let line1 = jsonRes.alarmLines[0].CurrentValue;
+    let line2 = jsonRes.alarmLines[1].CurrentValue;
+
+	function ChartLoadEvent(sprite, flagCode, flagName) {
+        sprite.on('click',
+            () => {
+                let code = flagCode;
+                let name = flagName;
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    var index = layer.load(1, {
+                        // content: '加载中',
+                        shade: [0.1, '#000'] //0.1透明度的背景
+                    });
+                    $.ajax({
+                        url: '/EnergySys/layUIAlias',
+                        data: { code: code, stationId: stationId, equipId: equipId, name: name },
+                        dataType: 'json',
+                        success: function (res) {
+                            layer.close(index);
+                            layer.open({
+                                title: eval(res.title),
+                                type: 2,
+                                area: eval(res.area),
+                                offset: eval(res.offset), //top left
+                                //因为和干燥机一样 所以不添加此控制器
+                                content: "/EnergySys/LineChartCentri/?code=" + code + "&stationId=" +
+                                    stationId + "&equipId=" + equipId + "&name=" + name //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+                            });
+                        }
+                    });
+                });
+            })
+    }
+
+    //初始化赋值
+    setInterval(getSixSecondCentri, 6000);
+    function getSixSecondCentri() {
+        $.ajax({
+            url: "/EnergySys/PerSixSecondDryInnerStatus",
+            type: "GET",
+            data: { stationId: stationId, equipId: equipId },
+            success: function (res) {
+                json = JSON.parse(res).data[0];
+            },
+            error: function (res) {
+
+            }
+        });
+    }
+
+    //加载程序进程
+    function loadProgressHandler(loader, resource) {
+        console.log("loading " + resource.url)
+        console.log("progress " + loader.progress + " %");
+    }
+
+    //每秒60帧运行函数
+    function gameLoop(delta) {
+        var sId = stationId.substring(3, 4);
+        var eId = equipId.substring(3, 4);
+        deviceCodeTextTure.text = sId + "#空压站" + eId + "#干燥机";
+        if (json == null) {
+
+        } else {
+            //1(255,146) 2 (255,209) 3(255,269)
+            if (json.Power > 0 && json.Power <= line1) {
+                PositionSetRate(arrowIcon, 255, 146);
+            } else if (json.Power > line1 && json.Power <= line2) {
+                PositionSetRate(arrowIcon, 255, 209);
+            } else if (json.Power > line2) {
+                PositionSetRate(arrowIcon, 255, 269);
+            }
+            //原先显示内容隐藏
+			//CDryer_InletPrePure.text = json.CDryer_InletPre;
+            // CDryer_OutPrePure.text = json.CDryer_OutPre;
+			//CDyer_LeakTPure.text = json.CDyer_LeakT;
+
+            pressTextPure.text = json.CDyer_InOutValue;//压差
+            LeakTTextPure.text = json.CDyer_LeakT;//露点温度
+            powerPure.text = json.Power;//耗电量
+         
+            //以下为新加入的
+			showCenterName[0].text = json.CDryer_InletPre;
+            showCenterName[1].text = json.CDryer_OutPre;
+            showCenterName[2].text = json.CDyer_InOutValue;
+            showCenterName[3].text = json.CDyer_LeakT;
+            showCenterName[4].text = json.CDyer_YSJ_A;
+            showCenterName[5].text = json.CDyer_JRQ_A;
+            showCenterName[6].text = json.CDryer_CondPre;
+            showCenterName[7].text = json.CDryer_EvapPre;
+            showCenterName[8].text = json.CDyer_INT;
+            showCenterName[9].text = json.CDyer_OutT;
+            showCenterName[10].text = json.CDyer_ATowerT;
+            showCenterName[11].text = json.CDyer_BTowerT;
+
+
+
+        //暂时无此字段 预留
+        //TrapAlarmPure.text = json.TrapAlarm;
+		}
+       
+       
+    }
+
+    //鼠标拖放事件函数
+    function loadMouseEvent(sprite) {
+        // create our little sprite friend..
+        // var sprite = new PIXI.Sprite(texture);
+        // enable the sprite to be interactive... this will allow it to respond to mouse and touch events
+        sprite.interactive = true;
+
+        // this button mode will mean the hand cursor appears when you roll over the sprite with your mouse
+        sprite.buttonMode = true;
+
+        // setup events for mouse + touch using
+        // the pointer events
+        // sprite
+        //     .on('pointerdown', onDragStart)
+        //     .on('pointerup', onDragEnd)
+        //     .on('pointerupoutside', onDragEnd)
+        //     .on('pointermove', onDragMove);
+
+        // For mouse-only events
+        sprite
+            .on('mousedown', onDragStart)
+            .on('mouseup', onDragEnd)
+            .on('mouseupoutside', onDragEnd)
+            .on('mousemove', onDragMove);
+
+        // For touch-only events
+        // sprite
+        //     .on('touchstart', onDragStart)
+        //     .on('touchend', onDragEnd)
+        //     .on('touchendoutside', onDragEnd)
+        //     .on('touchmove', onDragMove);
+
+    }
+
+
+    //鼠标拖拽开始
+    function onDragStart(event) {
+        // store a reference to the data
+        // the reason for this is because of multitouch
+        // we want to track the movement of this particular touch
+        this.data = event.data;
+        this.alpha = 0.5;
+        this.dragging = true;
+    }
+    //鼠标拖拽结束
+    function onDragEnd(event) {
+        // this.alpha = 1;
+        // this.dragging = false;
+        // // set the interaction data to null
+        // this.data = null;
+        this.alpha = 1;
+        this.dragging = false;
+        // set the interaction data to null
+        var newPosition = this.data.getLocalPosition(this.parent);
+        this.x = newPosition.x;
+        this.y = newPosition.y;
+        console.log("this X:" + this.x + " this Y:" + this.y);
+    }
+    //鼠标拖拽过程
+    function onDragMove() {
+        // if (this.dragging) {
+        //     var newPosition = this.data.getLocalPosition(this.parent);
+        //      this.x = newPosition.x;
+        //      this.y = newPosition.y;
+        //      console.log("this X:" + this.x + "  this Y:" + this.y);
+        // }
+    }
+
+    function imageFill(imageFill, x, y, scale, debug, func) {
+        imageFill = new Sprite(imageFill);
+        if (debug) {
+            loadMouseEvent(imageFill);
+        }
+        //缩放大小 1为默认状态
+        //缩放大小 1为默认状态
+        imageFill.scale.set(scale * wrate, scale * hrate);
+        imageFill.position.set(x * wrate, y * hrate);
+        app.stage.addChild(imageFill);
+        return imageFill;
+    }
+
+    function imageFillAndinteractive(image, x, y, scale, debug, func) {
+        image = imageFill(image, x, y, scale, debug, func);
+        // enable the image to be interactive... this will allow it to respond to mouse and touch events
+        image.interactive = true;
+        // this button mode will mean the hand cursor appears when you roll over the image with your mouse
+        image.buttonMode = true;
+        return image;
+    }
+
+
+    //矩形填充
+    function rectangleFill(rectangleFill, x, y, width, height, debug, fillColor, func) {
+        //用气区域流量
+        rectangleFill = new Graphics();
+        if (fillColor == undefined) {
+            fillColor = "#e6e6e6";
+        }
+        rectangleFill.beginFill(u.color(fillColor));
+        if (debug) {
+            loadMouseEvent(rectangleFill);
+        }
+        //   rectangleFill.position.set(x, y);
+        rectangleFill.drawRect(x, y, width, height);
+        rectangleFill.endFill();
+        app.stage.addChild(rectangleFill);
+        return rectangleFill;
+    }
+
+
+    //用户区域流量文字加载
+    function textFill(textFill, x, y, message, debug, func) {
+        //用气区域 用户压力文字加载
+        textFill = new PIXI.Text(message);
+        //初始文字位置 set(x,y) x:left y:top
+        //textFill.x = 0;
+        //textFill.y = 0;
+        if (debug) {
+            loadMouseEvent(textFill);
+        }
+        textFill.position.set(x * wrate, y * hrate);
+        textFill.style = {
+            fill: "black",
+            font: "12px"
+        };
+        app.stage.addChild(textFill);
+        return textFill;
+    }
+    function textFillAndinteractive(text, x, y, message, debug, func) {
+        text = textFill(textFill, x, y, message, debug, func)
+        // enable the image to be interactive... this will allow it to respond to mouse and touch events
+        text.interactive = true;
+        // this button mode will mean the hand cursor appears when you roll over the image with your mouse
+        text.buttonMode = true;
+        return text;
+    }
+
+
+
+    //键盘事件函数
+    function keyboard(keyCode) {
+        let key = {};
+        key.code = keyCode;
+        key.isDown = false;
+        key.isUp = true;
+        key.press = undefined;
+        key.release = undefined;
+        //The `downHandler`
+        key.downHandler = event => {
+            if (event.keyCode === key.code) {
+                if (key.isUp && key.press) key.press();
+                key.isDown = true;
+                key.isUp = false;
+            }
+            event.preventDefault();
+        };
+
+        //The `upHandler`
+        key.upHandler = event => {
+            if (event.keyCode === key.code) {
+                if (key.isDown && key.release) key.release();
+                key.isDown = false;
+                key.isUp = true;
+            }
+            event.preventDefault();
+        };
+
+        //Attach event listeners
+        window.addEventListener(
+            "keydown", key.downHandler.bind(key), false
+        );
+        window.addEventListener(
+            "keyup", key.upHandler.bind(key), false
+        );
+        return key;
+    }
+</script>
+
+

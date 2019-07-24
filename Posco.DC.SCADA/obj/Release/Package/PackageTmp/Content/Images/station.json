@@ -1,0 +1,137 @@
+{
+	"frames": {
+
+		"上.svg": {
+			"frame": {
+				"x": 700,
+				"y": 1366,
+				"w": 698,
+				"h": 133
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 698,
+				"h": 133
+			},
+			"sourceSize": {
+				"w": 698,
+				"h": 133
+			}
+		},
+		"下.svg": {
+			"frame": {
+				"x": 700,
+				"y": 1501,
+				"w": 698,
+				"h": 24
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 698,
+				"h": 24
+			},
+			"sourceSize": {
+				"w": 698,
+				"h": 24
+			}
+		},
+		"中.svg": {
+			"frame": {
+				"x": 1,
+				"y": 1366,
+				"w": 697,
+				"h": 144
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 697,
+				"h": 144
+			},
+			"sourceSize": {
+				"w": 697,
+				"h": 144
+			}
+		},
+		"吸附式干燥机.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 1615,
+				"h": 1363
+			},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {
+				"x": 159,
+				"y": 127,
+				"w": 1615,
+				"h": 1363
+			},
+			"sourceSize": {
+				"w": 1946,
+				"h": 1693
+			}
+		},
+		"空气压缩机.png": {
+			"frame": {
+				"x": 1400,
+				"y": 1366,
+				"w": 99,
+				"h": 69
+			},
+			"rotated": true,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 99,
+				"h": 69
+			},
+			"sourceSize": {
+				"w": 99,
+				"h": 69
+			}
+		},
+		"自洁式过滤器.png": {
+			"frame": {
+				"x": 1400,
+				"y": 1467,
+				"w": 38,
+				"h": 74
+			},
+			"rotated": true,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 38,
+				"h": 74
+			},
+			"sourceSize": {
+				"w": 38,
+				"h": 74
+			}
+		}
+	},
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "station.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 1617,
+			"h": 1526
+		},
+		"scale": "1",
+		"smartupdate": "$TexturePacker:SmartUpdate:0234915efe63f211655496cbbcefd064:b01b402bc0a4eb333f71c418f1cb076b:01daf213c191fbc52b75953283de55c1$"
+	}
+}

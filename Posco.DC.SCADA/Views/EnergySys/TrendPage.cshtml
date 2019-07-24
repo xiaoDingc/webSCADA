@@ -1,0 +1,789 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>趋势分析</title>        
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+    <script src="~/Content/ListLayui/static/admin/js/common.js"></script>
+    
+    <style>
+        .col-center-block {
+            float: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+   
+</head>
+
+    <body style="background-color: #f5f5f5">
+        <div class="layui-tab page-content-wrap">
+            <ul class="layui-tab-title">
+                <li class="layui-this">工厂实时趋势</li>
+                <li>空压站实时趋势</li>
+                <li>空压机实时趋势</li>
+                <li>干燥机实时趋势</li>
+                <li>用户区域实时趋势</li>                
+            </ul>
+            <div class="layui-tab-content">
+                <!--工厂实时趋势-->
+                <div class="layui-tab-item layui-show">
+                    <div style="float:left">
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">属性组合选择</label>
+                                <div class="layui-input-block fac">
+                                    <input type="checkbox" name="fac" value="1"lay-filter="c_one"title="产气量" checked>
+                                    <input type="checkbox" name="fac" value="2"lay-filter="c_one"title="电功率" checked>
+                                    <input type="checkbox" name="fac" value="3"lay-filter="c_one"title="压力" checked>
+                                    <input type="checkbox" name="fac" value="4"lay-filter="c_one"title="单耗">
+                                    <input type="checkbox" name="fac" value="5"lay-filter="c_one"title="DRE">
+                                    <input type="checkbox" name="fac" value="6"lay-filter="c_one"title="BOR">
+                                    <input type="checkbox" name="fac" value="7"lay-filter="c_one"title="开机台数">
+                                    <input type="checkbox" name="fac" value="8"lay-filter="c_one"title="压缩空气露点">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <iframe id="first" src="/EnergySys/TrendFacProducePressSumPower" frameborder="0"></iframe>
+                </div>
+               
+                <!--空压站实时趋势-->
+                <div class="layui-tab-item">
+                    <div style="float:left">
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">空压站选择</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="sta" value="S001" lay-filter="c_two" title="1#空压站" checked>
+                                    <input type="checkbox" name="sta" value="S002" lay-filter="c_two" title="2#空压站">
+                                    <input type="checkbox" name="sta" value="S003" lay-filter="c_two" title="3#空压站">
+                                    <input type="checkbox" name="sta" value="S004" lay-filter="c_two" title="4#空压站">
+                                </div>
+                                </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">属性选择</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="sta1" value="产气量" lay-filter="c_two1" title="产气量" checked>
+                                    <input type="checkbox" name="sta1" value="电功率" lay-filter="c_two1" title="电功率" checked>
+                                    <input type="checkbox" name="sta1" value="压力" lay-filter="c_two1" title="压力" checked>
+                                    <input type="checkbox" name="sta1" value="单耗" lay-filter="c_two1" title="单耗">
+                                    <input type="checkbox" name="sta1" value="DRE" lay-filter="c_two1" title="DRE">
+                                    <input type="checkbox" name="sta1" value="BOR" lay-filter="c_two1" title="BOR">
+                                    <input type="checkbox" name="sta1" value="开机台数" lay-filter="c_two1" title="开机台数">
+                                    <input type="checkbox" name="sta1" value="大气温度" lay-filter="c_two1" title="大气温度">
+                                    <input type="checkbox" name="sta1" value="湿度" lay-filter="c_two1" title="湿度">
+                                    <input type="checkbox" name="sta1" value="压缩空气露点" lay-filter="c_two1" title="压缩空气露点">
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                        <iframe id="second" src="/EnergySys/TrendStation" frameborder="0"></iframe>
+                    </div>
+                <!--空压机实时趋势-->
+                <div class="layui-tab-item">
+                    <div style="float:left">
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">1#空压站</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="cen" value="S001E001" lay-filter="c_three" title="1#空压机" checked>
+                                    <input type="checkbox" name="cen" value="S001E002" lay-filter="c_three" title="2#空压机">
+                                    <input type="checkbox" name="cen" value="S001E003" lay-filter="c_three" title="3#空压机">
+                                    <input type="checkbox" name="cen" value="S001E004" lay-filter="c_three" title="4#空压机">
+                                    <input type="checkbox" name="cen" value="S001E005" lay-filter="c_three" title="5#空压机">
+                                    <input type="checkbox" name="cen" value="S001E006" lay-filter="c_three" title="6#空压机">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">2#空压站</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="cen" value="S002E001" lay-filter="c_three" title="1#空压机">
+                                    <input type="checkbox" name="cen" value="S002E002" lay-filter="c_three" title="2#空压机">
+                                    <input type="checkbox" name="cen" value="S002E003" lay-filter="c_three" title="3#空压机">
+                                    <input type="checkbox" name="cen" value="S002E004" lay-filter="c_three" title="4#空压机">
+                                    <input type="checkbox" name="cen" value="S002E005" lay-filter="c_three" title="5#空压机">
+                                    <input type="checkbox" name="cen" value="S002E006" lay-filter="c_three" title="6#空压机">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">3#空压站</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="cen" value="S003E001" lay-filter="c_three" title="1#空压机">
+                                    <input type="checkbox" name="cen" value="S003E002" lay-filter="c_three" title="2#空压机">
+                                    <input type="checkbox" name="cen" value="S003E003" lay-filter="c_three" title="3#空压机">
+                                    <input type="checkbox" name="cen" value="S003E004" lay-filter="c_three" title="4#空压机">
+                                    <input type="checkbox" name="cen" value="S003E005" lay-filter="c_three" title="5#空压机">
+                                    <input type="checkbox" name="cen" value="S003E006" lay-filter="c_three" title="6#空压机">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">4#空压站</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="cen" value="S004E001" lay-filter="c_three" title="1#空压机">
+                                    <input type="checkbox" name="cen" value="S004E002" lay-filter="c_three" title="2#空压机">
+                                    <input type="checkbox" name="cen" value="S004E003" lay-filter="c_three" title="3#空压机">
+                                    <input type="checkbox" name="cen" value="S004E004" lay-filter="c_three" title="4#空压机">
+                                    <input type="checkbox" name="cen" value="S004E005" lay-filter="c_three" title="5#空压机">
+                                    <input type="checkbox" name="cen" value="S004E006" lay-filter="c_three" title="6#空压机">
+                                    <input type="checkbox" name="cen" value="S004E007" lay-filter="c_three" title="7#空压机">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">属性选择</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="cen1" value="产气量" lay-filter="c_three1" title="产气量">
+                                    <input type="checkbox" name="cen1" value="电功率" lay-filter="c_three1" title="电功率">
+                                    <input type="checkbox" name="cen1" value="压力" lay-filter="c_three1" title="压力">
+                                    <input type="checkbox" name="cen1" value="电流" lay-filter="c_three1" title="电流">
+                                    <input type="checkbox" name="cen1" value="单耗" lay-filter="c_three1" title="单耗">
+                                    <input type="checkbox" name="cen1" value="DRE" lay-filter="c_three1" title="DRE">
+                                    <input type="checkbox" name="cen1" value="BOR" lay-filter="c_three1" title="BOR">
+                                    <input type="checkbox" name="cen1" value="IGV开度" lay-filter="c_three1" title="IGV开度" checked>
+                                    <input type="checkbox" name="cen1" value="BOV开度" lay-filter="c_three1" title="BOV开度" checked>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                        <iframe id="thirsty" src="/EnergySys/TrendCentri" frameborder="0"></iframe>
+                    </div>
+                <!--干燥机实时趋势-->
+                <div class="layui-tab-item">
+                    <div style="float:left">
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">1#空压站</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="dry" value="S001E101" lay-filter="d_three" title="1#干燥机" checked>
+                                    <input type="checkbox" name="dry" value="S001E102" lay-filter="d_three" title="2#干燥机">
+                                    <input type="checkbox" name="dry" value="S001E103" lay-filter="d_three" title="3#干燥机">
+                                    <input type="checkbox" name="dry" value="S001E104" lay-filter="d_three" title="4#干燥机">
+                                    <input type="checkbox" name="dry" value="S001E105" lay-filter="d_three" title="5#干燥机">
+                                    <input type="checkbox" name="dry" value="S001E106" lay-filter="d_three" title="6#干燥机">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">2#空压站</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="dry" value="S002E101" lay-filter="d_three" title="1#干燥机">
+                                    <input type="checkbox" name="dry" value="S002E102" lay-filter="d_three" title="2#干燥机">
+                                    <input type="checkbox" name="dry" value="S002E103" lay-filter="d_three" title="3#干燥机">
+                                    <input type="checkbox" name="dry" value="S002E104" lay-filter="d_three" title="4#干燥机">
+                                    <input type="checkbox" name="dry" value="S002E105" lay-filter="d_three" title="5#干燥机">
+                                    <input type="checkbox" name="dry" value="S002E106" lay-filter="d_three" title="6#干燥机">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">3#空压站</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="dry" value="S003E101" lay-filter="d_three" title="1#干燥机">
+                                    <input type="checkbox" name="dry" value="S003E102" lay-filter="d_three" title="2#干燥机">
+                                    <input type="checkbox" name="dry" value="S003E103" lay-filter="d_three" title="3#干燥机">
+                                    <input type="checkbox" name="dry" value="S003E104" lay-filter="d_three" title="4#干燥机">
+                                    <input type="checkbox" name="dry" value="S003E105" lay-filter="d_three" title="5#干燥机">
+                                    <input type="checkbox" name="dry" value="S003E106" lay-filter="d_three" title="6#干燥机">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">4#空压站</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="dry" value="S004E101" lay-filter="d_three" title="1#干燥机">
+                                    <input type="checkbox" name="dry" value="S004E102" lay-filter="d_three" title="2#干燥机">
+                                    <input type="checkbox" name="dry" value="S004E103" lay-filter="d_three" title="3#干燥机">
+                                    <input type="checkbox" name="dry" value="S004E104" lay-filter="d_three" title="4#干燥机">
+                                    <input type="checkbox" name="dry" value="S004E105" lay-filter="d_three" title="5#干燥机">
+                                    <input type="checkbox" name="dry" value="S004E106" lay-filter="d_three" title="6#干燥机">
+                                    <input type="checkbox" name="dry" value="S004E107" lay-filter="d_three" title="7#干燥机">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">属性选择</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="dry1" value="进气压力" lay-filter="d_three1" title="进气压力" checked>
+                                    <input type="checkbox" name="dry1" value="出气压力" lay-filter="d_three1" title="出气压力" checked>
+                                    <input type="checkbox" name="dry1" value="进出口压差" lay-filter="d_three1" title="进出口压差">
+                                    <input type="checkbox" name="dry1" value="露点温度" lay-filter="d_three1" title="露点温度">
+                                </div>
+                            </div>
+                        </form>
+                    </div>   
+                    <iframe id="fouth" src="/EnergySys/TrendDryer" frameborder="0"></iframe>                  
+                </div>
+                <!--用户区域实时趋势-->
+                <div class="layui-tab-item">
+                    <form class="layui-form">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">区域选择</label>
+                            <div class="layui-input-block fac">
+                                <input type="checkbox" name="area" value="A001" lay-filter="c_five" title="1BF" checked>
+                                <input type="checkbox" name="area" value="A002" lay-filter="c_five" title="2BF">
+                                <input type="checkbox" name="area" value="A003" lay-filter="c_five" title="1550冷轧">
+                                <input type="checkbox" name="area" value="A004" lay-filter="c_five" title="S2030冷轧">
+                                <input type="checkbox" name="area" value="A005" lay-filter="c_five" title="2250冷轧">
+                                <input type="checkbox" name="area" value="A006" lay-filter="c_five" title="4220厚板加热炉">
+                                <input type="checkbox" name="area" value="A007" lay-filter="c_five" title="4220厚板热处理">
+                                <input type="checkbox" name="area" value="A008" lay-filter="c_five" title="锅炉房">
+                                <input type="checkbox" name="area" value="A009" lay-filter="c_five" title="海水淡化">
+                                <input type="checkbox" name="area" value="A010" lay-filter="c_five" title="化产">
+                                <input type="checkbox" name="area" value="A011" lay-filter="c_five" title="混铁车">
+                                <input type="checkbox" name="area" value="A012" lay-filter="c_five" title="焦炉石灰">
+                                <input type="checkbox" name="area" value="A013" lay-filter="c_five" title="炼钢北区">
+                                <input type="checkbox" name="area" value="A014" lay-filter="c_five" title="炼钢南区">
+                                <input type="checkbox" name="area" value="A015" lay-filter="c_five" title="煤精">
+                                <input type="checkbox" name="area" value="A016" lay-filter="c_five" title="球团">
+                                <input type="checkbox" name="area" value="A017" lay-filter="c_five" title="烧结">
+                                <input type="checkbox" name="area" value="A018" lay-filter="c_five" title="烧结发电锅炉">
+                                <input type="checkbox" name="area" value="A019" lay-filter="c_five" title="原料">
+                                <input type="checkbox" name="area" value="A020" lay-filter="c_five" title="原料停车汽车修理设施">
+                                <input type="checkbox" name="area" value="A021" lay-filter="c_five" title="渣处理单元">
+                                <input type="checkbox" name="area" value="A022" lay-filter="c_five" title="转底炉">
+                                <input type="checkbox" name="area" value="A023" lay-filter="c_five" title="成品汽车修理">
+                                <input type="checkbox" name="area" value="A024" lay-filter="c_five" title="4G/S">
+                                <input type="checkbox" name="area" value="A025" lay-filter="c_five" title="高炉鼓风">
+                            </div>
+                        </div>
+                    </form>
+                    <div style="float:left">
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">属性选择</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="area1" value="用气量" lay-filter="c_five1" title="用气量" checked>
+                                    <input type="checkbox" name="area1" value="压力" lay-filter="c_five1" title="压力">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <iframe id="fifth" src="/EnergySys/TrendArea" frameborder="0"></iframe>
+                </div>
+            </div>
+       </div>
+               
+</body>
+</html>
+<script>
+    
+    $(document).ready(function () {
+        layui.use(['form', 'jquery', 'layer'], function () {
+            var form = layui.form;
+            var $ = layui.jquery;
+            var layer = layui.layer;
+            //===================【1】空压系统复选框监听事件=================================
+            form.on('checkbox(c_one)', function (data) {
+                //console.log(data.elem); //得到checkbox原始DOM对象
+                //console.log(data.elem.checked); //是否被选中，true或者false
+                //console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+                //console.log(data.othis); //得到美化后的DOM对象
+                //console.log(data.elem.name);
+                var allcheck = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                var arr = [];
+                $.each(allcheck, function (index, item) {
+                    var test = $(item).prev().attr("name");
+                    if (test == "fac") {
+                        var thisval = $(item).prev().val();
+                        arr.push(thisval);
+                    }
+                })
+                var jsonarr = JSON.stringify(arr);
+                var onesrc = "/EnergySys/TrendFacProducePressSumPower?id=" + jsonarr
+                var a = document.getElementById("first");
+                a.style.display = "none"; //隐藏 
+                var index = layer.load(1, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+                $("#first").attr("src", onesrc);
+                a.onload = function () {
+                    layer.close(index);
+                    a.style.display = "block";
+                }
+            })
+            //====================【2.1】空压站-空压站复选框监听事件=========================
+            form.on('checkbox(c_two)', function (data) {
+                var allcheck = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                //空压站信息
+                var staarr = [];
+                //空压站属性信息
+                var staarr1 = [];
+                $.each(allcheck, function (index, item) {
+                    //获取此事件前的checkbox的name名
+                    var test = $(item).prev().attr("name");
+                    if (test == "sta") {
+                        var thisval = $(item).prev().val();
+                        staarr.push(thisval);
+                    }
+                    else if (test == "sta1") {
+                        var thisval = $(item).prev().val();
+                        staarr1.push(thisval);
+                    }
+                })
+                if (staarr1.length > 1) {
+                    if (staarr.length > 1) {
+                       $(":checkbox[name='" + data.elem.name + "'][value!='" + data.value + "']").prop("checked", false);
+                       $(":checkbox[name='" + data.elem.name + "'][value='" + data.value + "']").prop("checked", true);
+                       form.render();
+                    }
+                }
+                var allcheck1 = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                var c1 = [];
+                var c2 = [];
+                $.each(allcheck1, function (index, item) {
+                    //获取此事件前的checkbox的name名
+                    var test = $(item).prev().attr("name");
+                    if (test == "sta") {
+                        var thisval = $(item).prev().val();
+                        c1.push(thisval);
+                    }
+                    else if (test == "sta1") {
+                        var thisval = $(item).prev().val();
+                        c2.push(thisval);
+                    }
+                })
+                    var jsonsta = JSON.stringify(c1);
+                    var jsonstafield = JSON.stringify(c2);
+                    var thissrc = "/EnergySys/TrendStation?sfieldstr=" + jsonstafield + "&stastr=" + jsonsta;
+                    var a = document.getElementById("second");
+                    a.style.display = "none"; //隐藏 
+                    var index = layer.load(1, {
+                        shade: [0.1, '#fff'] //0.1透明度的白色背景
+                    });
+                    $("#second").attr("src", thissrc);
+                    a.onload = function () {
+                        layer.close(index);
+                        a.style.display = "block";
+                    }
+            })
+            //=========================【2.2】空压站-属性复选框监听事件======================
+            form.on('checkbox(c_two1)', function (data) {
+                var allcheck = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                //空压站信息
+                var staarr = [];
+                //空压站属性信息
+                var staarr1 = [];
+                $.each(allcheck, function (index, item) {
+                    //获取此事件前的checkbox的name名
+                    var test = $(item).prev().attr("name");
+                    if (test == "sta") {
+                        var thisval = $(item).prev().val();
+                        staarr.push(thisval);
+                    }
+                    else if (test == "sta1") {
+                        var thisval = $(item).prev().val();
+                        staarr1.push(thisval);
+                    }
+                })
+                if (staarr.length > 1) {
+                    if (staarr1.length > 1) {
+                        $(":checkbox[name='" + data.elem.name + "'][value!='" + data.value + "']").prop("checked", false);
+                        $(":checkbox[name='" + data.elem.name + "'][value='" + data.value + "']").prop("checked", true);
+                        form.render();
+                    }
+                }
+                var allcheck1 = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                var c1 = [];
+                var c2 = [];
+                $.each(allcheck1, function (index, item) {
+                    //获取此事件前的checkbox的name名
+                    var test = $(item).prev().attr("name");
+                    if (test == "sta") {
+                        var thisval = $(item).prev().val();
+                        c1.push(thisval);
+                    }
+                    else if (test == "sta1") {
+                        var thisval = $(item).prev().val();
+                        c2.push(thisval);
+                    }
+                })
+                var jsonsta = JSON.stringify(c1);
+                var jsonstafield = JSON.stringify(c2);
+                var thissrc = "/EnergySys/TrendStation?sfieldstr=" + jsonstafield + "&stastr=" + jsonsta;
+                var a = document.getElementById("second");
+                a.style.display = "none"; //隐藏 
+                var index = layer.load(1, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+                $("#second").attr("src", thissrc);
+                a.onload = function () {
+                    layer.close(index);
+                    a.style.display = "block";
+                }
+
+            })
+            //=============================【3.1】空压机-空压机复选框监听事件================
+            form.on('checkbox(c_three)', function (data) {
+                var allcheck = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                //空压机信息
+                var censtr = [];
+                //空压机属性信息
+                var censtr1 = [];
+                $.each(allcheck, function (index, item) {
+                    var test = $(item).prev().attr("name");
+                    if (test == "cen") {
+                        var thisval = $(item).prev().val();
+                        censtr.push(thisval);
+
+                    }
+                    else if (test == "cen1") {
+                        var thisval = $(item).prev().val();
+                        censtr1.push(thisval);
+                    }
+                })
+                if (censtr1.length > 1) {
+                    if (censtr.length > 1) {
+                        $(":checkbox[name='" + data.elem.name + "'][value!='" + data.value + "']").prop("checked", false);
+                        $(":checkbox[name='" + data.elem.name + "'][value='" + data.value + "']").prop("checked", true);
+                        form.render();
+                    }
+                }
+                var allcheck1 = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                var c1 = [];
+                var c2 = [];
+                $.each(allcheck1, function (index, item) {
+                    //获取此事件前的checkbox的name名
+                    var test = $(item).prev().attr("name");
+                    if (test == "cen") {
+                        var thisval = $(item).prev().val();
+                        c1.push(thisval);
+                    }
+                    else if (test == "cen1") {
+                        var thisval = $(item).prev().val();
+                        c2.push(thisval);
+                    }
+                })
+                var jsonsta = JSON.stringify(c1);
+                var jsonstafield = JSON.stringify(c2);
+                var thissrc = "/EnergySys/TrendCentri?cfieldstr=" + jsonstafield + "&censtr=" + jsonsta;
+                var a = document.getElementById("thirsty");
+                a.style.display = "none"; //隐藏 
+                var index = layer.load(1, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+                $("#thirsty").attr("src", thissrc);
+                a.onload = function () {
+                    layer.close(index);
+                    a.style.display = "block";
+                }
+            })
+            //===================================【3.2】空压机—属性复选框监听事件===========
+            form.on('checkbox(c_three1)', function (data) {
+                var allcheck = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                //空压机信息
+                var censtr = [];
+                //空压机属性信息
+                var censtr1 = [];
+                $.each(allcheck, function (index, item) {
+                    var test = $(item).prev().attr("name");
+                    if (test == "cen") {
+                        var thisval = $(item).prev().val();
+                        censtr.push(thisval);
+
+                    }
+                    else if (test == "cen1") {
+                        var thisval = $(item).prev().val();
+                        censtr1.push(thisval);
+                    }
+                })
+                if (censtr1.length > 1) {
+                    if (censtr.length > 1) {
+                        $(":checkbox[name='" + data.elem.name + "'][value!='" + data.value + "']").prop("checked", false);
+                        $(":checkbox[name='" + data.elem.name + "'][value='" + data.value + "']").prop("checked", true);
+                        form.render();
+                    }
+                }
+                var allcheck1 = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                var c1 = [];
+                var c2 = [];
+                $.each(allcheck1, function (index, item) {
+                    //获取此事件前的checkbox的name名
+                    var test = $(item).prev().attr("name");
+                    if (test == "cen") {
+                        var thisval = $(item).prev().val();
+                        c1.push(thisval);
+                    }
+                    else if (test == "cen1") {
+                        var thisval = $(item).prev().val();
+                        c2.push(thisval);
+                    }
+                })
+                var jsonsta = JSON.stringify(c1);
+                var jsonstafield = JSON.stringify(c2);
+                var thissrc = "/EnergySys/TrendCentri?cfieldstr=" + jsonstafield + "&censtr=" + jsonsta;
+                var a = document.getElementById("thirsty");
+                a.style.display = "none"; //隐藏 
+                var index = layer.load(1, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+                $("#thirsty").attr("src", thissrc);
+                a.onload = function () {
+                    layer.close(index);
+                    a.style.display = "block";
+                }
+            })
+            //==========================【4.1】干燥机-干燥机复选框监听事件===================
+            form.on('checkbox(d_three)', function (data){
+                var allcheck = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                //空压机信息
+                var drystr = [];
+                //空压机属性信息
+                var drystr1 = [];
+                $.each(allcheck, function (index, item) {
+                    var test = $(item).prev().attr("name");
+                    if (test == "dry") {
+                        var thisval = $(item).prev().val();
+                        drystr.push(thisval);
+
+                    }
+                    else if (test == "dry1") {
+                        var thisval = $(item).prev().val();
+                        drystr1.push(thisval);
+                    }
+                })
+                //当点击时，如果两个的长度都大于1，那么重绘form.render,被点击的true，其他false
+                if (drystr1.length > 1) {
+                    if (drystr.length > 1) {
+                        $(":checkbox[name='" + data.elem.name + "'][value!='" + data.value + "']").prop("checked", false);
+                        $(":checkbox[name='" + data.elem.name + "'][value='" + data.value + "']").prop("checked", true);
+                        form.render();
+                    }
+                }
+                var allcheck1 = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                var d1 = [];
+                var d2 = [];
+                $.each(allcheck1, function (index, item) {
+                    //获取此事件前的checkbox的name名
+                    var test = $(item).prev().attr("name");
+                    if (test == "dry") {
+                        var thisval = $(item).prev().val();
+                        d1.push(thisval);
+                    }
+                    else if (test == "dry1") {
+                        var thisval = $(item).prev().val();
+                        d2.push(thisval);
+                    }
+                })
+                var jsonsta = JSON.stringify(d1);
+                var jsonstafield = JSON.stringify(d2);
+                var thissrc = "/EnergySys/TrendDryer?dfieldstr=" + jsonstafield + "&drystr=" + jsonsta;
+                var a = document.getElementById("fouth");
+                a.style.display = "none"; //隐藏 
+                var index = layer.load(1, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+                $("#fouth").attr("src", thissrc);
+                a.onload = function () {
+                    layer.close(index);
+                    a.style.display = "block";
+                }
+            })
+            form.on('checkbox(d_three1)', function (data){
+                var allcheck = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                //空压机信息
+                var drystr = [];
+                //空压机属性信息
+                var drystr1 = [];
+                $.each(allcheck, function (index, item) {
+                    var test = $(item).prev().attr("name");
+                    if (test == "dry") {
+                        var thisval = $(item).prev().val();
+                        drystr.push(thisval);
+
+                    }
+                    else if (test == "dry1") {
+                        var thisval = $(item).prev().val();
+                        drystr1.push(thisval);
+                    }
+                })
+                //当点击时，如果两个的长度都大于1，那么重绘form.render,被点击的true，其他false
+                if (drystr1.length > 1) {
+                    if (drystr.length > 1) {
+                        $(":checkbox[name='" + data.elem.name + "'][value!='" + data.value + "']").prop("checked", false);
+                        $(":checkbox[name='" + data.elem.name + "'][value='" + data.value + "']").prop("checked", true);
+                        form.render();
+                    }
+                }
+                var allcheck1 = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                var d1 = [];
+                var d2 = [];
+                $.each(allcheck1, function (index, item) {
+                    //获取此事件前的checkbox的name名
+                    var test = $(item).prev().attr("name");
+                    if (test == "dry") {
+                        var thisval = $(item).prev().val();
+                        d1.push(thisval);
+                    }
+                    else if (test == "dry1") {
+                        var thisval = $(item).prev().val();
+                        d2.push(thisval);
+                    }
+                })
+                var jsonsta = JSON.stringify(d1);
+                var jsonstafield = JSON.stringify(d2);
+                var thissrc = "/EnergySys/TrendDryer?dfieldstr=" + jsonstafield + "&drystr=" + jsonsta;
+                var a = document.getElementById("fouth");
+                a.style.display = "none"; //隐藏 
+                var index = layer.load(1, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+                $("#fouth").attr("src", thissrc);
+                a.onload = function () {
+                    layer.close(index);
+                    a.style.display = "block";
+                }
+              
+            })
+            //===========================【5.1】用户区域-区域复选框监听事件==================
+            form.on('checkbox(c_five)', function (data) {
+                var allcheck = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                var areaarr = [];
+                var areaarr1 = [];
+                var areaname = [];
+                $.each(allcheck, function (index, item) {
+                    var test = $(item).prev().attr("name");
+                    if (test == "area") {
+                        var thisval = $(item).prev().val();
+                        areaarr.push(thisval);
+                     
+                    }
+                    else if (test == "area1") {
+                        var thisval = $(item).prev().val();
+                        areaarr1.push(thisval);
+                    }
+                })
+                console.log(areaname);
+                if (areaarr1.length > 1 && areaarr.length > 1) {
+                    $(":checkbox[name='" + data.elem.name + "'][value!='" + data.value + "']").prop("checked", false);
+                    $(":checkbox[name='" + data.elem.name + "'][value='" + data.value + "']").prop("checked", true);
+                    form.render();
+                }
+                var allcheck1 = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                var c1 = [];
+                var c2 = [];
+                $.each(allcheck1, function (index, item) {
+                    var test = $(item).prev().attr("name");
+                    if (test == "area") {
+                        var thisval = $(item).prev().val();
+                        c1.push(thisval);
+                        var thisname = $(item).prev().attr("title");
+                        areaname.push(thisname);
+                    }
+                    else if (test == "area1") {
+                        var thisval = $(item).prev().val();
+                        c2.push(thisval);
+                    }
+                })
+                var jsonsta = JSON.stringify(c1);
+                var jsonstafield = JSON.stringify(c2);
+                var jsonareaname = JSON.stringify(areaname);
+                var thissrc = "/EnergySys/TrendArea?aname=" + jsonstafield + "&aid=" + jsonsta + "&name=" + jsonareaname;
+                var a = document.getElementById("fifth");
+                a.style.display = "none"; //隐藏 
+                var index = layer.load(1, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+                $("#fifth").attr("src", thissrc);
+                a.onload = function () {
+                    layer.close(index);
+                    a.style.display = "block";
+                }
+            })
+            //===========================【5.2】用户区域-属性复选框监听事件==================
+            form.on('checkbox(c_five1)', function (data) {
+                var allcheck = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                var areaarr = [];
+                var areaarr1 = [];
+                var areaname = [];
+                $.each(allcheck, function (index, item) {
+                    var test = $(item).prev().attr("name");
+                    if (test == "area") {
+                        var thisval = $(item).prev().val();
+                        areaarr.push(thisval);
+                       
+                    }
+                    else if (test == "area1") {
+                        var thisval = $(item).prev().val();
+                        areaarr1.push(thisval);
+                    }
+                })
+                if (areaarr1.length > 1 && areaarr.length > 1) {
+                    $(":checkbox[name='" + data.elem.name + "'][value!='" + data.value + "']").prop("checked", false);
+                    $(":checkbox[name='" + data.elem.name + "'][value='" + data.value + "']").prop("checked", true);
+                    form.render();
+                }
+                var allcheck1 = $(".layui-unselect.layui-form-checkbox.layui-form-checked");
+                var c1 = [];
+                var c2 = [];
+                $.each(allcheck1, function (index, item) {
+                    var test = $(item).prev().attr("name");
+                    if (test == "area") {
+                        var thisval = $(item).prev().val();
+                        c1.push(thisval);
+                        var thisname = $(item).prev().attr("title");
+                        areaname.push(thisname);
+                    }
+                    else if (test == "area1") {
+                        var thisval = $(item).prev().val();
+                        c2.push(thisval);
+                    }
+                })
+                var jsonsta = JSON.stringify(c1);
+                var jsonstafield = JSON.stringify(c2);
+                var jsonareaname = JSON.stringify(areaname);
+                var thissrc = "/EnergySys/TrendArea?aname=" + jsonstafield + "&aid=" + jsonsta + "&name=" + jsonareaname;
+                var a = document.getElementById("fifth");
+                a.style.display = "none"; //隐藏 
+                var index = layer.load(1, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+                $("#fifth").attr("src", thissrc);
+                a.onload = function () {
+                    layer.close(index);
+                    a.style.display = "block";
+                }
+
+            })
+            var width = $(document).width();
+            var height = $(document).innerHeight();
+            function changeFrameHeight() {
+                var width = $(document).width();
+                var height = $(document).innerHeight();
+                var uh = height - 60;
+                $("#first").innerWidth(width);
+                $("#first").innerHeight(uh);
+                $("#second").innerWidth(width);
+                $("#second").innerHeight(uh);
+                $("#thirsty").innerWidth(width);
+                $("#thirsty").innerHeight(uh);
+                $("#fouth").innerWidth(width);
+                $("#fouth").innerHeight(uh);
+                $("#fifth").innerWidth(width);
+                $("#fifth").innerHeight(uh);
+            };
+            window.onload = function () {
+                changeFrameHeight();
+            };
+            window.onresize = function () {
+                changeFrameHeight();
+            };
+        })
+    })
+    
+       
+
+      
+
+
+  
+
+
+   
+</script>

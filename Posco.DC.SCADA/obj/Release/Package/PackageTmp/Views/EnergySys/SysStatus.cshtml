@@ -1,0 +1,1173 @@
+﻿@{
+    Layout = null;
+}
+
+<script src="~/Scripts/pixi/pixi.min.js"></script>
+<script src="~/Scripts/pixi/dust.js"></script>
+<script src="~/Scripts/pixi/spriteUtilities.js"></script>
+<script src="~/Scripts/pixi/bump.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+@*引用layui作为弹出层*@
+
+<link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+<link href="~/Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+<script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+<script src="~/Content/ListLayui/static/admin/js/common.js"></script>
+<script src="~/Scripts/KYJ/echarts.min.js" type="text/javascript"></script>
+<input type="hidden" id="inputHidden" name="inputHidden" value="@ViewData["infoObject"]" />
+  <!-- 产气、用气比例 -->
+<div style="float:left;position:fixed">
+    <div id="gasuse" style="width:350px; height:310px; margin: 0 auto">
+    </div>
+    <div id="gasva" style="margin:0px 0px 0px 50px"></div>
+</div>
+<script>
+ 
+    //获取所有数据
+    var value = $("#inputHidden").val();
+    var str = JSON.parse(value);
+    console.log("str:"+str);
+
+    //产气量总和
+    var gasprova = 0;
+    var gasuseva = 0;
+    $.each(str.gaspro, function (index, item) {
+        gasprova += item.mainQ
+    })
+    //用气量总和
+    var gasusevalue = 0;
+    $.each(str.gasuse, function (index, item) {
+        gasusevalue += item.value;
+    })
+    $("#gasva").html("  产气量:" + gasprova.toFixed(0) + "    用气量:" + gasusevalue.toFixed(0));
+    //用气量处理数组
+    var gasusearr = [];
+    //其他总和
+    var othervalue = 0.00;
+    var count = 0;
+    var nucount = 0;
+    //其他显示数组
+    var otherarr = [];
+    $.each(str.gasuse, function (index, item) {
+        if (item.value / gasusevalue * 100 < 2) {
+            othervalue += item.value;
+            otherarr[nucount] = [item.value, item.name];
+            nucount++;
+        }
+        else {
+            gasusearr[count] = [item.value, item.name];
+            count++;
+        }
+    });
+    var otherin = '';
+    $.each(otherarr, function (index, item) {
+        otherin += '<p>' + item[1] + ':' + item[0] + '(' + (item[0] / gasusevalue * 100).toFixed(2) + '%)</p>'
+    });
+    var otherpre = (othervalue / gasusevalue * 100).toFixed(2);
+    if (count < 22) {
+        gasusearr[gasusearr.length] = [parseFloat(othervalue.toFixed(2)), "其他"];
+    }
+    var usearr = [];
+    $.each(gasusearr, function (index, item) {
+        if (item[1] == "其他") {
+            usearr.push({
+                value: item[0],
+                name: item[1],
+                tooltip: {
+                    formatter: function (params) {
+                        return '<p>其他:' + item[0] + '(' + otherpre + '%)' + '</p>' + otherin
+                    },
+                    position: 'right'
+                }
+            })
+        }
+        else {
+            usearr.push({
+                value: item[0],
+                name: item[1]
+            })
+        }
+    })
+
+    //产气用气图
+    var dom = document.getElementById("gasuse");
+    var myChart = echarts.init(dom);
+    var option = null;
+    option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        title: {
+            text: '',
+            textStyle: {
+                color: "#00e4ff",
+            }
+        },
+        series: [
+            {
+                name: '产气比例',
+                type: 'pie',
+                selectedMode: 'single',
+                radius: [0, '50%'],
+                label: {
+                    normal: {
+                        position: 'inside',
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: true
+                    }
+                },
+                data: [{
+                    value: str.gaspro[0].mainQ,
+                    name: str.gaspro[0].stationId.replace(/[^1-9]/ig, "") + '#空压站',
+                    selected: true
+                },
+                {
+                    value: str.gaspro[1].mainQ,
+                    name: str.gaspro[1].stationId.replace(/[^1-9]/ig, "") + '#空压站',
+                },
+                {
+                    value: str.gaspro[2].mainQ,
+                    name: str.gaspro[2].stationId.replace(/[^1-9]/ig, "") + '#空压站',
+                }, {
+                    value: str.gaspro[3].mainQ,
+                    name: str.gaspro[3].stationId.replace(/[^1-9]/ig, "") + '#空压站',
+                }
+                ]
+            },
+            {
+                name: '用气比例',
+                type: 'pie',
+                // radius: ['37%', '55%'],
+                radius: ['60%', '90%'],
+                label: {
+                    normal: {
+                        position: 'inner',
+                        rotate:45,
+                    }
+                },
+                data: usearr
+            }]
+    };
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+   
+    let factoryId = "F001";
+    let jsonRes;
+    let json;
+    let jsonString;
+
+    let type = "WebGL";
+    if (!PIXI.utils.isWebGLSupported()) {
+        type = "canvas";
+    }
+    let Application = PIXI.Application,
+        Container = PIXI.Container,
+        loader = PIXI.loader,
+        resources = PIXI.loader.resources,
+        TextureCache = PIXI.utils.TextureCache,
+        Sprite = PIXI.Sprite,
+        Rectangle = PIXI.Rectangle,
+        Graphics = PIXI.Graphics
+
+    let u = new SpriteUtilities(PIXI);
+    let d = new Dust(PIXI);
+    //碰撞检测初始化
+    let b = new Bump(PIXI);
+    //初始背景绘制
+    let backImage;
+
+    //22个用户区域初始化
+    let useAreaPress = new Array(25);
+    let useAreaFlow = new Array(25);
+	let stationPress = new Array(4);
+    let stationFlow = new Array(4);
+	let stationRec = new Array(4);
+
+    let areaDrawRec = new Array(25);
+
+
+	//当前iframe窗口大小和宽度
+    var canvasWidth = window.innerWidth;
+    var canvasHeight = window.innerHeight;
+
+    //当前电脑的高与宽
+	var initWidth=1700;
+    var initHeight=835;
+
+	var wrate = canvasWidth / initWidth;
+    var hrate = canvasHeight / initHeight;
+
+    //模拟变量
+    //create a Pixi App
+    let app = new Application({
+        width: 1650 * wrate ,
+        height: 800 * hrate,
+        antialiasing: true,
+        transparent: false,
+        resolution: 1
+    });
+
+    let hexColor = u.color("white");
+    app.renderer.backgroundColor = hexColor; //蓝色 16进制码
+    document.body.appendChild(app.view);
+
+    //loader an image and run the 'setup' function when it's done
+    //添加json文件,并加载'setup'函数
+    loader
+        .add([
+            "../Content/Images/factory.json",
+        ])
+        .on("progress", loadProgressHandler)
+        .load(setup);
+    function PositionSetRate(sprite, x, y) {
+        sprite.position.set(x * wrate, y * hrate);
+    }
+
+    //This setup function that will run when the image has loaded
+    function setup() {
+        //初始化为0,便于调节
+        let relativeleft = 0-42;
+        //初始化为0,便于调节
+        let relativewidth = -40;
+
+        //管道加载
+        backImage = TextureCache['factory.svg'];
+        let tempTextPure;
+        // backImage = imageFill(backImage, -60, -201, 0.95, false);
+     
+        AreaDraw(areaDrawRec);
+
+        for (let i = 0; i < stationRec.length; i++) {
+            //  stationRec[i]=
+            stationRec[i] = rectangleFillAndinteractive(stationRec[i], 360, i * 20 + 10, 45, 45, false, "white");
+        }
+        //PositionSetRate(stationFlow[0], 536, 478);
+        //PositionSetRate(stationPress[0], 536, 493);
+ 
+        PositionSetRate(stationRec[0], 133, 423);
+        PositionSetRate(stationRec[1], 507, 363); 
+        PositionSetRate(stationRec[2], 852, 264);
+        PositionSetRate(stationRec[3], 982, 528);
+
+
+       // tempTextPure = stationRec[3];
+		stationPressFunction(stationRec);
+        //所有空压机鼠标按下时跳转函数
+        function stationPressFunction(stationRec) {
+            for (let i = 0; i < stationRec.length; i++) {
+               // stationRec[i].on('click', () => { window.location.href = "/EnergySys/StationStatus?stationID=S00" + (i + 1) });
+               // ChartLoadStationEvent(stationPress[i], "S00" + (i + 1), 1, "Main_P");
+               // ChartLoadStationEvent(stationFlow[i], "S00" + (i + 1), 2, "Main_Q");
+                ChartLoadStationEvent(stationRec[i], "S00" + (i + 1), 3, "Main_QAndMain_P");
+			}
+        }  
+
+        var buttonRec;
+
+        buttonRec = rectangleFillAndinteractive(buttonRec, 384, 15, 70, 20, false, "green");
+      //  tempTextPure = buttonRec;
+        var textRec;
+        textRec = textFill(textRec, 384, 15, "全部隐藏", false);
+
+		PositionSetRate(textRec, 384, 15);
+        textRec.style = {
+            fill: "black",
+            font: "16px",
+            color: "black",
+        };
+
+        textRec.visible=false;
+        buttonRec.visible=false;
+        var btnCount = 0;
+        buttonRec.on('click', () => {
+            btnCount++;
+            if (btnCount === 4) {
+                btnCount=0;
+			}
+            if (btnCount % 2) {
+                textRec.text = "全部显示";
+               
+                for (let i = 0; i < useAreaPress.length; i++) {
+                    useAreaPress[i].visible = false;
+                    useAreaFlow[i].visible = false;
+                }
+                for (let i = 0; i < stationPress.length; i++) {
+                    stationPress[i].visible = false;
+                    stationFlow[i].visible = false;
+                }
+            } else {
+                textRec.text = "全部隐藏";
+                for (let i = 0; i < useAreaPress.length; i++) {
+                    useAreaPress[i].visible = true;
+                    useAreaFlow[i].visible = true;
+                }
+                for (let i = 0; i < stationPress.length; i++) {
+                    stationPress[i].visible = true;
+                    stationFlow[i].visible = true;
+                }
+            }
+
+        });
+
+        //tempTextPure = backImage;
+		//第一层级
+        for (let i = 0; i < useAreaPress.length; i++) {
+            useAreaPress[i] = textFillAndinteractive(useAreaPress[i], 60, i * 20 + 10, "useAreaPress" + i, false);
+            useAreaFlow[i] = textFillAndinteractive(useAreaFlow[i], 200, i * 20 + 10, "useAreaFlow" + i, false);
+            //ChartLoadAreaEvent(useAreaPress[i], i + 1, 1, "Press");
+            //ChartLoadAreaEvent(useAreaFlow[i], i + 1, 2, "Flow");
+        }
+
+        for (let i = 0; i < stationPress.length; i++) {
+            stationPress[i] = textFillAndinteractive(stationPress[i], 360, i * 20 + 10, "stationPress" + i, false);
+            stationFlow[i] = textFillAndinteractive(stationFlow[i], 500, i * 20 + 10, "stationFlow" + i, false);
+            //ChartLoadStationEvent(stationPress[i], "S00" + (i + 1), 1, "Main_P");
+            //ChartLoadStationEvent(stationFlow[i], "S00" + (i + 1), 2, "Main_Q");
+        }
+
+     
+      
+        backImage = imageFill(backImage, 0 * wrate, -6 * hrate, 0.95, false);
+
+        //空压站流量压力位置设定
+        PositionSetRate(stationFlow[0], 536, 478);
+        PositionSetRate(stationPress[0], 536, 493);
+
+		PositionSetRate(stationFlow[1], 932, 373);
+        PositionSetRate(stationPress[1], 932, 388);
+
+        PositionSetRate(stationFlow[2], 1292, 298);
+        PositionSetRate(stationPress[2], 1292, 313);
+
+        PositionSetRate(stationFlow[3], 1355, 661);
+        PositionSetRate(stationPress[3], 1355, 676);
+		
+        //用户区域流量压力位置设定
+        //用户区域1  1BF
+        PositionSetRate(useAreaFlow[0],932,532);
+        PositionSetRate(useAreaPress[0], 932, 547);
+
+     
+        //用户区域2 2BF
+        PositionSetRate(useAreaFlow[1], 773, 523);
+        PositionSetRate(useAreaPress[1], 773, 546);
+        //用户区域3  1550冷轧
+        PositionSetRate(useAreaFlow[2], 1571, 407);
+        PositionSetRate(useAreaPress[2], 1571, 430);
+        
+
+		//用户区域4 2030冷轧
+        PositionSetRate(useAreaFlow[3], 1601, 283);
+        PositionSetRate(useAreaPress[3], 1601, 298);
+       
+        //用户区域5 2250冷轧
+        PositionSetRate(useAreaFlow[4], 1307, 454);
+        PositionSetRate(useAreaPress[4], 1307, 469);
+		
+        //用户区域6 4200厚板加热炉
+        PositionSetRate(useAreaFlow[5], 1442, 658);
+        PositionSetRate(useAreaPress[5], 1442, 673);
+
+        //用户区域7 4200厚板热处理
+        PositionSetRate(useAreaFlow[6], 1550, 656);
+        PositionSetRate(useAreaPress[6], 1550, 671);
+		
+        //用户区域8 锅炉房
+		PositionSetRate(useAreaFlow[7], 815, 67);
+        PositionSetRate(useAreaPress[7], 815, 82);
+     
+        //用户区域9 海水淡化
+        PositionSetRate(useAreaFlow[8], 899, 4);
+        PositionSetRate(useAreaPress[8], 899, 19);
+
+		//用户区域10 化产
+        PositionSetRate(useAreaFlow[9], 176, 541);
+        PositionSetRate(useAreaPress[9], 176, 556);
+
+        //用户区域11 混铁车
+        PositionSetRate(useAreaFlow[10], 221, 445);
+        PositionSetRate(useAreaPress[10], 221, 460);
+
+		//用户区域12 焦炉石灰
+        PositionSetRate(useAreaFlow[11], 938, 217);
+        PositionSetRate(useAreaPress[11], 938, 232);
+       
+        //用户区域13 炼钢北区
+        PositionSetRate(useAreaFlow[12], 1115, 415);
+        PositionSetRate(useAreaPress[12], 1115, 430);
+        //用户区域14 炼钢南区
+        PositionSetRate(useAreaFlow[13], 1157, 640);
+        PositionSetRate(useAreaPress[13], 1157, 655);
+        //用户区域15 煤精
+        PositionSetRate(useAreaFlow[14], 488, 655);
+        PositionSetRate(useAreaPress[14], 488, 670);
+        //用户区域16 球团
+        PositionSetRate(useAreaFlow[15], 752, 418);
+        PositionSetRate(useAreaPress[15], 752, 433);
+        //用户区域17 烧结
+        PositionSetRate(useAreaFlow[16], 374, 448);
+        PositionSetRate(useAreaPress[16], 374, 463);
+        //用户区域18 烧结发电锅炉
+        PositionSetRate(useAreaFlow[17], 200, 370);
+        PositionSetRate(useAreaPress[17], 200, 385);
+        //用户区域19 原料
+        PositionSetRate(useAreaFlow[18], 665, 163);
+        PositionSetRate(useAreaPress[18], 665, 178);
+        //用户区域20 原料停车汽车修理设施o
+        PositionSetRate(useAreaFlow[19], 941, 640);
+        PositionSetRate(useAreaPress[19], 941, 655);
+        //用户区域21 渣处理单元
+        PositionSetRate(useAreaFlow[20], 1136, 280);
+        PositionSetRate(useAreaPress[20], 1136, 295);
+        //用户区域22 转底炉
+        PositionSetRate(useAreaFlow[21], 488, 568);
+        PositionSetRate(useAreaPress[21], 488, 583);
+
+        //用户区域23 转底炉
+        PositionSetRate(useAreaFlow[21], 488, 568);
+        tempTextPure = useAreaFlow[21];
+        PositionSetRate(useAreaPress[21], 488, 583);
+        //用户区域24 转底炉
+        PositionSetRate(useAreaFlow[21], 488, 568);
+        PositionSetRate(useAreaPress[21], 488, 583);
+        //用户区域25 转底炉
+        PositionSetRate(useAreaFlow[21], 488, 568);
+        PositionSetRate(useAreaPress[21], 488, 583);
+        
+        //各个区域绘制函数
+		function AreaDraw(areaDrawRec) {
+            //1BF
+            areaDrawRec[0] = rectangleFillAndinteractive(areaDrawRec[0], 804, 225, 99, 94, false, "white");
+            PositionSetRate(areaDrawRec[0], 54, 291);
+            //2BF
+            areaDrawRec[1] = rectangleFillAndinteractive(areaDrawRec[1], 630, 225, 178, 96, false, "white");
+            PositionSetRate(areaDrawRec[1], 36, 291);
+
+			//3 1550冷轧
+            areaDrawRec[2] = rectangleFillAndinteractive(areaDrawRec[2], 51, 339, 119, 156, false, "white");
+            PositionSetRate(areaDrawRec[2], 1530, 63);
+
+            //4 2030冷轧
+            areaDrawRec[3] = rectangleFillAndinteractive(areaDrawRec[3], 51, 339, 180, 59, false, "white");
+            PositionSetRate(areaDrawRec[3], 1471, -84);
+            //5 2250冷轧
+            areaDrawRec[4] = rectangleFillAndinteractive(areaDrawRec[4], 51, 339, 218, 67, false, "white");
+            PositionSetRate(areaDrawRec[4], 1258, 78);
+            //6 4200厚板加热炉
+            areaDrawRec[5] = rectangleFillAndinteractive(areaDrawRec[5], 51, 339, 107, 69, false, "white");
+            PositionSetRate(areaDrawRec[5], 1357, 261);
+           //7 4200厚板热处理
+            areaDrawRec[6] = rectangleFillAndinteractive(areaDrawRec[6], 51, 339, 107, 69, false, "white");
+            PositionSetRate(areaDrawRec[6], 1465, 261);
+           //8 锅炉房
+			areaDrawRec[7] = rectangleFillAndinteractive(areaDrawRec[7], 51, 339, 110, 41, false, "white");
+            PositionSetRate(areaDrawRec[7], 807, -273);
+           //9 海水淡化
+            areaDrawRec[8] = rectangleFillAndinteractive(areaDrawRec[8], 51, 339, 110, 41, false, "white");
+            PositionSetRate(areaDrawRec[8], 807, -321);
+           //10 化产
+			areaDrawRec[9] = rectangleFillAndinteractive(areaDrawRec[9], 51, 339, 156, 96, false, "white");
+            PositionSetRate(areaDrawRec[9], -12, 204);
+           // 11 混铁车
+			areaDrawRec[10] = rectangleFillAndinteractive(areaDrawRec[10], 51, 339, 188, 48, false, "white");
+            PositionSetRate(areaDrawRec[10], -9, 105);
+           //12 焦炉石灰
+			areaDrawRec[11] = rectangleFillAndinteractive(areaDrawRec[11], 51, 339, 86, 98, false, "white");
+            PositionSetRate(areaDrawRec[11], 820, -117);
+            //13 炼钢北区
+			areaDrawRec[12] = rectangleFillAndinteractive(areaDrawRec[12], 51, 339, 100, 141, false, "white");
+            PositionSetRate(areaDrawRec[12], 1018, 57);
+           //14 炼钢南区
+            areaDrawRec[13] = rectangleFillAndinteractive(areaDrawRec[13], 51, 339, 100, 141, false, "white");
+            PositionSetRate(areaDrawRec[13], 1018, 204);
+           //15 煤精
+			areaDrawRec[14] = rectangleFillAndinteractive(areaDrawRec[14], 51, 339, 138, 34, false, "white");
+            PositionSetRate(areaDrawRec[14], 315, 315);
+           //16 球团
+			areaDrawRec[15] = rectangleFillAndinteractive(areaDrawRec[15], 51, 339, 263, 63, false, "white");
+            PositionSetRate(areaDrawRec[15], 531, 48);
+           //17 烧结
+			areaDrawRec[16] = rectangleFillAndinteractive(areaDrawRec[16], 51, 339, 134, 107, false, "white");
+            PositionSetRate(areaDrawRec[16], 252, 42);
+            //18 烧结发电锅炉
+            areaDrawRec[17] = rectangleFillAndinteractive(areaDrawRec[17], 51, 339, 188, 48, false, "white");
+            PositionSetRate(areaDrawRec[17], 6, 33);
+           //19 原料
+			areaDrawRec[18] = rectangleFillAndinteractive(areaDrawRec[18], 51, 339, 148, 143, false, "white");
+            PositionSetRate(areaDrawRec[18], 585, -192);
+           //20 原料停车汽车修理设施 
+			areaDrawRec[19] = rectangleFillAndinteractive(areaDrawRec[19], 51, 339, 246, 52, false, "white");
+            PositionSetRate(areaDrawRec[19], 666, 285);
+           //21 渣处理单元
+			areaDrawRec[20] = rectangleFillAndinteractive(areaDrawRec[20], 51, 339, 156, 77, false, "white");
+            PositionSetRate(areaDrawRec[20], 957, -93);
+            //22 转底炉
+			areaDrawRec[21] = rectangleFillAndinteractive(areaDrawRec[21], 51, 339, 198, 96, false, "white");
+            PositionSetRate(areaDrawRec[21], 258, 195);
+            //23 成品停车场汽车修理
+            areaDrawRec[22] = rectangleFillAndinteractive(areaDrawRec[22], 51, 339, 148, 60, false, "white");
+            PositionSetRate(areaDrawRec[22], 1321, -84);
+            //24 4G/S
+            areaDrawRec[23] = rectangleFillAndinteractive(areaDrawRec[23], 51, 339, 63, 61, false, "white");
+            PositionSetRate(areaDrawRec[23], 1222, 267);
+            //25 高炉鼓风
+            areaDrawRec[24] = rectangleFillAndinteractive(areaDrawRec[24], 51, 339, 88, 88, false, "white");
+			PositionSetRate(areaDrawRec[24], 771, 378);
+		}
+        
+        for (let i = 0; i < areaDrawRec.length; i++) {
+
+            useAreaFlow[i].visible = false;
+            useAreaPress[i].visible = false;
+		}
+
+       
+        for (let i = 0; i < areaDrawRec.length; i++) {
+            let m=i;
+            areaDrawRec[i].on("mouseover", () => {
+                useAreaFlow[m].visible = true;
+                useAreaPress[m].visible = true;
+            });
+		}
+        for (let i = 0; i < areaDrawRec.length; i++) {
+            let m = i;
+
+            areaDrawRec[i].on("mouseout", () => {
+                useAreaFlow[m].visible = false;
+                useAreaPress[m].visible = false;
+            });
+
+		}
+        for (let i = 0; i < areaDrawRec.length; i++) {
+            ChartLoadAreaEvent(areaDrawRec[i], i + 1, 3, "FlowAndPress");
+
+        }
+
+
+        jsonString = $("#inputHidden").val();
+        jsonRes = eval('(' + jsonString + ')');
+        console.log("Res:" + jsonRes);
+        for (let i = 0; i < jsonRes.areas.length; i++) {
+            useAreaFlow[i].text = "流量:" + jsonRes.areas[i].Inlet_SQ + " Nm³/h";
+            useAreaPress[i].text = "压力:" + jsonRes.areas[i].Inlet_AP + " bar";
+        }
+        for (let i = 0; i < jsonRes.stations.length; i++) {
+            stationFlow[i].text = "流量:" + jsonRes.stations[i].Main_Q +" Nm³/h";
+            stationPress[i].text = "压力:" + jsonRes.stations[i].Main_P+" bar";
+        }
+
+        
+
+
+        //上下左右箭头加载
+        let left = keyboard(37),
+            up = keyboard(38),
+            right = keyboard(39),
+            down = keyboard(40);
+
+        //Left arrow key `release` method  左箭头释放
+        left.release = () => {
+
+        }
+        //Right arrow key 'press' method
+        let change = 3;
+
+        //Left arrow key `press` method
+        left.press = () => {
+            //左键调节
+            tempTextPure.x -= change;
+            console.log(tempTextPure.x + ": " + tempTextPure.y);
+        };
+        right.press = () => {
+            //右键调节
+            tempTextPure.x += change;
+            console.log(tempTextPure.x + ": " + tempTextPure.y);
+        }
+        //Up arrow key 'press' method
+        up.press = () => {
+            //上键调节
+            tempTextPure.y -= change;
+            console.log(tempTextPure.x + ": " + tempTextPure.y);
+        }
+        //Down arrow key 'press' method
+        down.press = (event) => {
+            //下键调节
+            tempTextPure.y += change;
+            console.log(tempTextPure.x + ": " + tempTextPure.y);
+        }
+
+
+        //添加鼠标点击事件到元素中
+        function clickEventAdd(sprite) {
+            sprite.interactive = true;
+            sprite.buttonMode = true;
+        }
+
+        app.ticker.add(delta => gameLoop(delta));
+    }
+
+
+    // flagCode code 1 压力 code 2流量
+    function ChartLoadAreaEvent(sprite, aId, flagCode, flagName, flagTitle) {
+        sprite.on('click',
+            () => {
+                let code = flagCode;
+                let name = flagName;
+                let areaId = aId;
+                let title = flagTitle;
+                title = " ";
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    var index = layer.load(1, {
+                        shade: [0.1, '#000'] //0.1透明度的背景
+                    });
+                    areaId = areaId < 10 ? "A00" + areaId : "A0" + areaId;
+                    $.ajax({
+                        url: '/EnergySys/layUIAlias',
+                        data: { code: code, factoryId: factoryId, areaId: areaId, name: name },
+                        dataType: 'json',
+                        success: function (res) {
+							layer.close(index);
+                            layer.open({
+                                title: eval(res.title),
+                                type: 2,
+                                area: eval(res.area),
+                                offset: eval(res.offset), //top left
+                                content: "/EnergySys/LineChartArea/?code=" + code + "&factoryId=" + factoryId
+                                    + "&areaId=" + areaId + "&name=" + name //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能
+                            });
+                        }
+                    });
+                });
+            })
+    }
+    // 空压站数据请求
+    function ChartLoadStationEvent(sprite, stationId, flagCode, flagName, flagTitle) {
+        sprite.on('click',
+            () => {
+                let code = flagCode;
+                let name = flagName;
+                let title = flagTitle;
+                title = " ";
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    var index = layer.load(1, {
+                        shade: [0.1, '#000'] //0.1透明度的背景
+                    });
+                    $.ajax({
+                        url: '/EnergySys/layUIAlias',
+                        data: { code: code, factoryId: factoryId, stationId: stationId, name: name },
+                        dataType: 'json',
+                        success: function (res) {
+                            layer.close(index);
+                            layer.open({
+                                title: eval(res.title),
+                                type: 2,
+                                area: eval(res.area),
+                                offset: eval(res.offset), //top left
+                                content: "/EnergySys/LineChartStation/?code=" + code + "&factoryId=" + factoryId
+                                    + "&stationId=" + stationId + "&name=" + name //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+                            });
+                        }
+                    });
+                });
+            })
+    }
+    //初始化赋值
+    setInterval(getSixSecondStationAndUserArea, 6000);
+    function getSixSecondStationAndUserArea() {
+        $.ajax({
+            url: "/EnergySys/SixSecondStationAndUserArea",
+            type: "GET",
+            data: { factoryId: factoryId },
+            success: function (res) {
+                //接收成功后,进行解析,最后把数据传给帧显示函数
+                jsonRes = JSON.parse(res);
+				for (let i = 0; i < jsonRes.areas.length; i++) {
+                    useAreaFlow[i].text = "流量:" + jsonRes.areas[i].Inlet_SQ;
+                    useAreaPress[i].text = "压力:" + jsonRes.areas[i].Inlet_AP;
+                }
+                for (let i = 0; i < jsonRes.stations.length; i++) {
+                    stationFlow[i].text = "流量:" + jsonRes.stations[i].Main_Q;
+                    stationPress[i].text = "压力:" + jsonRes.stations[i].Main_P;
+                }
+
+                var data = jsonRes;
+                //产气比例数据处理
+                var gasusevalue1 = 0;
+                var gasprova1 = 0;
+                $.each(data.gasuse, function (index, item) {
+                    gasusevalue1 += item.value;
+                })
+                $.each(data.gaspro, function (index, item) {
+                    gasprova1 += item.mainQ;
+                })
+                $("#gasva").html("产气量:" + gasprova1.toFixed(0) + "用气量:" + gasusevalue1.toFixed(0));
+                var gasusearr1 = [];
+                var othervalue1 = 0.00;
+                var count1 = 0;
+                var otherarr1 = [];
+                var nucount1 = 0;
+                var otherin1 = '';
+                $.each(data.gasuse, function (index, item) {
+                    if (item.value / gasusevalue1 * 100 < 2) {
+                        othervalue1 += item.value;
+                        otherarr1[nucount1] = [item.value, item.name];
+                        nucount1++;
+                    }
+                    else {
+                        gasusearr1[count1] = [item.value, item.name];
+                        count1++
+                    }
+                })
+                $.each(otherarr1, function (index, item) {
+                    otherin1 += '<p>' + item[1] + ':' + item[0] + '(' + (item[0] / gasusevalue1 * 100).toFixed(2) + '%)</p>'
+                })
+                if (count1 < 22) {
+                    gasusearr1[gasusearr1.length] = [parseFloat(othervalue1.toFixed(2)), "其他"];
+                }
+                var otherpre1 = (othervalue1 / gasusevalue1 * 100).toFixed(2);
+                var usearr1 = [];
+                $.each(gasusearr1, function (index, item) {
+                    if (item[1] == "其他") {
+                        usearr1.push({
+                            value: item[0],
+                            name: item[1],
+                            tooltip: {
+                                formatter: function (params) {
+                                    return '<p>其他:' + item[0] + '(' + otherpre1 + '%)' + '</p>' + otherin1
+                                },
+                                position: 'right'
+                            }
+                        })
+                    }
+                    else {
+                        usearr1.push({
+                            value: item[0],
+                            name: item[1]
+                        })
+                    }
+                })
+                //用气比例
+                myChart.setOption({
+                    series: [
+                        {
+                            name: '产气比例',
+                            type: 'pie',
+                            selectedMode: 'single',
+                            radius: [0, '50%'],
+                            label: {
+                                normal: {
+                                    position: 'inside',
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: true
+                                }
+                            },
+                            data: [{
+                                value: data.gaspro[0].mainQ,
+                                name: data.gaspro[0].stationId.replace(/[^1-9]/ig, "") + '#空压站',
+                                selected: true
+                            },
+                            {
+                                value: data.gaspro[1].mainQ,
+                                name: data.gaspro[1].stationId.replace(/[^1-9]/ig, "") + '#空压站',
+                            },
+                            {
+                                value: data.gaspro[2].mainQ,
+                                name: data.gaspro[2].stationId.replace(/[^1-9]/ig, "") + '#空压站',
+                            }, {
+                                value: data.gaspro[3].mainQ,
+                                name: data.gaspro[3].stationId.replace(/[^1-9]/ig, "") + '#空压站',
+                            }
+                            ]
+                        },
+                        {
+                            name: '用气比例',
+                            type: 'pie',
+                            radius: ['60%', '90%'],
+                            label: {
+                                normal: {
+                                    position: 'inner',
+                                }
+                            },
+                            data: usearr1
+                        }
+                    ]
+                });
+            },
+            error: function (res) {
+
+            }
+        });
+    }
+
+    //加载程序进程
+    function loadProgressHandler(loader, resource) {
+        console.log("loading " + resource.url)
+        console.log("progress " + loader.progress + " %");
+    }
+
+  
+    //每秒60帧运行函数
+    function gameLoop(delta) {
+        //debugger;
+       // console.log(typeof (useAreaFlow[0]));
+		//if (jsonRes.areas.length > 0) {
+            //for (let i = 0; i < jsonRes.areas.length; i++) {
+            //    useAreaFlow[i].text = "流量:" + jsonRes.areas[i].Inlet_SQ;
+            //    useAreaPress[i].text = "压力:" + jsonRes.areas[i].Inlet_AP;
+            //}
+            //for (let i = 0; i < jsonRes.stations.length; i++) {
+            //    stationFlow[i].text = "流量:" + jsonRes.stations[i].Main_Q;
+            //    stationPress[i].text = "压力:" + jsonRes.stations[i].Main_P;
+            //}
+        //}
+	}
+
+    //鼠标拖放事件函数
+    function loadMouseEvent(sprite) {
+        // create our little sprite friend..
+        // var sprite = new PIXI.Sprite(texture);
+        // enable the sprite to be interactive... this will allow it to respond to mouse and touch events
+        sprite.interactive = true;
+
+        // this button mode will mean the hand cursor appears when you roll over the sprite with your mouse
+        sprite.buttonMode = true;
+
+        // setup events for mouse + touch using
+        // the pointer events
+        // sprite
+        //     .on('pointerdown', onDragStart)
+        //     .on('pointerup', onDragEnd)
+        //     .on('pointerupoutside', onDragEnd)
+        //     .on('pointermove', onDragMove);
+
+        // For mouse-only events
+        sprite
+            .on('mousedown', onDragStart)
+            .on('mouseup', onDragEnd)
+            .on('mouseupoutside', onDragEnd)
+            .on('mousemove', onDragMove);
+
+        // For touch-only events
+        // sprite
+        //     .on('touchstart', onDragStart)
+        //     .on('touchend', onDragEnd)
+        //     .on('touchendoutside', onDragEnd)
+        //     .on('touchmove', onDragMove);
+
+    }
+
+
+    //鼠标拖拽开始
+    function onDragStart(event) {
+        // store a reference to the data
+        // the reason for this is because of multitouch
+        // we want to track the movement of this particular touch
+        this.data = event.data;
+        this.alpha = 0.5;
+        this.dragging = true;
+    }
+    //鼠标拖拽结束
+    function onDragEnd(event) {
+        // this.alpha = 1;
+        // this.dragging = false;
+        // // set the interaction data to null
+        // this.data = null;
+        this.alpha = 1;
+        this.dragging = false;
+        // set the interaction data to null
+        var newPosition = this.data.getLocalPosition(this.parent);
+        this.x = newPosition.x;
+        this.y = newPosition.y;
+        console.log("this X:" + this.x + " this Y:" + this.y);
+    }
+    //鼠标拖拽过程
+    function onDragMove() {
+        // if (this.dragging) {
+        //     var newPosition = this.data.getLocalPosition(this.parent);
+        //      this.x = newPosition.x;
+        //      this.y = newPosition.y;
+        //      console.log("this X:" + this.x + "  this Y:" + this.y);
+        // }
+    }
+
+    function imageFill(imageFill, x, y, scale, debug, func) {
+        imageFill = new Sprite(imageFill);
+        if (debug) {
+            loadMouseEvent(imageFill);
+        }
+        //缩放大小 1为默认状态
+        imageFill.scale.set(scale * wrate, scale * hrate);
+        imageFill.position.set(x, y);
+        app.stage.addChild(imageFill);
+        return imageFill;
+    }
+
+    function imageFillAndinteractive(image, x, y, scale, debug, func) {
+        image = imageFill(image, x, y, scale, debug, func);
+        // enable the image to be interactive... this will allow it to respond to mouse and touch events
+        image.interactive = true;
+        // this button mode will mean the hand cursor appears when you roll over the image with your mouse
+        image.buttonMode = true;
+        return image;
+    }
+
+
+
+    //矩形填充
+    function rectangleFill(rectangleFill, x, y, width, height, debug, fillColor, func) {
+        //用气区域流量
+        rectangleFill = new Graphics();
+        if (fillColor == undefined) {
+            fillColor = "#e6e6e6";
+        }
+        rectangleFill.beginFill(u.color(fillColor));
+        if (debug) {
+            loadMouseEvent(rectangleFill);
+        }
+        //   rectangleFill.position.set(x, y);
+        //文字缩放比例
+        rectangleFill.scale.set(wrate,hrate);
+        rectangleFill.drawRect(x, y, width, height);
+
+        rectangleFill.endFill();
+        app.stage.addChild(rectangleFill);
+        return rectangleFill;
+    }
+    function rectangleFillAndinteractive(rectangle, x, y, width, height, debug, fillColor, func) {
+        rectangle = rectangleFill(rectangle, x, y, width, height, debug, fillColor, func);
+        // enable the image to be interactive... this will allow it to respond to mouse and touch events
+        rectangle.interactive = true;
+        // this button mode will mean the hand cursor appears when you roll over the image with your mouse
+        rectangle.buttonMode = true;
+        return rectangle;
+    }
+
+
+    //用户区域流量文字加载
+    function textFill(textFill, x, y, message, debug, func) {
+        //用气区域 用户压力文字加载
+        textFill = new PIXI.Text(message);
+        //初始文字位置 set(x,y) x:left y:top
+        //textFill.x = 0;
+        //textFill.y = 0;
+        if (debug) {
+            loadMouseEvent(textFill);
+        }
+        textFill.position.set(x, y);
+		//文字缩放比例
+        textFill.scale.set(wrate, hrate);
+        textFill.style = {
+            fill: "black",
+            font: "12px"
+        };
+        app.stage.addChild(textFill);
+        return textFill;
+    }
+    function textFillAndinteractive(text, x, y, message, debug, func) {
+        text = textFill(text, x, y, message, debug, func);
+        // enable the image to be interactive... this will allow it to respond to mouse and touch events
+       // text.interactive = true;
+        // this button mode will mean the hand cursor appears when you roll over the image with your mouse
+        text.buttonMode = true;
+        return text;
+    }
+
+
+
+
+
+    //键盘事件函数
+    function keyboard(keyCode) {
+        let key = {};
+        key.code = keyCode;
+        key.isDown = false;
+        key.isUp = true;
+        key.press = undefined;
+        key.release = undefined;
+        //The `downHandler`
+        key.downHandler = event => {
+            if (event.keyCode === key.code) {
+                if (key.isUp && key.press) key.press();
+                key.isDown = true;
+                key.isUp = false;
+            }
+            event.preventDefault();
+        };
+
+        //The `upHandler`
+        key.upHandler = event => {
+            if (event.keyCode === key.code) {
+                if (key.isDown && key.release) key.release();
+                key.isDown = false;
+                key.isUp = true;
+            }
+            event.preventDefault();
+        };
+
+        //Attach event listeners
+        window.addEventListener(
+            "keydown", key.downHandler.bind(key), false
+        );
+        window.addEventListener(
+            "keyup", key.upHandler.bind(key), false
+        );
+        return key;
+    }
+    function changeSize() {
+		 canvasWidth = window.innerWidth;
+         canvasHeight = window.innerHeight;
+         initWidth=1700;
+         initHeight=835;
+
+	 wrate = canvasWidth / initWidth;
+     hrate = canvasHeight / initHeight;
+
+		app.renderer.resize(1650 * wrate , 800 * hrate);
+        PositionSetRate(backImage, 0 * wrate, -6 * hrate);
+        PositionSetRate(stationRec[0], 133, 423);
+        PositionSetRate(stationRec[1], 507, 363);
+        PositionSetRate(stationRec[2], 852, 264);
+        PositionSetRate(stationRec[3], 982, 528); 
+		//PositionSetRate(textRec, 384, 15);
+		//PositionSetRate(buttonRec, 384, 15);
+        //空压站流量压力位置设定
+        PositionSetRate(stationFlow[0], 536, 478);
+        PositionSetRate(stationPress[0], 536, 493);
+
+        PositionSetRate(stationFlow[1], 932, 373);
+        PositionSetRate(stationPress[1], 932, 388);
+
+        PositionSetRate(stationFlow[2], 1292, 298);
+        PositionSetRate(stationPress[2], 1292, 313);
+
+        PositionSetRate(stationFlow[3], 1355, 661);
+        PositionSetRate(stationPress[3], 1355, 676);
+        //用户区域流量压力位置设定
+        //用户区域1  1BF
+        PositionSetRate(useAreaFlow[0], 932, 532);
+        PositionSetRate(useAreaPress[0], 932, 547);
+
+
+        //用户区域2 2BF
+        PositionSetRate(useAreaFlow[1], 773, 523);
+        PositionSetRate(useAreaPress[1], 773, 546);
+        //用户区域3  1550冷轧
+        PositionSetRate(useAreaFlow[2], 1571, 407);
+        PositionSetRate(useAreaPress[2], 1571, 430);
+
+
+        //用户区域4 2030冷轧
+        PositionSetRate(useAreaFlow[3], 1601, 283);
+        PositionSetRate(useAreaPress[3], 1601, 298);
+
+        //用户区域5 2250冷轧
+        PositionSetRate(useAreaFlow[4], 1307, 454);
+        PositionSetRate(useAreaPress[4], 1307, 469);
+
+        //用户区域6 4200厚板加热炉
+        PositionSetRate(useAreaFlow[5], 1442, 658);
+        PositionSetRate(useAreaPress[5], 1442, 673);
+
+        //用户区域7 4200厚板热处理
+        PositionSetRate(useAreaFlow[6], 1550, 656);
+        PositionSetRate(useAreaPress[6], 1550, 671);
+
+        //用户区域8 锅炉房
+        PositionSetRate(useAreaFlow[7], 815, 67);
+        PositionSetRate(useAreaPress[7], 815, 82);
+
+        //用户区域9 海水淡化
+        PositionSetRate(useAreaFlow[8], 899, 4);
+        PositionSetRate(useAreaPress[8], 899, 19);
+
+        //用户区域10 化产
+        PositionSetRate(useAreaFlow[9], 176, 541);
+        PositionSetRate(useAreaPress[9], 176, 556);
+
+        //用户区域11 混铁车
+        PositionSetRate(useAreaFlow[10], 221, 445);
+        PositionSetRate(useAreaPress[10], 221, 460);
+
+        //用户区域12 焦炉石灰
+        PositionSetRate(useAreaFlow[11], 938, 217);
+        PositionSetRate(useAreaPress[11], 938, 232);
+
+        //用户区域13 炼钢北区
+        PositionSetRate(useAreaFlow[12], 1115, 415);
+        PositionSetRate(useAreaPress[12], 1115, 430);
+        //用户区域14 炼钢南区
+        PositionSetRate(useAreaFlow[13], 1157, 640);
+        PositionSetRate(useAreaPress[13], 1157, 655);
+        //用户区域15 煤精
+        PositionSetRate(useAreaFlow[14], 488, 655);
+        PositionSetRate(useAreaPress[14], 488, 670);
+        //用户区域16 球团
+        PositionSetRate(useAreaFlow[15], 752, 418);
+        PositionSetRate(useAreaPress[15], 752, 433);
+        //用户区域17 烧结
+        PositionSetRate(useAreaFlow[16], 374, 448);
+        PositionSetRate(useAreaPress[16], 374, 463);
+        //用户区域18 烧结发电锅炉
+        PositionSetRate(useAreaFlow[17], 200, 370);
+        PositionSetRate(useAreaPress[17], 200, 385);
+        //用户区域19 原料
+        PositionSetRate(useAreaFlow[18], 665, 163);
+        PositionSetRate(useAreaPress[18], 665, 178);
+        //用户区域20 原料停车汽车修理设施o
+        PositionSetRate(useAreaFlow[19], 941, 640);
+        PositionSetRate(useAreaPress[19], 941, 655);
+        //用户区域21 渣处理单元
+        PositionSetRate(useAreaFlow[20], 1136, 280);
+        PositionSetRate(useAreaPress[20], 1136, 295);
+        //用户区域22 转底炉
+        PositionSetRate(useAreaFlow[21], 488, 568);
+        PositionSetRate(useAreaPress[21], 488, 583);
+	}
+    //加载完成
+    window.onload = function () {
+        changeSize();
+    };
+    //重置界面。
+    window.onresize = function () {
+        //myChart.resize();
+        changeSize();
+    }
+    function changeSize() {
+        let canvasWidth = window.innerWidth;
+        let canvasHeight = window.innerHeight;
+        //alert(canvasWidth + ":" + canvasHeight);
+        //当前电脑的高与宽
+        let initWidth = 1700;
+        let initHeight = 835;
+
+        let wrate1 = canvasWidth / initWidth;
+        let hrate1 = canvasHeight / initHeight;
+
+        console.log("old" + $("canvas[data-zr-dom-id=zr_0]").width());
+        console.log("old" + $("canvas[data-zr-dom-id=zr_0]").height());
+        $("canvas[data-zr-dom-id=zr_0]").width(350 * wrate1);
+        $("canvas[data-zr-dom-id=zr_0]").height(310 * wrate1);
+        console.log("new" + $("canvas[data-zr-dom-id=zr_0]").width());
+        console.log("new" + $("canvas[data-zr-dom-id=zr_0]").height());
+    }
+
+</script>
+
+
+
+
+
+
+
+
+

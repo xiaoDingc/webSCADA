@@ -1,0 +1,228 @@
+﻿@model Model.ModelViews.DateTime_View
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>空压机压力功率散点图</title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+</head>
+<body>
+    
+    <input type="hidden" value="@ViewBag.faceres" id="hide" />
+    <input type="hidden" id="sId" value="@ViewBag.Fsidcid" />
+        
+    <div class="demoTable" style="float:right;margin:0 20px 20px 0">
+        搜索开始时间：
+        <div class="layui-inline">
+            <input type="text" class="layui-input" value="@Model.Time1" id="starttime">
+        </div>
+        搜索结束时间：
+        <div class="layui-inline">
+            <input type="text" class="layui-input" value="@Model.Time2" id="endtime">
+        </div>
+        <button class="layui-btn" id="layui-btn">搜索</button>
+    </div>
+    <div class="layui-row">
+        <div id="outletpepower" style="height: 600px; max-width: 900px; margin: 0 auto">
+        </div>
+    </div>
+        <script src="~/Scripts/code/highcharts.js"></script>
+    <script src="~/Scripts/code/highcharts-more.js"></script>
+       
+</body>
+</html>
+<script>
+
+
+
+    var bb = [];
+    var startDate = $("#starttime").val();
+    var endDate = $("#endtime").val();
+    let strvalue = $("#hide").val();
+    var sidValue = $("#sId").val().charAt(3, 1);
+    var cidValue = $("#sId").val().charAt(7, 1);
+    var titlename = sidValue + '#空压站' + cidValue + '#空压机' + ' 压力-电功率散点图';//标题
+    let json = JSON.parse(strvalue);
+    var ee = [];
+    $.each(json, function (index, item) {
+        ee[index] = [item.p, item.e];
+    })
+    bb.push({
+        name: '空压站' + sidValue + '空压机' + cidValue + "压力(bar)",
+        data:ee
+    })
+        Highcharts.setOptions({
+            lang: {
+                printChart: "打印图表",
+                downloadJPEG: "下载JPEG 图片",
+                downloadPDF: "下载PDF文档",
+                downloadPNG: "下载PNG图片",
+                downloadSVG: "下载SVG矢量图",
+                resetZoom: "还原"
+            }
+        });
+        var outletpCharts = {
+            chart: {
+                type: 'scatter',
+                zoomType: 'xy',
+            },
+            title: {
+                text:titlename
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                title: {
+                    enabled: true,
+                    text: '压力(bar)'
+                },
+                startOnTick: true,
+                endOnTick: true,
+                showLastLabel: true
+            },
+            yAxis: {
+                title: {
+                    text: '电功率（EPOWER）,KW'
+                }
+            },
+            boost: {
+                useGPUTranslations: true,
+                usePreAllocated: true
+            },
+            legend: {
+            },
+            plotOptions: {
+                scatter: {
+                    marker: {
+                        radius: 5,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                lineColor: 'rgb(100,100,100)'
+                            }
+                        }
+                    },
+                    states: {
+                        hover: {
+                            marker: {
+                                enabled: false
+                            }
+                        }
+                    },
+                    exporting: {
+                        filename: '总耗电量实时数据',
+                        csv: {
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<b>{series.name}</b><br>',
+                        pointFormat: '{point.x}bar<br>{point.y}kw'
+                    }
+                }
+            },
+            series: bb
+        };
+        $("#outletpepower").highcharts(outletpCharts);
+        function getScatter() {
+            var startDate1 = $("#starttime").val();
+            var endDate1 = $("#endtime").val();
+            $.ajax({
+                url: "/EfficiencyAnalysis/CentrifugePePower",
+                type: "GET",
+                data: { begintime: startDate1, endtime: endDate1, sid: $("#sId").val() },
+                success: function (data) {
+                    var dataarr = [];
+                    var arr0 = [];
+                    $.each(data, function (index, item) {
+                        arr0[index] = [item.p, item.e];
+                    })
+                    dataarr.push({
+                        name: sidValue + '#空压站' + cidValue + '#空压机'+"压力(bar)",
+                        data: arr0
+                    })
+                        outletpCharts.series = dataarr;
+                        $("#outletpepower").highcharts(outletpCharts);
+                    }
+                })
+            };
+       
+
+        //日历
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            var starttime = laydate.render({
+                elem: "#starttime",
+                type: "datetime",
+                max: getNowFormatDate(),
+                done: function (value, date) {
+                    if (value != "") {
+                        date.month = date.month - 1;
+                        endtime.config.min = date;
+                    }
+                }
+            })
+            var endtime = laydate.render({
+                elem: "#endtime",
+                type: "datetime",
+                max: getNowFormatDate(),
+                done: function (value, date) {
+                    if (value != "") {
+                        date.month = date.month - 1;
+                        starttime.config.max = date;
+                    }
+                }
+            })
+        })
+        function getNowFormatDate() {
+            var date = new Date();
+            console.log("shi:" + date);
+            var seperator1 = "-";
+            var seperator2 = ":";
+            var month = date.getMonth() + 1;
+            console.log("yue:" + month)
+            var strDate = date.getDate();
+            console.log("tian:" + strDate);
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                + " " + date.getHours() + seperator2 + date.getMinutes()
+                + seperator2 + date.getSeconds();
+            console.log(currentdate);
+            return currentdate;
+        }
+        //搜索按钮点击事件
+        $("#layui-btn").click(function () {
+            startDate = $("#starttime").val();
+            endDate = $("#endtime").val();
+            var begin = new Date("" + startDate + "");
+            var end = new Date("" + endDate + "");
+            var time1 = begin.getTime();
+            var time2 = end.getTime();
+            var subtract = (time2 - time1) / 1000;
+            var dayhours = parseInt(subtract / (60 * 60));
+            if (startDate == "" || endDate == "") {
+                alert("请按要求选择开始和结束时间");
+            }
+                //} else if (dayhours > 1) {
+                //    alert("开始和结束时间间隔太大，请重新选择，不要大于1小时");
+                //}
+                //else if (subtract <= 0) {
+                //    alert("开始时间大于等于结束时间，不可查询，请重新选择")
+                //}
+            else {
+                getScatter();
+            }
+        });
+    //});
+</script>

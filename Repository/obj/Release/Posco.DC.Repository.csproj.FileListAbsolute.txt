@@ -1,0 +1,17 @@
+E:\WorkSpaces\Posco.DC.SCADA\Repository\bin\Release\Repository.dll.config
+E:\WorkSpaces\Posco.DC.SCADA\Repository\bin\Release\Repository.dll
+E:\WorkSpaces\Posco.DC.SCADA\Repository\bin\Release\Repository.pdb
+E:\WorkSpaces\Posco.DC.SCADA\Repository\bin\Release\EntityFramework.dll
+E:\WorkSpaces\Posco.DC.SCADA\Repository\bin\Release\EntityFramework.SqlServer.dll
+E:\WorkSpaces\Posco.DC.SCADA\Repository\bin\Release\Model.dll
+E:\WorkSpaces\Posco.DC.SCADA\Repository\bin\Release\Model.pdb
+E:\WorkSpaces\Posco.DC.SCADA\Repository\bin\Release\Model.dll.config
+E:\WorkSpaces\Posco.DC.SCADA\Repository\bin\Release\EntityFramework.xml
+E:\WorkSpaces\Posco.DC.SCADA\Repository\bin\Release\EntityFramework.SqlServer.xml
+E:\WorkSpaces\Posco.DC.SCADA\Repository\bin\Release\zh-Hans\EntityFramework.resources.dll
+E:\WorkSpaces\Posco.DC.SCADA\Repository\bin\Release\zh-Hans\EntityFramework.SqlServer.resources.dll
+E:\WorkSpaces\Posco.DC.SCADA\Repository\obj\Release\Posco.DC.Repository.csprojAssemblyReference.cache
+E:\WorkSpaces\Posco.DC.SCADA\Repository\obj\Release\Posco.DC.Repository.csproj.CoreCompileInputs.cache
+E:\WorkSpaces\Posco.DC.SCADA\Repository\obj\Release\Posco.DC.Repository.csproj.CopyComplete
+E:\WorkSpaces\Posco.DC.SCADA\Repository\obj\Release\Repository.dll
+E:\WorkSpaces\Posco.DC.SCADA\Repository\obj\Release\Repository.pdb

@@ -1,0 +1,89 @@
+﻿ @{
+    Layout = null;
+}
+<script src="~/Scripts/pixi/jquery-3.3.1.min.js"></script>
+
+<script src="~/Content/ListLayui/static/admin/lib/ueditor/third-party/highcharts/highstock.js"></script>
+<script src="~/Content/ListLayui/static/admin/lib/ueditor/third-party/highcharts/modules/exporting.js"></script>
+
+
+<input id="hdData" type="hidden" value="@ViewData["infoObject"]" />
+<div id="container" style="min-width:400px;height:400px"></div>
+<script>
+    var chart = {
+        chart: {
+            type: 'spline',
+            zoomType: "xy",
+        },
+        title: {
+            text: ''
+        },
+        subtitle: {
+            text: ''
+        }, credits: {
+            enabled: false     //不显示LOGO 
+        },
+        xAxis: {
+            categories: []
+        },
+        yAxis: {
+            title: {
+                text: ''
+            },
+            //labels: {
+            //    formatter: function () {
+            //        return this.value + '°';
+            //    }
+            //}
+        },
+        tooltip: {
+            crosshairs: true,
+            shared: true
+        },
+        plotOptions: {
+            spline: {
+                marker: {
+                    radius: 4,
+                    // lineColor: '#666666',
+                    lineWidth: 1
+                }
+            }
+        },
+        series: [{
+            name: '数据',
+            marker: {
+                symbol: 'square'
+            },
+            data: []
+        }]
+    };
+    
+    var jsonString = $("#hdData").val();
+    var jsonRes = eval('(' + jsonString + ')');
+
+    console.log("1234"+jsonRes.stationId + " " + jsonRes.equipId + " ");
+    if (typeof (jsonRes.stationId) == "undefined" && typeof (jsonRes.equipId) == "undefined") {
+        if (typeof (jsonRes.areaId) != "undefinned") {
+            chart.title.text = jsonRes.areaId + " " + jsonRes.name;
+        }
+    } else {
+        chart.title.text = jsonRes.stationId + " " + jsonRes.equipId + " " + jsonRes.name;
+	}
+    //修改标题 删除掉jsonRes.factoryId
+    //chart.title.text = jsonRes.factoryId + " " + jsonRes.equipId + " " + jsonRes.name;
+   // chart.title.text = jsonRes.stationId+" "+jsonRes.equipId + " " + jsonRes.name;
+    //y轴名称获取
+    chart.yAxis.title.text = jsonRes.chartYUnit;
+    //x轴图例名称获取
+    chart.series[0].name = jsonRes.chartXLegend;
+    var json = jsonRes.data;
+    for (var item in json) {
+        // console.log(item + ": " + json[item].DateTime);
+        chart.xAxis.categories.push(json[item].DateTime);
+        chart.series[0].data.push(json[item].value);
+    }
+    $('#container').highcharts(chart);
+</script>
+
+
+

@@ -1,0 +1,155 @@
+﻿@model  Model.PageInfo<Model.BB_ChartAlias>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link href="~/Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+    <script src="~/Content/ListLayui/static/admin/js/common.js"></script>
+    <style>
+        .disabled {
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <br />
+    <br />
+    <br />
+    <div class="demoTable">
+        搜索ID：
+        <div class="layui-inline">
+            <input class="layui-input" name="Id" id="demoReload" autocomplete="off"placeholder="仅能输入数字"onkeyup="value = value.replace(/[^\d]/g, '')">
+        </div>
+        搜索编码：
+        <div class="layui-inline">
+            <input type="text"class="layui-input" name="code" id="codeReload" autocomplete="off" placeholder="仅能输入数字"onkeyup="value = value.replace(/[^\d]/g, '')">
+        </div>
+        搜索设备名称：
+        <div class="layui-inline">
+            <input type="text" class="layui-input" name="name" id="nameReload" autocomplete="off" placeholder="仅能输入汉字" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
+onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))">
+        </div>
+        <button class="layui-btn" data-type="reload" id="layui-btn">搜索</button>
+        <div class="tt" style="float:right">
+            <button class="layui-btn layui-btn-normal radd-btn " data-id="1" data-url="/BackManage/ChartAliasAdd">添加图表配置</button>
+            <button class="layui-btn layui-btn-warm" id="warm">导出所有</button>
+        </div>
+        
+
+    </div>
+
+    <table class="layui-hide" id="test" lay-filter="test"></table>
+
+
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs " data-url="/BackManage/ChartAliasEdit" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+    
+    <script>
+        layui.use('table', function () {
+            var table = layui.table;
+            //方法级渲染
+            table.render({
+                elem: '#test',
+                url: '/BackManage/ChartAliasGet',
+                toolbar: '#toolbarDemo',
+                cellMinWidth: 80 ,
+            cols: [[
+                    { field: 'Id', title: 'Id', sort: true },
+                    { field: 'code', title: '编码', sort: true },
+                    { field: 'factoryId', title: '工厂编号', sort: true},
+                    { field: 'factoryName', title: '工厂名称', sort: true },
+                    { field: 'stationID', title: '空压站编号', sort: true },
+                    { field: 'stationName', title: '空压站名称', sort: true },
+                    { field: 'EquipID', title: '设备编号', sort: true },
+                    { field: 'EquipName', title: '设备名称', sort: true },
+                    { field: 'AreaId', title: '区域编号', sort: true },
+                    { field: 'AreaName', title: '区域名称', sort: true },
+                    { field: 'name', title: '名称', sort: true },
+                    { field: 'FieldName', title: '显示名称', sort: true },
+                    { field: 'layuiTitle', title: '界面标题', sort: true },
+                    { field: 'layuiArea', title: '界面大小', sort: true },
+                    { field: 'layuiOffset', title: '界面位置', sort: true },
+                   { fixed: 'right', title: '操作', toolbar: '#barDemo' }
+                ]],
+                id: 'testReload',
+                page: true
+            });         
+            //监听行工具事件
+            table.on('tool(test)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'del') {
+                    layer.confirm('真的删除行么', function (index) {
+                        obj.del();
+                        layer.close(index);
+                    });
+                } else if (obj.event === 'edit') {
+                    console.log(data);
+                    //获取当前iframe的name值
+                    var iframeObj = $(window.frameElement).attr('name');
+                    var id = data.Id;
+                    var url = $(this).attr('data-url');
+                    //将iframeObj传递给父级窗口
+                    page("编辑", url + "?id=" + id, iframeObj, w = "700px", h = "620px");
+                    // layer.prompt({
+                    //     formType: 2,
+                    //     value: data
+                    // }, function (value, index) {
+                    //     obj.update({
+                    //         email: value
+                    //     });
+                    //     layer.close(index);
+                    // });
+                }
+            });
+
+            var $ = layui.$, active = {
+                reload: function () {
+                    var demoReload = $('#demoReload').val();
+                    var codeReload = $("#codeReload").val();
+                    var nameReload=$("#nameReload").val();
+                    //执行重载
+                    table.reload('testReload', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            id: demoReload,
+                            code: codeReload,
+                            name:nameReload
+                        }
+                    });
+                }
+            };
+            $('.demoTable #layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';               
+            });
+            $('.demoTable #warm').on('click', function () {
+                window.location.href = "/BackManage/ChartExcel";
+            })
+        })
+	</script>
+</body>
+</html>
+<script>
+  
+</script>
+
+
+
+
+
+
+
+

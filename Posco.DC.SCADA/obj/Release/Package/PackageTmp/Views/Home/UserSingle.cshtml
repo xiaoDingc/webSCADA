@@ -1,0 +1,141 @@
+﻿@model Model.BussionObject.UserShow_BO
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UserSingle</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/layer/layer.js"></script>
+</head>
+<body>
+    @using (Html.BeginForm("UserSingle","Home",FormMethod.Post)) 
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+            <h4>@Model.boAccount 信息修改</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+           <input type="hidden" id="hide" value="@ViewBag.cc"/>
+              @Html.HiddenFor(model=>model.boState)
+            @Html.HiddenFor(model => model.boClientID)
+            @Html.HiddenFor(model => model.boRemark)
+            @Html.HiddenFor(model => model.boUserType)
+            @Html.HiddenFor(model => model.boID)
+            <div class="form-group">
+                @Html.LabelFor(model => model.boAccount, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.boAccount, new { htmlAttributes = new { @class = "form-control",@id="account"} })
+                    <p id="have">账号已有<span class="glyphicon glyphicon-remove"style="color:red"></span></p><p id="nohave">账号可用<span class="glyphicon glyphicon-ok" style="color:chartreuse"></span></p>
+                    @Html.ValidationMessageFor(model => model.boAccount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.boPassWord, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.boPassWord, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.boPassWord, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.boName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.boName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.boName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.boSex, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.boSex, ViewBag.Sex as SelectList,"", new {@class = "form-control"})
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.boIDNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.boIDNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.boIDNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.boCellphone, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.boCellphone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.boCellphone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.boEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.boEmail, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.boEmail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+           
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="确认提交" class="btn btn-default" style="background-color:bisque" />
+                </div>
+            </div>
+        </div>
+    }
+</body>
+</html>
+<script>
+    $("#have").hide();
+    $("#nohave").hide();
+    var repeat = $("#hide").val();
+    console.log(repeat);
+    if (repeat != "") {
+        layer.msg("账号重复");
+        $("#have").show();
+    }
+    else {
+        console.log("dd");
+
+    }
+    var dd = $("#account").val();
+    $("#account").mouseout(function () {
+        var str = $(this).val();
+        if (str != dd) {
+            $.ajax({
+                url: "/BackManage/AccountAjax",
+                type: "GET",
+                data: { json: str },
+                success: function (data) {
+                    if (data == "有") {
+                        $("#have").show();
+                        $("#nohave").hide();
+
+                    }
+                    else {
+                        $("#nohave").show();
+                        $("#have").hide();
+
+                    }
+                }
+
+            })
+        }
+       
+    })
+</script>

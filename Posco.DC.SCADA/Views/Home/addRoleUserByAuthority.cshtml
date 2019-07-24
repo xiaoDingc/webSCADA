@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Model.SB_SysRole>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>addRoleUserByAuthority</title>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/layer-v3.1.1/layer/layer.js"></script>
+</head>
+<body>
+    <div class="container"> 
+        <div>
+            <div><a>该人员未绑定角色表</a>
+                
+            </div>
+            @if (Model.Count()<=0)
+            {
+               <div style="height:600px;width:100%">该人员无未绑定角色</div>
+            }
+            else
+            {<input type="button" class="btn btn-succes" id="btnaddrole" value="保存" />
+                <ul>
+                    @foreach (var item in Model)
+                {
+                        <li><div><label><input type="checkbox" name="check" value="@item.ID" />@item.Name</label></div></li>
+
+                    }
+
+                </ul>
+            
+
+            }
+            
+        </div>
+
+    </div>
+</body>
+</html>
+<script>
+    
+</script>

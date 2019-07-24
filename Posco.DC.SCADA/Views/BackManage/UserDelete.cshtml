@@ -1,0 +1,129 @@
+﻿@model Model.BussionObject.UserShow_BO
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>人员删除</title>
+</head>
+<body>
+    <h3>你确定删除此客户信息?</h3>
+    <div>
+        <h4>该人员信息</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.boID)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boID)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boAccount)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boAccount)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boPassWord)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boPassWord)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boUserType)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boUserType)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boSex)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boSex)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boIDNo)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boIDNo)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boCellphone)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boCellphone)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boEmail)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boEmail)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boClientID)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boClientID)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boRemark)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boRemark)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.boState)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.boState)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm("UserDelete","BackManage",FormMethod.Post)) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                @Html.HiddenFor(model=>model.boID )
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("返回列表", "UserList", "BackManage")
+            </div>
+        }
+    </div>
+</body>
+</html>

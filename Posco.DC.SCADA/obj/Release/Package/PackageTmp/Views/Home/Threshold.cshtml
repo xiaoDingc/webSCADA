@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Model.BB_Threshold>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>阈值设定</title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <link href="~/Content/Newcss/Analysis.css" rel="stylesheet" />
+    <link href="~/Content/Newcss/his_record.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+
+</head>
+<body>
+    <div class="layui-tab page-content-wrap">
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div class="page-content-wrap">
+                    <div class="layui-form" id="table-char">
+                        <table class="layui-table" lay-skin="line" id="table-r">
+                            <colgroup>
+                                <col width="300">
+                                <col width="300">
+                                <col width="300">
+                                <col class="hidden-xs" width="450">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>名称</th>
+                                    <th style="text-align:center">初始值</th>
+                                    <th style="text-align:center">设定值</th>
+                                    <th style="text-align:center">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr style="text-align:center">
+                                        <td class="hidden-xs ">@item.RealDescription</td>
+                                        <td class="hidden-xs" data-id="@item.ID">@item.CurrentValue</td>
+                                        <td class="hidden-xs">
+                                            <input type="text" name="title" autocomplete="off" class="layui-input" value="@item.SetValue" data-id="@item.ID">
+                                        </td>
+                                        <td>
+                                            <div class="layui-inline">
+                                                <button class="layui-btn layui-btn-normal certain" data-id="@item.ID">确定</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 跳转 -->
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    layui.use('layer', function () {
+        var layer = layui.layer;
+    $(".certain").click(function () {
+        var b = $(this).attr("data-id");
+       
+        var c = $('input[data-id="' + b + '"]').val();
+        var bb = $('td[data-id=' + b + ']').html();
+      
+        if (c == "") {
+            layer.msg("请确认输入设定值")
+        }
+       $.ajax({
+           url: "/Home/AjaxThresholdModi",
+           type: "GET",
+           data: { setvalue: c ,id:b},
+           success: function (data) {
+               if (data == 0) { 
+                   layer.msg("请确认输入新的设定值");
+               }
+               else {
+                   $('input[data-id="' + b + '"]').val(data);
+                   $('td[data-id=' + b + ']').html(data);
+                   layer.msg("修改成功");
+               }
+           }
+	   })
+       
+    })
+    })
+</script>

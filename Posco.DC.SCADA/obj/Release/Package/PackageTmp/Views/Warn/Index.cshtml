@@ -1,0 +1,145 @@
+﻿
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/ListLayui/static/admin/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/ListLayui/static/admin/css/admin.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/ListLayui/static/admin/layui/layui.js"></script>
+    <script src="~/Content/ListLayui/static/admin/js/common.js"></script>
+</head>
+<body>
+    <div class="layui-tab page-content-wrap">
+        <ul class="layui-tab-title">
+            <li class="layui-this">未处理报警信息</li>
+            <li id="secondli">已处理报警信息</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div class="page-content-wrap" id="paa">
+                    <div class="layui-form" id="table-char">
+                        <table class="layui-table" lay-skin="line" id="table-r">
+                            @*<colgroup>
+                                    <col width="300">
+                                    <col width="300">
+                                    <col width="300">
+                                    <col class="hidden-xs" width="450">
+                                </colgroup>*@
+                            <thead>
+                                <tr>
+                                    <th>时间</th>
+                                    <th style="text-align:center">报警内容</th>
+                                    <th style="text-align:center">报警类型</th>
+                                    <th style="text-align:center">是否已处理</th>
+                                    <th style="text-align:center">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tototo">
+
+
+                                <tr style="text-align:center">
+                                    <td class="hidden-xs">25</td>
+                                    <td class="hidden-xs">18</td>
+                                    <td class="hidden-xs">否</td>
+                                    <td class="hidden-xs">20</td>
+                                    <td>
+                                        <button class="layui-btn layui-btn-normal certain" value="1">点击消除</button>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-tab-item" id="quehis">
+                <iframe src="/Warn/WarnRecord" id="alertiframe" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    layui.use('layer', function () { 
+        $(".certain").click(function () {
+            var id = $(this).val();
+            var layerindex = layer.open({
+                title: "确认提醒",
+                type: 1,
+                area:["250px","150px"],
+                skin: 'layui-layer-lan',
+                closeBtn:0,
+                btn: ["确认", "取消"],
+                content: "您确认已处理了吗? 如未确认,请勿随意点击",
+                yes: function (index, layero) {
+                    $.ajax({
+                        url: "/Warn/WranDeal",
+                        type: "GET",
+                        data: { wid: id },
+                        success: function (data) {
+                            if (data == 1) {
+                                $(this).parent().parent().remove();
+                                layer.close(index);
+                            }
+                        }
+                    })
+                },
+                btn2: function (index,layero) {
+                    layer.close(index);
+                }
+            })
+       
+        
+    })
+    $("#his").click(function () {
+        $("#toto").children().remove();
+    })
+    $(".child").click(function () {
+        alert("dd");
+    })
+    function ajaxhis() {
+        $.ajax({
+            url: "",
+            type: "GET",
+            data: { value: vab },
+            success: function (data) {
+
+            }
+        })
+    }
+    //上一页的点击
+    $("#back").click(function () {
+        var va = $(this).val();
+        console.log(va);
+        var vab = parseInt(va) - 1;
+
+    })
+    //下一页的点击
+    $("#next").click(function () {
+        var v = $(this).attr("num");
+        $(this).attr("num", "3")
+        var vv = $(this).attr("num");
+    })
+    function changeFrameHeight() {
+        var width = $(document).width();
+        var height = $(document).innerHeight();
+        var uh = height - 110;
+        $("#alertiframe").innerWidth(width - 30);
+        $("#alertiframe").innerHeight(uh);
+
+    };
+    window.onload = function () {
+        changeFrameHeight();
+    };
+    window.onresize = function () {
+        changeFrameHeight();
+    }
+    })
+</script>
+

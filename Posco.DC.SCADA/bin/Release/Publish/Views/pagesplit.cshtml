@@ -1,0 +1,27 @@
+﻿@model  Model.PageSplitInfo
+<div>
+    <ul class="pagination">
+        <li><a href="#">@Model.TotalRecord/@Model.TotalPage</a></li>
+        <li>@Html.ActionLink("<<", Model.ActionName, Model.ControllerName, new { pageindex = 1 }, new { })</li>
+        <li>@Html.ActionLink("<", Model.ActionName, Model.ControllerName, new { pageindex = Model.PageIndex - 1 }, new { })</li>
+        @for (var i = 1; i <= Model.TotalPage; i++)
+        {
+            
+            <li>@Html.ActionLink(i.ToString(), Model.ActionName, Model.ControllerName, new { pageindex = i }, new { })</li>
+        }
+        <li>@Html.ActionLink(">", Model.ActionName, Model.ControllerName, new { pageindex = 1 }, new { })</li>
+        <li>@Html.ActionLink(">>", Model.ActionName, Model.ControllerName, new { pageindex = Model.TotalPage }, new { })</li>
+    </ul>
+</div>
+<script type="text/javascript">
+
+    $(".pagination li").each(function (index, item) {
+
+        if($(item).children().html()=="@Model.PageIndex")
+        {
+            $(item).addClass("active");
+        }
+    })
+
+</script>
+

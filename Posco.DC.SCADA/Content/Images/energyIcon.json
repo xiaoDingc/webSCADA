@@ -1,0 +1,20 @@
+﻿{"frames": {
+
+"energyIcon.png":
+{
+	"frame": {"x":0,"y":0,"w":653,"h":908},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":653,"h":908},
+	"sourceSize": {"w":653,"h":908}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "energyIcon.png",
+	"format": "RGBA8888",
+	"size": {"w":653,"h":908},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:55a64d3a70d43102e5ca6282de7ccada:d3bd3648d0e1eb34ca62f88b02a17fc7:aaee697773d245ec0ff66c8d6aa83826$"
+}
+}
